@@ -13,9 +13,10 @@ int main()
         command_buf = readline("testcli> ");
         if (strlen(command_buf) > 0)
             add_history(command_buf);
-        else if (!strcmp(command_buf, "exit"))
+        if (!strcmp(command_buf, "exit"))
             break;
+        printf("%s\n", command_buf);
     }
 }
 
-#gcc readline.c -lreadline
+//gcc readline.c -lreadline
