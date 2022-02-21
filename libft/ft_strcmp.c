@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 11:46:18 by rburri            #+#    #+#             */
-/*   Updated: 2021/11/09 11:54:05 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/21 07:37:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ int	ft_strcmp(const char *s1, const char *s2)
 	int		i;
 
 	i = 0;
-	while ((s1)[i] == (s2)[i])
+	while ((s1)[i] && (s2)[i])
+	{
+		if ((s1[i] != s2[i]))
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 		i++;
-	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	}
+	return (0);
 }
