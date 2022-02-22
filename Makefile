@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/02/21 07:42:33 by rburri           ###   ########.fr        #
+#    Updated: 2022/02/22 07:43:33 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ BIN = bin
 $(shell mkdir -p $(BIN))
 
 SOURCE = 	$(SRC)/main.c\
+			$(SRC)/path.c\
 
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))
