@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/22 07:34:39 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/22 11:25:29 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_data
 	char	**cmd_paths;
 	char	**cmd_args;
 	char	*cmd;
+	int		fd_input;
+	int		fd_output;
 }				t_data;
 
 char	*find_path(char **envp);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/22 07:46:37 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/22 11:25:25 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int main(int argc, char **argv, char **envp)
             add_history(command_buf);
         if (!(ft_strcmp(command_buf, "exit")))
         	break;
+		if (redirect(&data, command_buff))
+			//error treatment
 		pid = fork();
 		if (pid < 0)
 			exit(1);
