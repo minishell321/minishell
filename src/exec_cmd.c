@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/23 10:53:36 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/23 10:56:59 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,16 @@ int	exec_cmd(t_data *data, char **envp)
 					// problem with one pipe?
 				j++
 			}
-			
 			if ((i == 0) && (data->fd_input != 0))
 			{
-				res = dup2(data->fd_input, STDIN_FILENO);
-				if (res == -1)
+				if (dup2(data->fd_output, STDIN_FILENO) == -1)
 					return (1);
 			}
 			
 			if ((i == data->num_of_pipe) && (data->fd_input != 1))
 			{
 				if (dup2(data->fd_output, STDOUT_FILENO) == -1)
-				{
-					
 					return (1);
-				}
 			}
 			return (0);
 		}
