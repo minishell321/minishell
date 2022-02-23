@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/22 11:25:29 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/02/22 17:13:20 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 // for errno
 # include <stdio.h>
 // for perror
+# include <signal.h>
+// to handle signals
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
@@ -43,5 +45,8 @@ typedef struct s_data
 
 char	*find_path(char **envp);
 char	*get_cmd(char **paths, char *cmd);
+int		redirect(t_data *data, char *command_buf);
+int		init_data(t_data *data, char ** envp);
+int		handle_sigs(void);
 
 #endif
