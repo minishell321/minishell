@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/22 17:13:27 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/02/23 09:42:34 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ int main(int argc, char **argv, char **envp)
 
 	//data.env_paths = find_path(envp);
 	//data.cmd_paths = ft_split(data.env_paths, ':');
-	if (init_data(&data, envp))
-	{
-		//error treatment
-	}
+	
 	handle_sigs();
     while(1)
     {
         command_buf = readline("testcli> ");
+		if (init_data(&data, envp))
+		{
+			//error treatment
+		}
         if (ft_strlen(command_buf) > 0)
             add_history(command_buf);
         if (!(ft_strcmp(command_buf, "exit")))
@@ -37,17 +38,10 @@ int main(int argc, char **argv, char **envp)
 		{
 			//error treatment
 		}
-		pid = fork();
-		if (pid < 0)
-			exit(1);
-		if (pid == 0)
+		if (exec_cmd(&data, envp))
 		{
-			data.cmd_args = ft_split("ls -l", ' ');
-			//data.cmd_args = ft_split(command_buf, ' ');
-			data.cmd = get_cmd(data.cmd_paths, data.cmd_args[0]);
-			execve(data.cmd, data.cmd_args, envp);
+			// error treatment
 		}
-		waitpid(pid, NULL, 0);
 		free(command_buf);
     }
 	return (0);
