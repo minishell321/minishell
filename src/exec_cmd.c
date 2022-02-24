@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/24 08:16:37 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 09:01:34 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int	exec_cmd(t_data *data, char **envp)
 			redirection_handler(data, &i);
 			if (data->num_of_pipe > 0)
 				pipe_handler(data, &i);
-			//exec here			
+			data->cmd_args = ft_split("ls -l", ' ');
+			data->cmd = get_cmd(data->cmd_paths, data->cmd_args[0]);
+			execve(data->cmd, data->cmd_args, envp);
 			return (0);
 		}
 		i++;
