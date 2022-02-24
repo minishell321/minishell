@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/02/22 17:12:27 by vbotev           ###   ########.fr        #
+#    Updated: 2022/02/24 17:37:58 by vbotev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ LIBFT_DIR	= libft
 LIBFT_A		= libft.a
 LIBFT		= -L. -lft
 
-RLINE		= -lreadline
+RLINE		= -lreadline -L ~/.brew/Cellar/readline/8.1.2/lib
+
+INC_RL		= -I ~/.brew/Cellar/readline/8.1.2/include
 
 SRC = src
 
@@ -38,7 +40,8 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/path.c\
 			$(SRC)/redir.c\
 			$(SRC)/signals.c\
-			$(SRC)/init.c
+			$(SRC)/init.c\
+			$(SRC)/char_chk.c
 
 		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))
@@ -51,7 +54,7 @@ all: $(NAME)
 ${NAME}:	${OBJS}
 			@make -C ${LIBFT_DIR}/
 			@cp ${LIBFT_DIR}/$(LIBFT_A) .
-			$(CC)  ${OBJS} $(LIBFT) $(RLINE) -o $(NAME)
+			$(CC)  ${OBJS} $(LIBFT) $(RLINE) $(INC_RL) -o $(NAME)
 			@echo "$(GREEN)$(NAME) sucessfully created$(RESET)"
 
 clean:

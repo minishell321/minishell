@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/22 17:13:20 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/02/24 17:38:57 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,9 @@ char	*get_cmd(char **paths, char *cmd);
 int		redirect(t_data *data, char *command_buf);
 int		init_data(t_data *data, char ** envp);
 int		handle_sigs(void);
+int		check_command(char *command_buf);
+
+// included in order to make rl_replace_line work
+void	rl_replace_line (const char *, int);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/22 17:13:27 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/02/24 17:37:09 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ int main(int argc, char **argv, char **envp)
             add_history(command_buf);
         if (!(ft_strcmp(command_buf, "exit")))
         	break;
+		if (check_command(command_buf))
+		{
+			//error treatment
+		}
 		if (redirect(&data, command_buf))
 		{
 			//error treatment
