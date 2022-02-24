@@ -6,23 +6,26 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/24 09:01:34 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 10:17:49 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// close fd_output, fd_input after dup2?
 static int redirection_handler(t_data *data, int *i)
 {
 	if ((*i == 0) && (data->fd_input != 0))
 	{
-		if (dup2(data->fd_output, STDIN_FILENO) == -1)
+		if (dup2(data->fd_input, STDIN_FILENO) == -1)
 			return (1);
+		close(data->fd_input);
 	}
-	if ((*i == data->num_of_pipe) && (data->fd_input != 1))
+	if ((*i == data->num_of_pipe) && (data->fd_output != 1))
 	{
 		if (dup2(data->fd_output, STDOUT_FILENO) == -1)
 			return (1);
+		close(data->fd_output);
 	}
 	return (0);
 }
@@ -43,9 +46,11 @@ static int pipe_handler(t_data *data, int *i)
 	if (*i < data->num_of_pipe)
 		if (dup2(data->pipe_fds[*i][1], STDOUT_FILENO) == -1)
 			return (1);
+		close(data->pipe_fds[*i][1]);
 	if (*i > 0)
 		if (dup2(data->pipe_fds[*i - 1][0], STDIN_FILENO) == -1)
 				return (1);
+		close(data->pipe_fds[*i - 1][0]);
 	return (0);
 }
 
@@ -60,12 +65,12 @@ int	exec_cmd(t_data *data, char **envp)
 		if (data->process_ids[i] == -1)
 			return (1);
 			
-		if (data->process_ids[i] = 0)
+		if (data->process_ids[i] == 0)
 		{
 			redirection_handler(data, &i);
 			if (data->num_of_pipe > 0)
 				pipe_handler(data, &i);
-			data->cmd_args = ft_split("ls -l", ' ');
+			data->cmd_args = ft_split(data->cmds[i], ' ');
 			data->cmd = get_cmd(data->cmd_paths, data->cmd_args[0]);
 			execve(data->cmd, data->cmd_args, envp);
 			return (0);

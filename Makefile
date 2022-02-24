@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/02/23 09:40:08 by rburri           ###   ########.fr        #
+#    Updated: 2022/02/24 09:36:05 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/signals.c\
 			$(SRC)/init.c\
 			$(SRC)/free.c\
-			$(SRC)/exec_cm.c\
+			$(SRC)/exec_cmd.c\
 			
 
 		
