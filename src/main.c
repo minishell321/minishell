@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/24 10:04:01 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 12:12:24 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int main(int argc, char **argv, char **envp)
 {
     char *command_buf;
 	t_data data;
-	char cmds[2][20] = {{"ls -l"}, {"cat -e"}};
 
 	//data.env_paths = find_path(envp);
 	//data.cmd_paths = ft_split(data.env_paths, ':');
@@ -28,12 +27,12 @@ int main(int argc, char **argv, char **envp)
         command_buf = readline("testcli> ");
         if (!(ft_strcmp(command_buf, "exit")))
         	break;
+        if (ft_strlen(command_buf) > 0)
+            add_history(command_buf);
 		if (init_data(&data, envp))
 		{
 			//error treatment
 		}
-        if (ft_strlen(command_buf) > 0)
-            add_history(command_buf);
 		if (redirect(&data, command_buf))
 		{
 			//error treatment

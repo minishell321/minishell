@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/24 10:21:24 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 11:41:28 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ static int *create_pids_arr(int num_of_pipe)
 static char **create_cmds_test(char **cmds)
 {
 	int i = 0;
-	cmds = (char **)malloc(2 * sizeof(char *));
-	cmds[0] = ft_strdup("pwd");
+	cmds = (char **)malloc(3 * sizeof(char *));
+	cmds[0] = ft_strdup("blabla ls");
 	cmds[1] = ft_strdup("cat -e");
+	cmds[2] = NULL;
 	return (cmds);
 }
 
@@ -71,7 +72,7 @@ int	init_data(t_data *data, char **envp)
 	data->cmd = 0;
 	data->fd_input = 0;
 	data->fd_output = 1;
-	data->num_of_pipe = 2;
+	data->num_of_pipe = 0;
 	data->pipe_fds = create_2d(data->num_of_pipe);
 	data->process_ids = create_pids_arr(data->num_of_pipe);
 	data->cmds = create_cmds_test(data->cmds);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/24 10:17:49 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 12:16:43 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	exec_cmd(t_data *data, char **envp)
 			redirection_handler(data, &i);
 			if (data->num_of_pipe > 0)
 				pipe_handler(data, &i);
-			data->cmd_args = ft_split(data->cmds[i], ' ');
+			
+			data->cmd_args = ft_split(data->cmds[i], ' '); // change cmds with command_buf
 			data->cmd = get_cmd(data->cmd_paths, data->cmd_args[0]);
 			execve(data->cmd, data->cmd_args, envp);
 			return (0);

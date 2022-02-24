@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 09:28:50 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/23 09:38:42 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 11:26:56 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int	free_all(t_data *data)
 			free(data->pipe_fds[i]);
 		free(data->pipe_fds);
 	}
+
 	return (0);
 }
