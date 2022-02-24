@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/23 09:50:44 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/24 08:50:07 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int		redirect(t_data *data, char *command_buf);
 int		init_data(t_data *data, char ** envp);
 int		handle_sigs(void);
 int		free_all(t_data *data);
+int		exec_cmd(t_data *data, char **envp);
 
 #endif
