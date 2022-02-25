@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/02/25 07:07:40 by rburri           ###   ########.fr        #
+#    Updated: 2022/02/25 07:15:33 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/init.c\
 			$(SRC)/free.c\
 			$(SRC)/exec_cmd.c\
+			$(SRC)/char_chk.c\
+			
 			
 
 		
