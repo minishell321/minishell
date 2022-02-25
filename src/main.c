@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/25 07:08:30 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/25 07:12:05 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int main(int argc, char **argv, char **envp)
     while(1)
     {
         command_buf = readline("testcli> ");
-        if (!(ft_strcmp(command_buf, "exit")))
-        	break;
         if (ft_strlen(command_buf) > 0)
             add_history(command_buf);
-		if (init_data(&data, envp))
+        if (!(ft_strcmp(command_buf, "exit")))
+        	break;
+		if (check_command(command_buf))
 		{
 			//error treatment
 		}
@@ -37,10 +37,17 @@ int main(int argc, char **argv, char **envp)
 		{
 			//error treatment
 		}
-		if (exec_cmd(&data, envp))
+		pid = fork();
+		if (pid < 0)
+			exit(1);
+		if (pid == 0)
 		{
-			// error treatment
+			data.cmd_args = ft_split("ls -l", ' ');
+			//data.cmd_args = ft_split(command_buf, ' ');
+			data.cmd = get_cmd(data.cmd_paths, data.cmd_args[0]);
+			execve(data.cmd, data.cmd_args, envp);
 		}
+		waitpid(pid, NULL, 0);
 		free(command_buf);
     }
 	return (0);
