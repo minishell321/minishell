@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/25 10:58:40 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/26 15:30:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int main(int argc, char **argv, char **envp)
 		// {
 		// 	//error treatment
 		// }
-		exec_cmd(&data, envp);
+		if (exec_cmd(&data, envp))
+		{
+			//error handle
+		}
 		// pid = fork();
 		// if (pid < 0)
 		// 	exit(1);

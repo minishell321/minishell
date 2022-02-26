@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:25:22 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/23 07:32:09 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/26 15:11:12 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	get_fd_multi(t_data *data, char *str, char redir_type)
 {
 	char	*delim;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (*(++str) == ' ')

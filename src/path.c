@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/25 08:07:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/26 15:08:57 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ int	get_cmd(t_data *data)
 			free(command);
 			return (0);
 		}
-		// else
-		// {
-		// 	printf("%s :not found\n", data->cmd_args[0]);
-		// 	break;
-		// }
 		free(command);
 		paths++;
 	}
