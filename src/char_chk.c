@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:16:03 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/24 17:56:57 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/02/28 17:30:30 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,28 @@ int	cnt_quotes(char *command_buf, char c)
 {
 	char	*first;
 	char	*last;
+	char	*cpy;
 	int		cnt;
 	int		flag;
 
-	first = ft_strchr(command_buf, 'c');
-	last = ft_strrchr(command_buf, 'c');
+//	first = ft_strchr(command_buf, 'c');
+//	last = ft_strrchr(command_buf, 'c');
 	cnt = 0;
 	flag = 0;
-	if (first)
+	if (ft_strchr(command_buf, c))
 	{
+		first = ft_strdup(ft_strchr(command_buf, c));
+		cpy = first;
+		last = ft_strrchr(first, c);
 		cnt++;
 		while (first++ != last)
 		{
-			if (cnt % 2 != 0 && c == '\"' && ft_strchr(command_buf, '$') != 0)
+			if (cnt % 2 != 0 && c == '\"' && ft_strchr(first, '$') != 0)
 				flag = 1;
-			first = ft_strchr(first, 'c');
+			first = ft_strchr(first, c);
 			cnt++;
 		}
+		free(cpy);
 		if (cnt % 2 != 0)
 			return (1);
 		if (cnt % 2 == 0 && flag != 0)
@@ -50,21 +55,31 @@ int	find_spec_char(char *command_buf)
 	if (ft_strchr(command_buf, '\\') || ft_strchr(command_buf, ';'))
 		if (!ft_strchr(command_buf, '\'') && !ft_strchr(command_buf, '\"'))
 			return (1);
-	tmp = ft_strchr(command_buf, '\'');
-	if (tmp++)
+//	tmp = ft_strchr(command_buf, '\'');
+//	if (tmp++)
+	if (ft_strchr(command_buf, '\''))
 	{
-		if (ft_strchr(tmp, '\\') && ft_strchr(tmp, '\\') > ft_strrchr(tmp, '\''))
+		tmp = ft_strchr(command_buf, '\'') + 1;
+		if ((ft_strchr(tmp, '\\') && ft_strchr(tmp, '\\') > ft_strrchr(tmp, '\''))
+				|| (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\'')))
+		{
 			return (1);
-		if (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\''))
-			return (1);
+		}
+	//	if (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\''))
+	//		return (1);
 	}
-	tmp = ft_strchr(command_buf, '"');
-	if (tmp++)
+//	tmp = ft_strchr(command_buf, '\"');
+//	if (tmp++)
+	if (ft_strchr(command_buf, '\"'))
 	{
-		if (ft_strchr(tmp, '\\') && ft_strchr(tmp, '\\') > ft_strrchr(tmp, '\"'))
+		tmp = ft_strchr(command_buf, '\"') + 1;
+		if ((ft_strchr(tmp, '\\') && ft_strchr(tmp, '\\') > ft_strrchr(tmp, '\"'))
+				|| (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\"')))
+		{
 			return (1);
-		if (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\"'))
-			return (1);
+		}
+	//	if (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\"'))
+	//		return (1);
 	}	
 	return (0);
 }
