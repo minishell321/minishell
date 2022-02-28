@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/26 15:43:20 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/28 08:51:16 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	**create_cmds_test(char **cmds)
 	cmds[1] = ft_strdup("cat -e");
 	cmds[2] = ft_strdup("cat -e");
 	cmds[3] = ft_strdup("grep d");
-	cmds[4] = NULL;
+	cmds[5] = NULL;
 	return (cmds);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/26 16:32:41 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/28 08:46:50 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	start_prompt(char **command_buf, t_data *data, char **envp)
 			// {
 			// 	//error treatment
 			// }
-			// if (redirect(data, *command_buf))
-			// {
-			// 	//error treatment
-			// }
+			if (redirect(data, *command_buf))
+			{
+				//error treatment
+			}
 			if (exec_cmd(data, envp))
 			{
 				//error handle

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/26 15:55:34 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/28 08:56:29 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	free_data(t_data *data)
 			free(data->pipe_fds[i++]);
 		free(data->pipe_fds);
 	}
-	i = 0;
 	if (data->cmds)
 		free_double_string_array(data->cmds);
 	if (data->process_ids)

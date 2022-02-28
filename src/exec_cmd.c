@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/26 15:34:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/02/28 08:47:16 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	wait_all_children(t_data *data)
 	int	res;
 
 	i = 0;
-	while (i < data->num_of_pipe)
+	while (i <= data->num_of_pipe)
 	{
 		res = waitpid(data->process_ids[i], NULL, 0);
 		if (res == -1)
