@@ -1,7 +1,0 @@
-drwxr-xr-x   14 rburri  2021_lausanne    476 Feb 28 08:52 .$$
-drwxr-xr-x    9 rburri  2021_lausanne    306 Feb 28 08:31 ..$$
-drwxr-xr-x   12 rburri  2021_lausanne    408 Feb 28 08:32 .git$$
-drwxr-xr-x   10 rburri  2021_lausanne    340 Feb 28 08:51 bin$$
-drwxr-xr-x    3 rburri  2021_lausanne    102 Feb 28 08:31 includes$$
-drwxr-xr-x  103 rburri  2021_lausanne   3502 Feb 28 08:33 libft$$
-drwxr-xr-x   10 rburri  2021_lausanne    340 Feb 28 08:31 src$$
