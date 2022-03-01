@@ -6,11 +6,85 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/01 13:45:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/01 18:05:44 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+
+// This function is meant to test how a table of strings could be created by having
+// the first element in the table as the cmd and the remaining elements being the
+// arg which correspond to this command
+// !!! CURRENTLY THE FUNCTION HAS A BUG AND IS NOT CORRECTLY INCLUDING THE BUGS
+// !!! ALSO AS IT IS MEANT AS A TEST IT ONLY HANDLES ONE COMMAND BUT THE CONCEPT CAN
+// BE EXTENDED USING A LINKED LIST
+int cmd_table(t_data *data)
+{
+	t_token *tmp;
+	tmp = data->cmds;
+	char	**cmd_table;
+	int j = 0;
+	int	cnt_cmd = 0;
+	int cnt_arg = 0;
+
+	while (tmp)
+	{
+		tmp = tmp->next;
+		cnt_cmd++;
+	}
+	tmp = data->cmds;
+	if (tmp->args)
+	{
+		t_token *tmp_arg;
+		tmp_arg = tmp->args;
+		while (tmp_arg)
+		{
+			tmp_arg = tmp_arg->next;
+			cnt_arg++;
+		}
+	}
+	printf("cnt_arg = %d\n", cnt_arg);
+	cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
+	cmd_table[0] = data->cmds->str;
+	tmp = data->cmds->args;
+	while (cnt_arg > 0)
+	{
+		cmd_table[cnt_arg--] = tmp->str;
+		tmp = tmp->next;
+	}
+	cmd_table[cnt_arg + 1] = NULL;
+	j = 0;
+	while (cmd_table[j] != 0)
+	{
+		printf("cmd_table[%d] = %s\n", j, cmd_table[j]);
+		j++;
+	}
+
+
+
+	/*
+	while (tmp)
+	{
+		printf("cmd[%d]: %s\n", j, tmp->str);
+		if (tmp->args)
+		{
+			t_token *tmp_arg;
+			tmp_arg = tmp->args;
+			int i = 0;
+			while (tmp_arg)
+			{
+				printf("arg[%d]: %s\n", i, tmp_arg->str);
+				tmp_arg = tmp_arg->next;
+				i++;
+			}
+		}
+		tmp = tmp->next;
+		j++;
+	}
+	*/
+	return (0);
+}
 
 int create_token(t_data *data, char *str, int type)
 {
@@ -95,9 +169,11 @@ int get_fd_out_append(t_data *data, char *str, int *i)
 	k = 0;
 	while (str[j] == '>' || str[j] == ' ')
 		j++;
-	while (str[k] != ' ')
+//	while (str[k] != ' ')
+	while (str[k + j] != ' ')
 		k++;
 	*i += (j + k);
+	/*
 	fd_name = (char *)malloc(sizeof(char) * k + 1);
 	if (fd_name == NULL)
 		return (1);
@@ -114,12 +190,29 @@ int get_fd_out_append(t_data *data, char *str, int *i)
 			return (1);
 	}
 	free(fd_name);
+	*/
 	return (0);	
 }
 
-int get_fd_here_doc(void)
+int get_fd_here_doc(t_data *data, char *str, int *i)
 {
-	printf("HEREDOC delim");
+	int		j;
+	int		k;
+	char	*delim;
+
+	j = 0;
+	k = 0;
+
+	while (str[j] == '<' || str[j] == ' ')
+		j++;
+	while (str[k + j] != ' ')
+		k++;
+	*i += (j + k);
+	delim = ft_substr(str, j, k);
+	if (delim == 0)
+		return (1);
+	printf("HEREDOC delim = %s\n", delim);
+	free(delim);
 	return (0);
 }
 
@@ -131,27 +224,33 @@ int get_fd_out(t_data *data, char *str, int *i)
 
 	j = 0;
 	k = 0;
+	printf("...str : %s\n", str);
 	while (str[j] == '>' || str[j] == ' ')
 		j++;
-	while (str[k] != ' ')
+//	while (str[k] != ' ')
+	while (str[k + j] != ' ')
 		k++;
 	*i += (j + k);
+	/*
 	fd_name = (char *)malloc(sizeof(char) * k + 1);
 	if (fd_name == NULL)
 		return (1);
 	fd_name[k--] = '\0';
 	while (k >= 0)
 	{
-		fd_name[k] = str[k];
+	//	fd_name[k] = str[k];
+		fd_name[k] = str[k + j];
 		k--;
 	}
-	data->fd_output = open(str, O_RDWR | O_CREAT, 0777);
+	//	data->fd_output = open(str, O_RDWR | O_CREAT, 0777);
+	data->fd_output = open(fd_name, O_RDWR | O_CREAT, 0777);
 	if (data->fd_output == -1)
 	{
 			free(fd_name);
 			return (1);
 	}
 	free(fd_name);
+	*/
 	return (0);	
 }
 
@@ -165,9 +264,11 @@ int get_fd_in(t_data *data, char *str, int *i)
 	k = 0;
 	while (str[j] == '<' || str[j] == ' ')
 		j++;
-	while (str[k] != ' ')
+//	while (str[k] != ' ')
+	while (str[k + j] != ' ')
 		k++;
 	*i += (j + k);
+	/*
 	fd_name = (char *)malloc(sizeof(char) * k + 1);
 	if (fd_name == NULL)
 		return (1);
@@ -184,6 +285,7 @@ int get_fd_in(t_data *data, char *str, int *i)
 			return (1);
 	}
 	free(fd_name);
+	*/
 	return (0);	
 }
 
@@ -192,6 +294,7 @@ int	redir_out(t_data *data, char *str, int *i)
 	int	j;
 	
 	j = 0;
+	printf("^^^str = %s\n", str);
 	if (str[j + 1] == '>')
 	{
 		if (get_fd_out_append(data, str, i))
@@ -212,7 +315,7 @@ int	redir_in(t_data *data, char *str, int *i)
 	j = 0;
 	if (str[j + 1] == '<')
 	{
-		if (get_fd_here_doc())
+		if (get_fd_here_doc(data, str, i))
 			return (1);
 	}
 	else
@@ -254,14 +357,17 @@ int	find_token(t_data *data, char *cmd_str)
 		}
 		else if (cmd_str[i] == '<')
 		{
-			if (redir_out(data, cmd_str + i, &i))
+			//if (redir_out(data, cmd_str + i, &i))
+			if (redir_in(data, cmd_str + i, &i))
 			{
 				ft_putstr_fd("Error redirection\n", 2);
 			}
 		}
 		else if (cmd_str[i] == '>')
 		{
-			if (redir_in(data, cmd_str + i, &i))
+			printf("---HERE--- i = %d; cmd_str = %s\n", i, cmd_str+i);
+			//if (redir_in(data, cmd_str + i, &i))
+			if (redir_out(data, cmd_str + i, &i))
 			{
 				ft_putstr_fd("Error redirection\n", 2);
 			}
@@ -281,6 +387,11 @@ int	find_token(t_data *data, char *cmd_str)
 		}
 		// printf("******************i value before ++ %d\n", i);
 		// i++;
+	}
+	if (cmd_table(data))
+	{
+		printf("Error: generation of command table\n");
+		return (1);
 	}
 	return (0);
 }
