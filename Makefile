@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/02/28 14:44:07 by vbotev           ###   ########.fr        #
+#    Updated: 2022/03/01 12:16:13 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/free_all.c\
 			$(SRC)/exec_cmd.c\
 			$(SRC)/char_chk.c\
+			$(SRC)/token.c\
 			
 			
 

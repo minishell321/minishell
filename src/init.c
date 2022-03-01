@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/28 08:51:16 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/01 12:41:57 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ static int	create_pids_arr(t_data *data)
 }
 
 // TEST CMDS
-static char	**create_cmds_test(char **cmds)
-{
-	int	i;
+// static char	**create_cmds_test(char **cmds)
+// {
+// 	int	i;
 
-	i = 0;
-	cmds = (char **)malloc(5 * sizeof(char *));
-	cmds[0] = ft_strdup("ls -la");
-	cmds[1] = ft_strdup("cat -e");
-	cmds[2] = ft_strdup("cat -e");
-	cmds[3] = ft_strdup("grep d");
-	cmds[5] = NULL;
-	return (cmds);
-}
+// 	i = 0;
+// 	cmds = (char **)malloc(5 * sizeof(char *));
+// 	cmds[0] = ft_strdup("ls -la");
+// 	cmds[1] = ft_strdup("cat -e");
+// 	cmds[2] = ft_strdup("cat -e");
+// 	cmds[3] = ft_strdup("grep d");
+// 	cmds[5] = NULL;
+// 	return (cmds);
+// }
 
 // Initialise the struct t_data, setting variables that are not yet assigned to 0 (or default)
 int	init_data(t_data *data, char **envp)
@@ -66,7 +66,7 @@ int	init_data(t_data *data, char **envp)
 	data->cmd = 0;
 	data->fd_input = 0;
 	data->fd_output = 1;
-	data->num_of_pipe = 3;
+	data->num_of_pipe = 0;
 	data->pipe_fds = 0;
 	if (create_2d(data))
 	{
@@ -76,7 +76,7 @@ int	init_data(t_data *data, char **envp)
 	data->process_ids = 0;
 	if (create_pids_arr(data))
 		return (1);
-	data->cmds = create_cmds_test(data->cmds);
+	data->cmds = 0;
 	return (0);
 }
 
