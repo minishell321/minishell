@@ -19,25 +19,20 @@
 // !!! CURRENTLY THE FUNCTION HAS A BUG AND IS NOT CORRECTLY INCLUDING THE BUGS
 // !!! ALSO AS IT IS MEANT AS A TEST IT ONLY HANDLES ONE COMMAND BUT THE CONCEPT CAN
 // BE EXTENDED USING A LINKED LIST
-char **cmd_split(t_data *data, int cmd_num)
+char **cmd_split(t_data *data, int cnt_cmds, int cmd_num)
 {
 	t_token *tmp;
 	char	**cmd_table;
 	int j = 0;
 	int i = 0;
-	int	cnt_cmd = 0;
 	int cnt_arg = 0;
-	while (tmp)
-	{
+	int cmd_to_find;
+
+
+	cmd_to_find = (cnt_cmds - 1 - cmd_num);
+	tmp = data->token_stack;
+	while (i++ < cmd_to_find)
 		tmp = tmp->next;
-		cnt_cmd++;
-	}
-	tmp = data->cmds;
-	if (i < cmd_num)
-	{
-		tmp = tmp->next;
-		i++;
-	}
 	if (tmp->args)
 	{
 		t_token *tmp_arg;
@@ -48,7 +43,7 @@ char **cmd_split(t_data *data, int cmd_num)
 			cnt_arg++;
 		}
 	}
-	printf("cnt_arg = %d\n", cnt_arg);
+	// printf("cnt_arg = %d\n", cnt_arg);
 	cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
 	if (cmd_table == NULL)
 		return (NULL);
@@ -57,8 +52,8 @@ char **cmd_split(t_data *data, int cmd_num)
 	cmd_table[cnt_arg + 1] = NULL;
 	while (cnt_arg > 0)
 	{
-		cmd_table[cnt_arg--] = tmp->str;
 		// printf("cmd_table[%d] = %s\n", cnt_arg, tmp->str);
+		cmd_table[cnt_arg--] = tmp->str;
 		tmp = tmp->next;
 	}
 	j = 0;
@@ -101,20 +96,20 @@ int cmd_table(t_data *data)
 	
 	i = 0;
 	cnt_cmds = 0;
-	tmp = data->cmds;
+	tmp = data->token_stack;
 	while (tmp)
 	{
 		tmp = tmp->next;
 		cnt_cmds++;
 	}
-	printf("NUMBER OF CMDS = %d\n", cnt_cmds);
-	data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds));
+	data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
 	if (data->cmd_table == NULL)
 		return (1);
+	data->cmd_table[cnt_cmds] = 0;
 	while (i < cnt_cmds)
 	{
 		printf("CMD[%d]\n", i);
-		data->cmd_table[i] = cmd_split(data, i);
+		data->cmd_table[i] = cmd_split(data, cnt_cmds, i);
 		i++;
 	}
 	return (0);
@@ -132,16 +127,15 @@ int create_token(t_data *data, char *str, int type)
 	new_token->args = NULL;
 	if (new_token->type == CMD)
 	{
-		new_token->next = data->cmds;
-		data->cmds = new_token;
+		new_token->next = data->token_stack;
+		data->token_stack = new_token;
 	}
 	else if (new_token->type == ARG)
 	{
 		
-		new_token->next = data->cmds->args;
-		data->cmds->args = new_token;
+		new_token->next = data->token_stack->args;
+		data->token_stack->args = new_token;
 	}
-	printf("token type : %d\n", new_token->type);
 	return (0);
 }
 
@@ -155,17 +149,13 @@ char *send_quoted_string(char *str, int *i)
 	k = 1;
 	while (str[j] != str[k])
 		k++;
-	new_str = (char *)malloc(sizeof(char) * ++k + 1);
+	new_str = (char *)malloc(sizeof(char) * k);
 	if (new_str == NULL)
 		return (NULL);
-	printf("QUOTED: k = %d\n", k);
-	while (j <= k)
-	{
-		new_str[j] = str[j];
-		j++;
-	}
+	while (j < k - 1)
+		new_str[j++] = str[j + 1];
 	new_str[j] = '\0';
-	*i += (k);
+	*i += (k + 1);
 	return (new_str);
 }
 
@@ -179,17 +169,16 @@ char *send_unquoted_string(char *str, int *i)
 	k = 0;
 	while (str[k] && str[k] != ' ')
 		k++;
-	printf("UNQUOTED: k = %d\n", k);
-	new_str = (char *)malloc(sizeof(char) * k + 2);
+	new_str = (char *)malloc(sizeof(char) * k + 1);
 	if (new_str == NULL)
 		return (NULL);
-	while (j <= k)
+	while (j < k)
 	{
 		new_str[j] = str[j];
 		j++;
 	}
 	new_str[j] = '\0';
-	*i += (k );
+	*i += (k);
 	return (new_str);
 }
 
@@ -265,7 +254,6 @@ int get_fd_out(t_data *data, char *str, int *i)
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
-	/*
 	fd_name = (char *)malloc(sizeof(char) * k + 1);
 	if (fd_name == NULL)
 		return (1);
@@ -284,7 +272,6 @@ int get_fd_out(t_data *data, char *str, int *i)
 			return (1);
 	}
 	free(fd_name);
-	*/
 	return (0);	
 }
 
@@ -301,11 +288,8 @@ int get_fd_in(t_data *data, char *str, int *i)
 //	while (str[k] != ' ')
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
-	printf ("fd_in k = %d\n ", k);
-	printf ("fd_in j = %d\n ", j);
 	*i += (j + k);
-	// SEGFAULT WHEN IT's THE LAST ARG
-	/*
+	
 	fd_name = (char *)malloc(sizeof(char) * k + 1);
 	if (fd_name == NULL)
 		return (1);
@@ -315,14 +299,14 @@ int get_fd_in(t_data *data, char *str, int *i)
 		fd_name[k] = str[k];
 		k--;
 	}
-	data->fd_output = open(str, O_RDWR | O_CREAT, 0777);
-	if (data->fd_output == -1)
+	data->fd_input = open(str, O_RDONLY);
+	if (data->fd_input == -1)
 	{
 			free(fd_name);
 			return (1);
 	}
 	free(fd_name);
-	*/
+	
 	return (0);	
 }
 
@@ -373,10 +357,7 @@ int	find_token(t_data *data, char *cmd_str)
 	while (cmd_str[i])
 	{
 		if (cmd_str[i] ==  ' ')
-		{
 			i++;
-			printf("******************i value AFTER ++ %d\n", i);
-		}
 		if (cmd_str[i] == '\'' || cmd_str[i] == '\"')
 		{
 			if (create_token(data, send_quoted_string(cmd_str + i, &i), type))
@@ -432,7 +413,7 @@ int	find_token(t_data *data, char *cmd_str)
 void print_token_stack(t_data *data)
 {
 	t_token *tmp;
-	tmp = data->cmds;
+	tmp = data->token_stack;
 	int j = 0;
 	while (tmp)
 	{

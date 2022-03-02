@@ -87,6 +87,8 @@ static int	wait_all_children(t_data *data)
 	i = 0;
 	while (i <= data->num_of_pipe)
 	{
+		// printf("i = %d\nnum_of_pipe = %d\n", i , data->num_of_pipe);
+		// printf("process_ids = %d\n", data->process_ids[i]);
 		res = waitpid(data->process_ids[i], NULL, 0);
 		if (res == -1)
 		{
@@ -110,13 +112,15 @@ int	exec_cmd(t_data *data, char **envp)
 			return (1);
 		if (data->process_ids[i] == 0)
 		{
+			printf("%d\n", data->process_ids[i]);
 			redirection_handler(data, &i);
 			if (data->num_of_pipe > 0)
 				pipe_handler(data, &i);
-			// data->cmd_args = ft_split(data->cmds[i], ' '); // change cmds with command_buf
-			if (get_cmd(data))
+			if (get_cmd(data, i))
 				return (1);
-			execve(data->cmd, data->cmd_args, envp);
+			printf("was here\n");
+			if (execve(data->cmd, data->cmd_table[i], envp))
+				printf("Error execve\n");
 		}
 		i++;
 	}

@@ -47,19 +47,18 @@ typedef struct s_data
 {
 	char	*env_paths;
 	char	**cmd_paths;
-	char	**cmd_args;
 	char	*cmd;
 	int		fd_input;
 	int		fd_output;
 	int		num_of_pipe;
 	int		**pipe_fds;
 	int		*process_ids;
-	t_token	*cmds;
+	t_token	*token_stack;
 	char	***cmd_table;
 }				t_data;
 
 int		find_path(t_data *data, char **envp);
-int		get_cmd(t_data *data);
+int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
 int		init_data(t_data *data, char **envp);
 int		init_env(t_data *data, char **envp);

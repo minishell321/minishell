@@ -38,14 +38,14 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			// }
 			if (find_token(data, command_buf))
 			{
-				//error
+				printf("error find token\n");
 			}
 			// if (data->cmds)
 			// 	print_token_stack(data);
-			// if (exec_cmd(data, envp))
-			// {
-			// 	//error handle
-			// }
+			if (exec_cmd(data, envp))
+			{
+				//error handle
+			}
 			//  pid = fork();
 			//  if (pid < 0)
 			//  	exit(1);
@@ -58,9 +58,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			//  	execve(data->cmd, data->cmd_args, envp);
 			//  }
 			//  waitpid(pid, NULL, 0);
-			if (data->cmds)
-				free_token_stack(data);
-			free_data(data);
+			// if (data)
+			// 	free_data(data);
 		}
 		if (command_buf)
 			free(command_buf);

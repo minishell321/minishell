@@ -62,7 +62,6 @@ static int	create_pids_arr(t_data *data)
 // Initialise the struct t_data, setting variables that are not yet assigned to 0 (or default)
 int	init_data(t_data *data, char **envp)
 {
-	data->cmd_args = 0;
 	data->cmd = 0;
 	data->fd_input = 0;
 	data->fd_output = 1;
@@ -76,7 +75,8 @@ int	init_data(t_data *data, char **envp)
 	data->process_ids = 0;
 	if (create_pids_arr(data))
 		return (1);
-	data->cmds = 0;
+	data->token_stack = 0;
+	data->cmd_table = 0;
 	return (0);
 }
 

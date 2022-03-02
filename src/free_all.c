@@ -41,6 +41,8 @@ int	free_data(t_data *data)
 	// 	free_double_string_array(data->cmds);
 	if (data->process_ids)
 		free(data->process_ids);
+	if (data->token_stack)
+				free_token_stack(data);
 	return (0);
 }
 
@@ -62,10 +64,10 @@ void	free_token_stack(t_data *data)
 {
 	t_token *tmp;
 	int j = 0;
-	while (data->cmds)
+	while (data->token_stack)
 	{
-		tmp = data->cmds;
-		data->cmds = data->cmds->next;
+		tmp = data->token_stack;
+		data->token_stack = data->token_stack->next;
 		if (tmp->args)
 		{
 			t_token *tmp_arg;
