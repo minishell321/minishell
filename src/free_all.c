@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 07:38:18 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 09:48:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	free_token_stack(t_data *data)
 			{
 				tmp_arg = tmp->args;
 				tmp->args = tmp->args->next;
-				printf("freeing ARG : %s from CDM : %s\n", tmp_arg->str, tmp->str);
+				// printf("freeing ARG : %s from CDM : %s\n", tmp_arg->str, tmp->str);
 				free(tmp_arg);
 			}
 		}
-		printf("freeing CDM : %s\n",tmp->str);
+		// printf("freeing CDM : %s\n",tmp->str);
 		free(tmp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/01 12:41:57 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 09:33:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	init_env(t_data *data, char **envp)
 	{
 		ft_putstr_fd("Error, split env_paths\n", 2);
 		return (1);
-	}	
+	}
+	data->cmd_table = 0;	
 	return (0);
 }

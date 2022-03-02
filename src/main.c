@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 07:37:49 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 09:50:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			{
 				//error
 			}
-			print_token_stack(data);
+			// if (data->cmds)
+			// 	print_token_stack(data);
 			// if (exec_cmd(data, envp))
 			// {
 			// 	//error handle
@@ -57,7 +58,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			//  	execve(data->cmd, data->cmd_args, envp);
 			//  }
 			//  waitpid(pid, NULL, 0);
-			free_token_stack(data);
+			if (data->cmds)
+				free_token_stack(data);
 			free_data(data);
 		}
 		if (command_buf)

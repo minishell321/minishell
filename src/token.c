@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 07:38:10 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 10:54:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,25 @@
 // !!! CURRENTLY THE FUNCTION HAS A BUG AND IS NOT CORRECTLY INCLUDING THE BUGS
 // !!! ALSO AS IT IS MEANT AS A TEST IT ONLY HANDLES ONE COMMAND BUT THE CONCEPT CAN
 // BE EXTENDED USING A LINKED LIST
-int cmd_table(t_data *data)
+char **cmd_split(t_data *data, int cmd_num)
 {
 	t_token *tmp;
-	tmp = data->cmds;
 	char	**cmd_table;
 	int j = 0;
+	int i = 0;
 	int	cnt_cmd = 0;
 	int cnt_arg = 0;
-
 	while (tmp)
 	{
 		tmp = tmp->next;
 		cnt_cmd++;
 	}
 	tmp = data->cmds;
+	if (i < cmd_num)
+	{
+		tmp = tmp->next;
+		i++;
+	}
 	if (tmp->args)
 	{
 		t_token *tmp_arg;
@@ -46,14 +50,17 @@ int cmd_table(t_data *data)
 	}
 	printf("cnt_arg = %d\n", cnt_arg);
 	cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
-	cmd_table[0] = data->cmds->str;
-	tmp = data->cmds->args;
+	if (cmd_table == NULL)
+		return (NULL);
+	cmd_table[0] = tmp->str;
+	tmp = tmp->args;
+	cmd_table[cnt_arg + 1] = NULL;
 	while (cnt_arg > 0)
 	{
 		cmd_table[cnt_arg--] = tmp->str;
+		// printf("cmd_table[%d] = %s\n", cnt_arg, tmp->str);
 		tmp = tmp->next;
 	}
-	cmd_table[cnt_arg + 1] = NULL;
 	j = 0;
 	while (cmd_table[j] != 0)
 	{
@@ -83,6 +90,33 @@ int cmd_table(t_data *data)
 		j++;
 	}
 	*/
+	return (cmd_table);
+}
+
+int cmd_table(t_data *data)
+{
+	t_token *tmp;
+	int		cnt_cmds;
+	int		i;
+	
+	i = 0;
+	cnt_cmds = 0;
+	tmp = data->cmds;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		cnt_cmds++;
+	}
+	printf("NUMBER OF CMDS = %d\n", cnt_cmds);
+	data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds));
+	if (data->cmd_table == NULL)
+		return (1);
+	while (i < cnt_cmds)
+	{
+		printf("CMD[%d]\n", i);
+		data->cmd_table[i] = cmd_split(data, i);
+		i++;
+	}
 	return (0);
 }
 
@@ -170,7 +204,7 @@ int get_fd_out_append(t_data *data, char *str, int *i)
 	while (str[j] == '>' || str[j] == ' ')
 		j++;
 //	while (str[k] != ' ')
-	while (str[k + j] != ' ')
+	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
 	/*
@@ -205,7 +239,7 @@ int get_fd_here_doc(t_data *data, char *str, int *i)
 
 	while (str[j] == '<' || str[j] == ' ')
 		j++;
-	while (str[k + j] != ' ')
+	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
 	delim = ft_substr(str, j, k);
@@ -228,7 +262,7 @@ int get_fd_out(t_data *data, char *str, int *i)
 	while (str[j] == '>' || str[j] == ' ')
 		j++;
 //	while (str[k] != ' ')
-	while (str[k + j] != ' ')
+	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
 	/*
@@ -265,9 +299,12 @@ int get_fd_in(t_data *data, char *str, int *i)
 	while (str[j] == '<' || str[j] == ' ')
 		j++;
 //	while (str[k] != ' ')
-	while (str[k + j] != ' ')
+	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
+	printf ("fd_in k = %d\n ", k);
+	printf ("fd_in j = %d\n ", j);
 	*i += (j + k);
+	// SEGFAULT WHEN IT's THE LAST ARG
 	/*
 	fd_name = (char *)malloc(sizeof(char) * k + 1);
 	if (fd_name == NULL)
@@ -294,7 +331,7 @@ int	redir_out(t_data *data, char *str, int *i)
 	int	j;
 	
 	j = 0;
-	printf("^^^str = %s\n", str);
+	// printf("^^^str = %s\n", str);
 	if (str[j + 1] == '>')
 	{
 		if (get_fd_out_append(data, str, i))
@@ -337,8 +374,8 @@ int	find_token(t_data *data, char *cmd_str)
 	{
 		if (cmd_str[i] ==  ' ')
 		{
-			printf("******************i value before ++ %d\n", i);
 			i++;
+			printf("******************i value AFTER ++ %d\n", i);
 		}
 		if (cmd_str[i] == '\'' || cmd_str[i] == '\"')
 		{
@@ -357,7 +394,6 @@ int	find_token(t_data *data, char *cmd_str)
 		}
 		else if (cmd_str[i] == '<')
 		{
-			//if (redir_out(data, cmd_str + i, &i))
 			if (redir_in(data, cmd_str + i, &i))
 			{
 				ft_putstr_fd("Error redirection\n", 2);
@@ -365,8 +401,7 @@ int	find_token(t_data *data, char *cmd_str)
 		}
 		else if (cmd_str[i] == '>')
 		{
-			printf("---HERE--- i = %d; cmd_str = %s\n", i, cmd_str+i);
-			//if (redir_in(data, cmd_str + i, &i))
+			// printf("---HERE--- i = %d; cmd_str = %s\n", i, cmd_str+i);
 			if (redir_out(data, cmd_str + i, &i))
 			{
 				ft_putstr_fd("Error redirection\n", 2);
@@ -385,8 +420,6 @@ int	find_token(t_data *data, char *cmd_str)
 			}
 			type = 2;
 		}
-		// printf("******************i value before ++ %d\n", i);
-		// i++;
 	}
 	if (cmd_table(data))
 	{

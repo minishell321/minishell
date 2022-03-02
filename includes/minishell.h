@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 07:38:29 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 10:05:45 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	int		**pipe_fds;
 	int		*process_ids;
 	t_token	*cmds;
+	char	***cmd_table;
 }				t_data;
 
 int		find_path(t_data *data, char **envp);
