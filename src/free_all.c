@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/01 12:49:42 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 07:38:18 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,28 @@ int	free_env(t_data *data)
 		free(data->cmd_paths);
 	}
 	return (0);
+}
+
+void	free_token_stack(t_data *data)
+{
+	t_token *tmp;
+	int j = 0;
+	while (data->cmds)
+	{
+		tmp = data->cmds;
+		data->cmds = data->cmds->next;
+		if (tmp->args)
+		{
+			t_token *tmp_arg;
+			while (tmp->args)
+			{
+				tmp_arg = tmp->args;
+				tmp->args = tmp->args->next;
+				printf("freeing ARG : %s from CDM : %s\n", tmp_arg->str, tmp->str);
+				free(tmp_arg);
+			}
+		}
+		printf("freeing CDM : %s\n",tmp->str);
+		free(tmp);
+	}
 }

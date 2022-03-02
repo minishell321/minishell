@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/01 12:41:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/02 07:38:29 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		exec_cmd(t_data *data, char **envp);
 int		check_command(char *command_buf);
 int		find_token(t_data *data, char *cmd_str);
 void	print_token_stack(t_data *data);
+void	free_token_stack(t_data *data);
 
 // included in order to make rl_replace_line work
 void	rl_replace_line(const char *, int);
