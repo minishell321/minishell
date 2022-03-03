@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 10:41:33 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 17:27:43 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 // to handle signals
 # include <readline/readline.h>
 # include <readline/history.h>
+// for handling terminal attributes
+# include <termios.h>
 # include <string.h>
 # include "../libft/libft.h"
 
@@ -67,6 +69,13 @@ typedef struct s_data
 	//free in free_data
 }				t_data;
 
+struct s_token
+{
+	char	*str;
+	int		quotes;
+	t_token	*next;
+};
+
 int		find_path(t_data *data, char **envp);
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
@@ -102,5 +111,6 @@ char *send_unquoted_string(char *str, int *i);
 void	rl_replace_line(const char *, int);
 //builtins
 int	echo(char **argv);
+int	builtin_cd(char *str);
 
 #endif

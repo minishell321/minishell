@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/24 17:30:05 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/03 16:32:03 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,26 @@ void handle_sigint(int sig)
 // CTRL + \ sends SIGQUIT
 int	handle_sigs(void)
 {
+	struct termios		term;
 	struct sigaction	sa_sigint;
 	struct sigaction	sa_sigquit;
 
+	if (isatty(STDIN_FILENO) != 1 || isatty(STDOUT_FILENO) != 1)
+	{
+		printf("Error: isatty\n");
+		return (1);
+	}
+	if (tcgetattr(STDIN_FILENO, &term) != 0)
+	{
+		printf("Error: tcgetattr\n");
+		return (1);
+	}
+	term.c_lflag &= ~ ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
+	{
+		printf("Error: tcsetattr\n");
+		return (1);
+	}
 	sa_sigint.sa_handler = &handle_sigint;
 	sa_sigquit.sa_handler = SIG_IGN;
 	sigaction(SIGINT, &sa_sigint, NULL);
