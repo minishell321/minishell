@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/03 08:30:28 by rburri           ###   ########.fr        #
+#    Updated: 2022/03/03 10:31:55 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ INC_RL		= -I ~/.brew/Cellar/readline/8.1.2/include
 
 SRC = src
 
+BLT = builtins
+
 BIN = bin
 
 $(shell mkdir -p $(BIN))
@@ -46,6 +48,8 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/char_chk.c\
 			$(SRC)/token_find.c\
 			$(SRC)/token_utils.c\
+			$(SRC)/pipe_utils.c\
+			# $(BLT)/echo.c\
 			
 			
 

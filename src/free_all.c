@@ -6,20 +6,29 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 07:19:26 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 10:04:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	free_double_string_array(char **double_array)
+static void	free_cmd_table(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (double_array[i])
-		free(double_array[i++]);
-	free(double_array);
+	while (data->cmd_table[i])
+	{
+		j = 0;
+		while (data->cmd_table[i][j])
+		{
+			printf("free : cmd_table[%d][%d] : %s\n", i, j, data->cmd_table[i][j]);
+			free(data->cmd_table[i][j++]);
+		}
+		i++;
+	}
+	free(data->cmd_table);
 }
 
 int	free_data(t_data *data)
@@ -35,12 +44,10 @@ int	free_data(t_data *data)
 			free(data->pipe_fds[i++]);
 		free(data->pipe_fds);
 	}
-	// if (data->cmds)
-	// 	free_double_string_array(data->cmds);
+	if (data->cmd_table)
+		free_cmd_table(data);
 	if (data->process_ids)
 		free(data->process_ids);
-	if (data->token_stack)
-				free_token_stack(data);
 	return (0);
 }
 
@@ -60,15 +67,17 @@ int	free_env(t_data *data)
 
 void	free_token_stack(t_data *data)
 {
-	t_token *tmp;
-	int j = 0;
+	t_token	*tmp;
+	t_token	*tmp_arg;
+	int		j;
+
+	j = 0;
 	while (data->token_stack)
 	{
 		tmp = data->token_stack;
 		data->token_stack = data->token_stack->next;
 		if (tmp->args)
 		{
-			t_token *tmp_arg;
 			while (tmp->args)
 			{
 				tmp_arg = tmp->args;

@@ -6,15 +6,16 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 08:31:07 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 08:31:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 09:57:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int create_token(t_data *data, char *str, int type)
+int	create_token(t_data *data, char *str, int type)
 {
-	t_token *new_token;
+	t_token	*new_token;
+
 	new_token = malloc(sizeof(t_token));
 	if (new_token == NULL)
 		return (1);
@@ -29,19 +30,18 @@ int create_token(t_data *data, char *str, int type)
 	}
 	else if (new_token->type == ARG)
 	{
-		
 		new_token->next = data->token_stack->args;
 		data->token_stack->args = new_token;
 	}
 	return (0);
 }
 
-char *send_quoted_string(char *str, int *i)
+char	*send_quoted_string(char *str, int *i)
 {
-	char *new_str;
-	int	j;
-	int	k;
-	
+	char	*new_str;
+	int		j;
+	int		k;
+
 	j = 0;
 	k = 1;
 	while (str[j] != str[k])
@@ -59,12 +59,12 @@ char *send_quoted_string(char *str, int *i)
 	return (new_str);
 }
 
-char *send_unquoted_string(char *str, int *i)
+char	*send_unquoted_string(char *str, int *i)
 {
-	char *new_str;
-	int	j;
-	int	k;
-	
+	char	*new_str;
+	int		j;
+	int		k;
+
 	j = 0;
 	k = 0;
 	while (str[k] && str[k] != ' ')

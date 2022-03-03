@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 08:31:40 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 10:03:50 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,7 @@ int	find_token(t_data *data, char *cmd_str)
 		printf("Error: generation of command table\n");
 		return (1);
 	}
+	if (data->token_stack)
+				free_token_stack(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 09:50:23 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 10:34:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			}
 			if (check_command(command_buf))
 			{
-			 	//error treatment
+			 	continue;
 			}
 			// if (redirect(data, command_buf))
 			// {
@@ -58,8 +58,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			//  	execve(data->cmd, data->cmd_args, envp);
 			//  }
 			//  waitpid(pid, NULL, 0);
-			// if (data)
-			// 	free_data(data);
+			if (data)
+				free_data(data);
 		}
 		if (command_buf)
 			free(command_buf);
@@ -79,8 +79,6 @@ int main(int argc, char **argv, char **envp)
 	{
 		//error handling
 	}
-	//data.env_paths = find_path(envp);
-	//data.cmd_paths = ft_split(data.env_paths, ':');
 	handle_sigs();
 	start_prompt(command_buf, &data, envp);
 	free_env(&data);

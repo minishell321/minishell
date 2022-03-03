@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/03 08:05:56 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 09:58:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,41 @@ int	init_pipe_fds(t_data *data)
 }
 
 // Create int array to store processes ids
-static int	create_pids_arr(t_data *data)
+int	init_pids_arr(t_data *data)
 {
 	data->process_ids = (int *)malloc((data->num_of_pipe + 1) * sizeof(int));
 	if (data->process_ids == NULL)
 		return (1);
+	return (0);
+}
+
+// Initialise the struct t_data, setting variables
+//that are not yet assigned to 0 (or default)
+int	init_data(t_data *data, char **envp)
+{
+	data->cmd = 0;
+	data->fd_input = 0;
+	data->fd_output = 1;
+	data->num_of_pipe = 0;
+	data->pipe_fds = 0;
+	data->process_ids = 0;
+	data->token_stack = 0;
+	data->cmd_table = 0;
+	return (0);
+}
+
+int	init_env(t_data *data, char **envp)
+{
+	data->env_paths = 0;
+	if (find_path(data, envp))
+		return (1);
+	data->cmd_paths = ft_split(data->env_paths, ':');
+	if (data->cmd_paths == NULL)
+	{
+		ft_putstr_fd("Error, split env_paths\n", 2);
+		return (1);
+	}
+	data->cmd_table = 0;
 	return (0);
 }
 
@@ -83,34 +113,3 @@ static int	create_pids_arr(t_data *data)
 // 		j++;
 // 	}
 // }
-
-// Initialise the struct t_data, setting variables that are not yet assigned to 0 (or default)
-int	init_data(t_data *data, char **envp)
-{
-	data->cmd = 0;
-	data->fd_input = 0;
-	data->fd_output = 1;
-	data->num_of_pipe = 0;
-	data->pipe_fds = 0;
-	data->process_ids = 0;
-	if (create_pids_arr(data))
-		return (1);
-	data->token_stack = 0;
-	data->cmd_table = 0;
-	return (0);
-}
-
-int	init_env(t_data *data, char **envp)
-{
-	data->env_paths = 0;
-	if (find_path(data, envp))
-		return (1);
-	data->cmd_paths = ft_split(data->env_paths, ':');
-	if (data->cmd_paths == NULL)
-	{
-		ft_putstr_fd("Error, split env_paths\n", 2);
-		return (1);
-	}
-	data->cmd_table = 0;	
-	return (0);
-}

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 07:58:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 09:53:55 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,55 +29,7 @@ static int	redirection_handler(t_data *data, int *i)
 	return (0);
 }
 
-static int	pipe_handler(t_data *data, int *i)
-{
-	int	j;
 
-	j = 0;
-	if (*i < data->num_of_pipe)
-	{
-		if (dup2(data->pipe_fds[*i][1], STDOUT_FILENO) == -1)
-			return (1);
-		close(data->pipe_fds[*i][1]);
-	}
-	if (*i > 0)
-	{
-		if (dup2(data->pipe_fds[(*(i) - 1)][0], STDIN_FILENO) == -1)
-			return (1);
-		close(data->pipe_fds[*i - 1][0]);
-	}
-	while (j < data->num_of_pipe)
-	{
-		if (j != *i && j < data->num_of_pipe)
-			close(data->pipe_fds[j][1]);
-		if (j != *i - 1)
-			close(data->pipe_fds[j][0]);
-		j++;
-	}
-	return (0);
-}
-
-static int	close_pipe_fds(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->num_of_pipe)
-	{
-		if (close(data->pipe_fds[i][0]))
-		{
-			ft_putstr_fd("Error, close pipe\n", 2);
-			return (1);
-		}
-		if (close(data->pipe_fds[i][1]))
-		{
-			ft_putstr_fd("Error, close pipe\n", 2);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
 
 static int	wait_all_children(t_data *data)
 {
@@ -87,8 +39,6 @@ static int	wait_all_children(t_data *data)
 	i = 0;
 	while (i <= data->num_of_pipe)
 	{
-		// printf("i = %d\nnum_of_pipe = %d\n", i , data->num_of_pipe);
-		// printf("process_ids = %d\n", data->process_ids[i]);
 		res = waitpid(data->process_ids[i], NULL, 0);
 		if (res == -1)
 		{
@@ -105,6 +55,7 @@ int	exec_cmd(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
+	init_pids_arr(data);
 	if (data->num_of_pipe > 0)
 	{
 		if (init_pipe_fds(data))
