@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/01 12:16:13 by rburri           ###   ########.fr        #
+#    Updated: 2022/03/03 08:30:28 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,13 +38,14 @@ $(shell mkdir -p $(BIN))
 
 SOURCE = 	$(SRC)/main.c\
 			$(SRC)/path.c\
-			$(SRC)/redir.c\
+			$(SRC)/redir1.c\
 			$(SRC)/signals.c\
 			$(SRC)/init.c\
 			$(SRC)/free_all.c\
 			$(SRC)/exec_cmd.c\
 			$(SRC)/char_chk.c\
-			$(SRC)/token.c\
+			$(SRC)/token_find.c\
+			$(SRC)/token_utils.c\
 			
 			
 

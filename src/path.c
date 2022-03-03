@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/02/26 15:08:57 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 07:55:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	get_cmd(t_data *data, int i)
 		if (access(command, F_OK) == 0)
 		{
 			data->cmd = command;
-			printf("command = %s\n", data->cmd);
 			free(command);
 			return (0);
 		}

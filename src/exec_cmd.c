@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/01 12:51:08 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 07:58:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,14 @@ int	exec_cmd(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
+	if (data->num_of_pipe > 0)
+	{
+		if (init_pipe_fds(data))
+		{
+			ft_putstr_fd("Error, create pipe_fds\n", 2);
+			return (1);
+		}
+	}
 	while (i < data->num_of_pipe + 1)
 	{
 		data->process_ids[i] = fork();
@@ -112,13 +120,14 @@ int	exec_cmd(t_data *data, char **envp)
 			return (1);
 		if (data->process_ids[i] == 0)
 		{
-			printf("%d\n", data->process_ids[i]);
 			redirection_handler(data, &i);
 			if (data->num_of_pipe > 0)
-				pipe_handler(data, &i);
+			{
+				if (pipe_handler(data, &i))
+					return(1);
+			}
 			if (get_cmd(data, i))
 				return (1);
-			printf("was here\n");
 			if (execve(data->cmd, data->cmd_table[i], envp))
 				printf("Error execve\n");
 		}

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 10:05:45 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 08:35:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,19 @@ int		exec_cmd(t_data *data, char **envp);
 int		check_command(char *command_buf);
 int		find_token(t_data *data, char *cmd_str);
 void	print_token_stack(t_data *data);
+int		init_pipe_fds(t_data *data);
 void	free_token_stack(t_data *data);
+// redir
+int get_fd_out_append(t_data *data, char *str, int *i);
+int get_fd_here_doc(t_data *data, char *str, int *i);
+int get_fd_out(t_data *data, char *str, int *i);
+int get_fd_in(t_data *data, char *str, int *i);
+int	redir_out(t_data *data, char *str, int *i);
+int	redir_in(t_data *data, char *str, int *i);
+// token_utils
+int create_token(t_data *data, char *str, int type);
+char *send_quoted_string(char *str, int *i);
+char *send_unquoted_string(char *str, int *i);
 
 // included in order to make rl_replace_line work
 void	rl_replace_line(const char *, int);

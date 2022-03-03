@@ -6,14 +6,14 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/02 09:33:23 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 08:05:56 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // Create the array of fds for each pipe
-static int	create_2d(t_data *data)
+int	init_pipe_fds(t_data *data)
 {	
 	int	i;
 
@@ -59,6 +59,31 @@ static int	create_pids_arr(t_data *data)
 // 	return (cmds);
 // }
 
+// void print_token_stack(t_data *data)
+// {
+// 	t_token *tmp;
+// 	tmp = data->token_stack;
+// 	int j = 0;
+// 	while (tmp)
+// 	{
+// 		printf("cmd[%d]: %s\n", j, tmp->str);
+// 		if (tmp->args)
+// 		{
+// 			t_token *tmp_arg;
+// 			tmp_arg = tmp->args;
+// 			int i = 0;
+// 			while (tmp_arg)
+// 			{
+// 				printf("arg[%d]: %s\n", i, tmp_arg->str);
+// 				tmp_arg = tmp_arg->next;
+// 				i++;
+// 			}
+// 		}
+// 		tmp = tmp->next;
+// 		j++;
+// 	}
+// }
+
 // Initialise the struct t_data, setting variables that are not yet assigned to 0 (or default)
 int	init_data(t_data *data, char **envp)
 {
@@ -67,11 +92,6 @@ int	init_data(t_data *data, char **envp)
 	data->fd_output = 1;
 	data->num_of_pipe = 0;
 	data->pipe_fds = 0;
-	if (create_2d(data))
-	{
-		ft_putstr_fd("Error, create pipe_fds\n", 2);
-		return (1);
-	}
 	data->process_ids = 0;
 	if (create_pids_arr(data))
 		return (1);

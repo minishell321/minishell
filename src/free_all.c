@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/02 09:48:13 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/03 07:19:26 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	free_data(t_data *data)
 {	
 	int	i;
 
-	if (data->cmd_args)
-		free_double_string_array(data->cmd_args);
 	if (data->cmd)
 		free(data->cmd);
 	i = 0;
