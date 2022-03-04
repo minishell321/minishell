@@ -22,22 +22,16 @@ int get_fd_out_append(t_data *data, char *str, int *i)
 	k = 0;
 	while (str[j] == '>' || str[j] == ' ')
 		j++;
-//	while (str[k] != ' ')
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
-	fd_name = (char *)malloc(sizeof(char) * k + 1);
+	fd_name = ft_substr(str, j, k);
 	if (fd_name == NULL)
 		return (1);
-	fd_name[k--] = '\0';
-	while (k >= 0)
-	{
-		fd_name[k] = str[k + j];
-		k--;
-	}
 	data->fd_output = open(fd_name, O_RDWR | O_APPEND, 0777);
 	if (data->fd_output == -1)
 	{
+			ft_putstr_fd("Error open output file\n", 2);
 			free(fd_name);
 			return (1);
 	}
@@ -75,29 +69,20 @@ int get_fd_out(t_data *data, char *str, int *i)
 
 	j = 0;
 	k = 0;
-	// printf("...str : %s\n", str);
 	while (str[j] == '>' || str[j] == ' ')
 		j++;
-//	while (str[k] != ' ')
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
-	fd_name = (char *)malloc(sizeof(char) * k + 1);
+	fd_name = ft_substr(str, j, k);
 	if (fd_name == NULL)
 		return (1);
-	fd_name[k--] = '\0';
-	while (k >= 0)
-	{
-	//	fd_name[k] = str[k];
-		fd_name[k] = str[k + j];
-		k--;
-	}
-	//	data->fd_output = open(str, O_RDWR | O_CREAT, 0777);
 	data->fd_output = open(fd_name, O_RDWR | O_CREAT, 0777);
 	if (data->fd_output == -1)
 	{
-			free(fd_name);
-			return (1);
+		ft_putstr_fd("Error open output file\n", 2);
+		free(fd_name);
+		return (1);
 	}
 	free(fd_name);
 	return (0);	
@@ -113,28 +98,20 @@ int get_fd_in(t_data *data, char *str, int *i)
 	k = 0;
 	while (str[j] == '<' || str[j] == ' ')
 		j++;
-//	while (str[k] != ' ')
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
-	
-	fd_name = (char *)malloc(sizeof(char) * k + 1);
+	fd_name = ft_substr(str, j, k);
 	if (fd_name == NULL)
 		return (1);
-	fd_name[k--] = '\0';
-	while (k >= 0)
-	{
-		fd_name[k] = str[k + j];
-		k--;
-	}
 	data->fd_input = open(fd_name, O_RDONLY);
 	if (data->fd_input == -1)
 	{
+			printf("No such file or directory: %s\n", fd_name);
 			free(fd_name);
 			return (1);
 	}
 	free(fd_name);
-	
 	return (0);	
 }
 
@@ -143,7 +120,6 @@ int	redir_out(t_data *data, char *str, int *i)
 	int	j;
 	
 	j = 0;
-	// printf("^^^str = %s\n", str);
 	if (str[j + 1] == '>')
 	{
 		if (get_fd_out_append(data, str, i))

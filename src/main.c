@@ -24,24 +24,27 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
             add_history(command_buf);
 			if ((ft_strncmp(command_buf, "exit", 4)) == 0)
 				break;
-			if (init_data(data, envp))
-			{
-				//error treatment
-			}
+			init_data(data, envp);
 			if (check_command(command_buf))
-			{
 			 	continue;
-			}
-			// if (redirect(data, command_buf))
-			// {
-			// 	//error treatment
-			// }
 			if (find_token(data, command_buf))
 			{
 				printf("error find token\n");
+				continue;
 			}
-			// if (data->cmds)
-			// 	print_token_stack(data);
+			if token_handler(data)
+			{
+				continue;
+			}
+			if (cmd_table(data))
+			{
+				ft_putstr_fd("Error: generation of command table\n", 2);
+				if (data->token_stack)
+						free_token_stack(data);
+				return (1);
+			}
+			if (data->token_stack)
+				free_token_stack(data);
 			if (exec_cmd(data, envp))
 			{
 				//error handle

@@ -50,6 +50,7 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/token_utils.c\
 			$(SRC)/pipe_utils.c\
 			$(SRC)/builtin_cd.c\
+			$(SRC)/cmd_table.c\
 			# $(BLT)/echo.c\
 			
 			

@@ -82,11 +82,9 @@ void	free_token_stack(t_data *data)
 			{
 				tmp_arg = tmp->args;
 				tmp->args = tmp->args->next;
-				// printf("freeing ARG : %s from CDM : %s\n", tmp_arg->str, tmp->str);
 				free(tmp_arg);
 			}
 		}
-		// printf("freeing CDM : %s\n",tmp->str);
 		free(tmp);
 	}
 }

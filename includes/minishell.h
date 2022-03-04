@@ -69,27 +69,28 @@ typedef struct s_data
 	//free in free_data
 }				t_data;
 
-struct s_token
-{
-	char	*str;
-	int		quotes;
-	t_token	*next;
-};
+// struct s_token
+// {
+// 	char	*str;
+// 	int		quotes;
+// 	t_token	*next;
+// };
 
 int		find_path(t_data *data, char **envp);
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
 int		handle_sigs(void);
-int		free_data(t_data *data);
-int		free_env(t_data *data);
 int		exec_cmd(t_data *data, char **envp);
 int		check_command(char *command_buf);
 int		find_token(t_data *data, char *cmd_str);
-void	print_token_stack(t_data *data);
+// void	print_token_stack(t_data *data);
+// Free_all
+int		free_env(t_data *data);
+int		free_data(t_data *data);
 void	free_token_stack(t_data *data);
 // pipe_utils
-int	pipe_handler(t_data *data, int *i);
-int	close_pipe_fds(t_data *data);
+int		pipe_handler(t_data *data, int *i);
+int		close_pipe_fds(t_data *data);
 // init
 int		init_data(t_data *data, char **envp);
 int		init_env(t_data *data, char **envp);
@@ -106,6 +107,8 @@ int	redir_in(t_data *data, char *str, int *i);
 int create_token(t_data *data, char *str, int type);
 char *send_quoted_string(char *str, int *i);
 char *send_unquoted_string(char *str, int *i);
+// cmd_table
+int cmd_table(t_data *data);
 
 // included in order to make rl_replace_line work
 void	rl_replace_line(const char *, int);

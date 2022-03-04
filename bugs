@@ -1,6 +1,3 @@
-wrong input filename
-=> Error direction and get stuck in waitpid
-should be => no such file or directory: filename entered
 
 HEREDOC:
 After reading (https://linuxize.com/post/bash-heredoc/), the heredoc identifier (<<) cannot
@@ -11,3 +8,5 @@ be ignored.
 	=> Currently, the way we are tokenising the heredoc, the function does not check for
 	the hyphen (-) and increments the string position while spaces are found. This needs
 	to be addressed but I would like to verify the behaviour in bash to double-check.
+
+minishell se ferme apres 2 x Ctrl + C, normal?
