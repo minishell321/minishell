@@ -48,6 +48,7 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/char_chk.c\
 			$(SRC)/token_find.c\
 			$(SRC)/token_utils.c\
+			$(SRC)/token_handler.c\
 			$(SRC)/pipe_utils.c\
 			$(SRC)/builtin_cd.c\
 			$(SRC)/cmd_table.c\

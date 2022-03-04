@@ -12,15 +12,15 @@
 
 #include "../includes/minishell.h"
 
-static int	redirection_handler(t_data *data, int *i)
+static int	redirection_handler(t_data *data, int i)
 {
-	if ((*i == 0) && (data->fd_input != 0))
+	if ((i == 0) && (data->fd_input != 0))
 	{
 		if (dup2(data->fd_input, STDIN_FILENO) == -1)
 			return (1);
 		close(data->fd_input);
 	}
-	if ((*i == data->num_of_pipe) && (data->fd_output != 1))
+	if ((i == data->num_of_pipe) && (data->fd_output != 1))
 	{
 		if (dup2(data->fd_output, STDOUT_FILENO) == -1)
 			return (1);
@@ -28,8 +28,6 @@ static int	redirection_handler(t_data *data, int *i)
 	}
 	return (0);
 }
-
-
 
 static int	wait_all_children(t_data *data)
 {
@@ -55,15 +53,6 @@ int	exec_cmd(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
-	init_pids_arr(data);
-	if (data->num_of_pipe > 0)
-	{
-		if (init_pipe_fds(data))
-		{
-			ft_putstr_fd("Error, create pipe_fds\n", 2);
-			return (1);
-		}
-	}
 	while (i < data->num_of_pipe + 1)
 	{
 		data->process_ids[i] = fork();
@@ -71,16 +60,17 @@ int	exec_cmd(t_data *data, char **envp)
 			return (1);
 		if (data->process_ids[i] == 0)
 		{
-			redirection_handler(data, &i);
-			if (data->num_of_pipe > 0)
-			{
-				if (pipe_handler(data, &i))
-					return(1);
-			}
+			redirection_handler(data, i);
+			if (pipe_handler(data, i))
+				return(1);
+			// find if cmd is built-in or not
 			if (get_cmd(data, i))
 				return (1);
 			if (execve(data->cmd, data->cmd_table[i], envp))
-				printf("Error execve\n");
+			{
+				ft_putstr_fd("Error execve\n", 2);
+				return (1);
+			}
 		}
 		i++;
 	}

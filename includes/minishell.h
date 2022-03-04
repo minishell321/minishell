@@ -89,7 +89,7 @@ int		free_env(t_data *data);
 int		free_data(t_data *data);
 void	free_token_stack(t_data *data);
 // pipe_utils
-int		pipe_handler(t_data *data, int *i);
+int		pipe_handler(t_data *data, int i);
 int		close_pipe_fds(t_data *data);
 // init
 int		init_data(t_data *data, char **envp);
@@ -107,6 +107,8 @@ int	redir_in(t_data *data, char *str, int *i);
 int create_token(t_data *data, char *str, int type);
 char *send_quoted_string(char *str, int *i);
 char *send_unquoted_string(char *str, int *i);
+// token_handler
+int token_handler(t_data *data);
 // cmd_table
 int cmd_table(t_data *data);
 

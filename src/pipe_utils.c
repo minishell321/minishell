@@ -12,28 +12,28 @@
 
 #include "../includes/minishell.h"
 
-int	pipe_handler(t_data *data, int *i)
+int	pipe_handler(t_data *data, int i)
 {
 	int	j;
 
 	j = 0;
-	if (*i < data->num_of_pipe)
+	if (data->num_of_pipe > 0 && i < data->num_of_pipe)
 	{
-		if (dup2(data->pipe_fds[*i][1], STDOUT_FILENO) == -1)
+		if (dup2(data->pipe_fds[i][1], STDOUT_FILENO) == -1)
 			return (1);
-		close(data->pipe_fds[*i][1]);
+		close(data->pipe_fds[i][1]);
 	}
-	if (*i > 0)
+	if (data->num_of_pipe > 0 && i> 0)
 	{
-		if (dup2(data->pipe_fds[(*(i) - 1)][0], STDIN_FILENO) == -1)
+		if (dup2(data->pipe_fds[i - 1][0], STDIN_FILENO) == -1)
 			return (1);
-		close(data->pipe_fds[*i - 1][0]);
+		close(data->pipe_fds[i - 1][0]);
 	}
 	while (j < data->num_of_pipe)
 	{
-		if (j != *i && j < data->num_of_pipe)
+		if (j != i&& j < data->num_of_pipe)
 			close(data->pipe_fds[j][1]);
-		if (j != *i - 1)
+		if (j != i - 1)
 			close(data->pipe_fds[j][0]);
 		j++;
 	}

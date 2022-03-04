@@ -32,19 +32,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 				printf("error find token\n");
 				continue;
 			}
-			if token_handler(data)
-			{
+			if (token_handler(data))
 				continue;
-			}
-			if (cmd_table(data))
-			{
-				ft_putstr_fd("Error: generation of command table\n", 2);
-				if (data->token_stack)
-						free_token_stack(data);
-				return (1);
-			}
-			if (data->token_stack)
-				free_token_stack(data);
 			if (exec_cmd(data, envp))
 			{
 				//error handle
