@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/05 10:42:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 11:29:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ static int	wait_all_children(t_data *data)
 	int	res;
 
 	i = 0;
-	while (i <= data->num_of_pipe && data->process_ids[i] == 0)
+	while (i <= data->num_of_pipe)
 	{
-		printf("pids[%d]: %d\n", i, data->process_ids[i]);
 		res = waitpid(data->process_ids[i], NULL, 0);
 		if (res == -1)
 		{
-			printf("res: %d", res);
 			ft_putstr_fd("Error, waitpid\n", 2);
 			return (1);
 		}
-		printf("closed pid: %d\n", res);
 		i++;
 	}
 	return (0);
@@ -71,6 +68,10 @@ int	exec_cmd(t_data *data, char **envp)
 				// a revoir le close pipe, non systematique pour l'instant
 				if (data->num_of_pipe > 0)
 					close(data->pipe_fds[i][1]);
+				if (data->fd_input != 0)
+					close(data->fd_input);
+				if (data->fd_output != 1)
+					close(data->fd_output);
 				return (0);
 			}
 			else

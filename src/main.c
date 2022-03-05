@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/05 10:59:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 11:15:50 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 	 while(1)
     {
         command_buf = readline("testcli> ");
-        if (command_buf)
+        if (command_buf && *command_buf)
 		{
             add_history(command_buf);
 			if ((ft_strncmp(command_buf, "exit", 4)) == 0)
