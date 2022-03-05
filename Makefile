@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/03 17:25:49 by vbotev           ###   ########.fr        #
+#    Updated: 2022/03/05 08:32:00 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,9 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/token_handler.c\
 			$(SRC)/pipe_utils.c\
 			$(SRC)/builtin_cd.c\
+			$(SRC)/builtin_echo.c\
 			$(SRC)/cmd_table.c\
-			# $(BLT)/echo.c\
-			
+			$(SRC)/exec_if_builtin.c
 			
 
 		

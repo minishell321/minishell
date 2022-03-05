@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 10:34:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:59:38 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			if (token_handler(data))
 				continue;
 			if (exec_cmd(data, envp))
-			{
-				//error handle
-			}
+				continue;
 			//  pid = fork();
 			//  if (pid < 0)
 			//  	exit(1);

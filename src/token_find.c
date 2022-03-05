@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 10:03:50 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 09:13:41 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	find_token(t_data *data, char *cmd_str)
 		}
 		else if (cmd_str[i] == '|')
 		{
-			printf("came here\n");
 			type = 1;
 			data->num_of_pipe += 1;
 			i++;
@@ -55,7 +54,7 @@ int	find_token(t_data *data, char *cmd_str)
 		{
 			//do something
 		}
-		else 
+		else if (cmd_str[i] != ' ')
 		{
 			if (create_token(data, send_unquoted_string(cmd_str + i, &i), type))
 			{

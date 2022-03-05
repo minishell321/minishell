@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 09:02:27 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 07:50:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	get_cmd(t_data *data, int i)
 	char	*command;
 	char	**paths;
 
+	if (access(data->cmd_table[i][0], F_OK) == 0)
+	{
+		data->cmd = ft_strdup(data->cmd_table[i][0]);
+		return (0);
+	}
 	paths = data->cmd_paths;
 	while (*paths)
 	{

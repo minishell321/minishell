@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 10:11:19 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 10:16:43 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 08:35:27 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int echo(char **argv)
+int builtin_echo(char **argv)
 {
 	int	i;
 	int	n_flag;
@@ -31,7 +31,7 @@ int echo(char **argv)
 			write(1, " ", 1);
 		i++;
 	}
-	if (n_flag != 0)
+	if (!n_flag)
 		write(1, "\n", 1);
 	return (0);
 }

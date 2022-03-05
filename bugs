@@ -10,7 +10,3 @@ be ignored.
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
 minishell se ferme apres 2 x Ctrl + C, normal?
-
-token_find doesn't skip extra spaces
-
-commands with full path doesn't work

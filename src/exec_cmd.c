@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 09:53:55 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/05 10:42:32 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,17 @@ static int	wait_all_children(t_data *data)
 	int	res;
 
 	i = 0;
-	while (i <= data->num_of_pipe)
+	while (i <= data->num_of_pipe && data->process_ids[i] == 0)
 	{
+		printf("pids[%d]: %d\n", i, data->process_ids[i]);
 		res = waitpid(data->process_ids[i], NULL, 0);
 		if (res == -1)
 		{
+			printf("res: %d", res);
 			ft_putstr_fd("Error, waitpid\n", 2);
 			return (1);
 		}
+		printf("closed pid: %d\n", res);
 		i++;
 	}
 	return (0);
@@ -63,14 +66,24 @@ int	exec_cmd(t_data *data, char **envp)
 			redirection_handler(data, i);
 			if (pipe_handler(data, i))
 				return(1);
-			// find if cmd is built-in or not
-			if (get_cmd(data, i))
-				return (1);
-			if (execve(data->cmd, data->cmd_table[i], envp))
+			if (exec_if_builtin(data, i))
 			{
-				ft_putstr_fd("Error execve\n", 2);
-				return (1);
+				// a revoir le close pipe, non systematique pour l'instant
+				if (data->num_of_pipe > 0)
+					close(data->pipe_fds[i][1]);
+				return (0);
 			}
+			else
+			{
+				if (get_cmd(data, i))
+				return (1);
+				if (execve(data->cmd, data->cmd_table[i], envp))
+				{
+					ft_putstr_fd("Error execve\n", 2);
+					return (1);
+				}
+			}
+			
 		}
 		i++;
 	}
