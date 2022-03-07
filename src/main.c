@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/05 13:33:16 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:11:57 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 				continue;
 			}
 			if (token_handler(data))
+				continue;
+			if (exec_if_builtin(data, 0)) // builtin cmds must be exec without fork (!!! called with 0 as value for i - CHECK)
 				continue;
 			if (exec_cmd(data, envp))
 				continue;

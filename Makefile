@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/05 08:32:00 by rburri           ###   ########.fr        #
+#    Updated: 2022/03/07 16:45:22 by vbotev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/pipe_utils.c\
 			$(SRC)/builtin_cd.c\
 			$(SRC)/builtin_echo.c\
+			$(SRC)/builtin_pwd.c\
 			$(SRC)/cmd_table.c\
 			$(SRC)/exec_if_builtin.c
 			

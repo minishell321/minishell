@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/05 11:29:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:09:47 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	exec_cmd(t_data *data, char **envp)
 			redirection_handler(data, i);
 			if (pipe_handler(data, i))
 				return(1);
-			if (exec_if_builtin(data, i))
+		/*	if (exec_if_builtin(data, i))
 			{
 				// a revoir le close pipe, non systematique pour l'instant
 				if (data->num_of_pipe > 0)
@@ -74,7 +74,7 @@ int	exec_cmd(t_data *data, char **envp)
 					close(data->fd_output);
 				return (0);
 			}
-			else
+		*/	else
 			{
 				if (get_cmd(data, i))
 				return (1);
