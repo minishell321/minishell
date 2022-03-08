@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/05 10:33:42 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:04:25 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int	init_data(t_data *data, char **envp)
 
 int	init_env(t_data *data, char **envp)
 {
+	data->environment = 0;
+	if (local_env(data, envp))
+		return (1);
 	data->env_paths = 0;
 	if (find_path(data, envp))
 		return (1);

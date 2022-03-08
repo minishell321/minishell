@@ -6,12 +6,11 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/03 16:32:03 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/08 15:58:51 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 // Captures the sigint and correctly displays a new prompt but need to handle the display of ^C which should not appear
 void handle_sigint(int sig)
@@ -23,6 +22,38 @@ void handle_sigint(int sig)
 
 	// return prompt on a new line
 }
+/*
+void handle_sig_child(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "^C", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGQUIT)
+	{
+		write(1, "Quit: 3\n", 8);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+
+}
+
+int	handle_sigs_child(void)
+{
+	struct sigaction	sa_sigint_ch;
+	struct sigaction	sa_sigquit_ch;
+
+	sa_sigint_ch.sa_handler = &handle_sig_child;
+    sa_sigquit_ch.sa_handler = &handle_sig_child;
+    sigaction(SIGINT, &sa_sigint_ch, NULL);
+    sigaction(SIGQUIT, &sa_sigquit_ch, NULL);
+	return (0);
+}
+*/
 
 // CTRL + C sends SIGINT
 // CTRL + \ sends SIGQUIT

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:06:01 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/07 17:01:08 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:48:42 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	exec_if_builtin(t_data *data, int i)
 	if ((ft_strncmp(data->cmd_table[i][0], "unset", 5)) == 0)
 		return (1);
 	if ((ft_strncmp(data->cmd_table[i][0], "env", 3)) == 0)
-		return (1);
+	{
+		return (builtin_env(data));
+	}
 	// if ((ft_strncmp(data->cmd_table[i][0], "exit", 4)) == 0)
 	// 	return (1);
 	return (0);

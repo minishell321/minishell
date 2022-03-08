@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/07 17:01:43 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/08 17:49:57 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,16 @@ typedef struct s_token
 	struct s_token	*next;
 }				t_token;
 
+typedef struct s_env
+{
+	char	*variable;
+	char	*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_data
 {
+	t_env	*environment;
 	char	*env_paths;
 	// pointer to envp PATH no free needed?
 	char	**cmd_paths;
@@ -76,10 +84,12 @@ typedef struct s_data
 // 	t_token	*next;
 // };
 
+int		local_env(t_data *data, char **envp);
 int		find_path(t_data *data, char **envp);
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
 int		handle_sigs(void);
+int		handle_sigs_child(void);
 int		exec_cmd(t_data *data, char **envp);
 int		check_command(char *command_buf);
 int		find_token(t_data *data, char *cmd_str);
@@ -119,5 +129,6 @@ int	exec_if_builtin(t_data *data, int i);
 int	builtin_echo(char **argv, int fd_output);
 int	builtin_cd(char **arg);
 int	builtin_pwd(char **arg, int fd_output);
+int	builtin_env(t_data *data);
 
 #endif
