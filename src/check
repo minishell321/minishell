@@ -1,0 +1,63 @@
+int	exec_cmd(t_data *data, char **envp)
+{
+	int	i;
+	int has_built;
+
+	i = 0;
+	has_built = 0;
+	if (check_if_builtin(data, i))
+	{
+		printf("IS BUILTIN\n");
+		// redirection_handler(data, i);	
+		// if (pipe_handler(data, i))
+		// {
+		// 	printf("PIPE ERR IN MAIN");
+		// 	return(1);
+		// }
+		if (exec_if_builtin(data, 0))
+		{
+			return (1);
+		}
+
+		i++;
+		has_built++;
+	}
+	printf("FINISHED EXEC_BUILTINS\n");
+	
+	while (i < data->num_of_pipe + 1)
+	{
+		data->process_ids[i] = fork();
+		
+		if (data->process_ids[i] == -1)
+			return (1);
+		if (data->process_ids[i] == 0)
+		{
+			redirection_handler(data, i);
+			printf("passe here, i = %d\n", i);
+			printf("number of pipes = %d\n", data->num_of_pipe);
+			if (pipe_handler(data, i))
+			{
+				printf("PIPE ERR IN CHILD");
+				exit (1);
+			}
+			if (get_cmd(data, i))
+				exit (1);
+			if (execve(data->cmd, data->cmd_table[i], envp))
+			{
+				ft_putstr_fd("Error execve\n", 2);
+				exit (1);
+			}
+		}
+		i++;	
+	}
+	if (close_pipe_fds(data))
+		return (1);
+	if (wait_all_children(data, has_built))
+		return (1);
+	// if (data->fd_new_input != -1)
+	// 	close(data->fd_new_input);
+	// if (data->fd_new_output != -1)
+	// 	close(data->fd_new_output);
+	printf("FINISHED EXEC_CMD\n");
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 07:41:16 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 07:50:55 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,31 @@ int	exec_cmd(t_data *data, char **envp)
 	while (i < data->num_of_pipe + 1)
 	{
 		data->process_ids[i] = fork();
+		printf("BEFORE pid = %d\n", getpid());
+		
 		if (data->process_ids[i] == -1)
 			return (1);
-		printf("forked\n");
 		if (data->process_ids[i] == 0)
 		{
 			redirection_handler(data, i);
-		//	handle_sigs_child();
 			if (pipe_handler(data, i))
-				return(1);
+			{
+				printf("PIPE ERR IN CHILD");
+				exit (1);
+			}
 			if (get_cmd(data, i))
-				return (1);
-
-			printf("Goes here\n");
+			{
+				printf("error get_cmd");
+				exit (1);
+			}
+			printf("pid = %d\n", getpid());
 			if (execve(data->cmd, data->cmd_table[i], envp))
 			{
-			//	ft_putstr_fd("Error execve\n", 2);
-				perror("Error execve");
-				return (1);
+				ft_putstr_fd("Error execve\n", 2);
+				// exit (1);
 			}
 		}
-		i++;
+		i++;	
 	}
 	printf("Goes here, main\n");
 	
