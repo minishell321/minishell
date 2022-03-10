@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/08 15:58:51 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/10 08:27:10 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 // Captures the sigint and correctly displays a new prompt but need to handle the display of ^C which should not appear
 void handle_sigint(int sig)
 {
+	// if (data->waitpid_res == 0)
+	// {
+	// write(1, "\n", 1);
+	// rl_replace_line("", 0);
+	// rl_on_new_line();
+	// }
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -57,7 +63,7 @@ int	handle_sigs_child(void)
 
 // CTRL + C sends SIGINT
 // CTRL + \ sends SIGQUIT
-int	handle_sigs(void)
+int	handle_sigs(t_data *data)
 {
 	struct termios		term;
 	struct sigaction	sa_sigint;

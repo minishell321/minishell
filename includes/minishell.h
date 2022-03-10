@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 07:31:45 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 08:28:29 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 // for handling terminal attributes
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <termios.h>
 # include <string.h>
 # include "../libft/libft.h"
@@ -71,6 +73,7 @@ typedef struct s_data
 	//free in free_data
 	int		*process_ids;
 	//free in free_data
+	int		waitpid_res;
 	t_token	*token_stack;
 	// free just after cmd_table is created in find_token
 	char	***cmd_table;
@@ -88,7 +91,7 @@ int		local_env(t_data *data, char **envp);
 int		find_path(t_data *data, char **envp);
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
-int		handle_sigs(void);
+int		handle_sigs(t_data *data);
 int		handle_sigs_child(void);
 int		exec_cmd(t_data *data, char **envp);
 int		check_command(char *command_buf);

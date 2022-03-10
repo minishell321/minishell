@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 07:57:47 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 08:02:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	get_cmd(t_data *data, int i)
 	paths = data->cmd_paths;
 	while (*paths)
 	{
-		printf("get_cmd\n");
 		tmp = ft_strjoin(*paths, "/");
 		command = ft_strjoin(tmp, data->cmd_table[i][0]);
 		free(tmp);

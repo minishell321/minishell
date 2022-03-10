@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 07:50:55 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 08:30:56 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ static int	redirection_handler(t_data *data, int i)
 static int	wait_all_children(t_data *data)
 {
 	int	i;
-	int	res;
+	// int	res;
 
 	i = 0;
 	while (i <= (data->num_of_pipe))
 	{
-		res = waitpid(data->process_ids[i], NULL, 0);
+		// res = waitpid(data->process_ids[i], NULL, 0);
+		data->waitpid_res = waitpid(data->process_ids[i], NULL, WIFSIGNALED);
 		printf("waited for %d\n", res);
 		if (res == -1)
 		{
@@ -58,8 +59,6 @@ int	exec_cmd(t_data *data, char **envp)
 	while (i < data->num_of_pipe + 1)
 	{
 		data->process_ids[i] = fork();
-		printf("BEFORE pid = %d\n", getpid());
-		
 		if (data->process_ids[i] == -1)
 			return (1);
 		if (data->process_ids[i] == 0)
