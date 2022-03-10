@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/10 08:19:35 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 10:05:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,11 @@ int	init_data(t_data *data, char **envp)
 	return (0);
 }
 
-// int	init_env(t_data *data, char **envp)
-// {
-// 	data->environment = 0;
-// 	if (local_env(data, envp))
-// 		return (1);
-// 	data->env_paths = 0;
-// 	if (find_path(data, envp))
-// 		return (1);
-// 	data->cmd_paths = ft_split(data->env_paths, ':');
-// 	if (data->cmd_paths == NULL)
-// 	{
-// 		ft_putstr_fd("Error, split env_paths\n", 2);
-// 		return (1);
-// 	}
-// 	data->cmd_table = 0;
-// 	return (0);
-// }
-
 int	init_env(t_data *data, char **envp)
 {
+	data->environment = 0;
+	if (local_env(data, envp))
+		return (1);
 	data->env_paths = 0;
 	if (find_path(data, envp))
 		return (1);
@@ -92,3 +77,18 @@ int	init_env(t_data *data, char **envp)
 	data->cmd_table = 0;
 	return (0);
 }
+
+// int	init_env(t_data *data, char **envp)
+// {
+// 	data->env_paths = 0;
+// 	if (find_path(data, envp))
+// 		return (1);
+// 	data->cmd_paths = ft_split(data->env_paths, ':');
+// 	if (data->cmd_paths == NULL)
+// 	{
+// 		ft_putstr_fd("Error, split env_paths\n", 2);
+// 		return (1);
+// 	}
+// 	data->cmd_table = 0;
+// 	return (0);
+// }

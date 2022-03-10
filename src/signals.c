@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/10 08:27:10 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 08:34:32 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	handle_sigs_child(void)
 
 // CTRL + C sends SIGINT
 // CTRL + \ sends SIGQUIT
-int	handle_sigs(t_data *data)
+int	handle_sigs(void)
 {
 	struct termios		term;
 	struct sigaction	sa_sigint;

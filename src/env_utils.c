@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:35:33 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/08 17:49:05 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/10 10:05:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int local_env(t_data *data, char **envp)
 	}
 
 //	disp_env(data);
-	return (1);
+	return (0);
 }

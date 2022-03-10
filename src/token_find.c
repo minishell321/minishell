@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/05 09:13:41 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 09:44:09 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	find_token(t_data *data, char *cmd_str)
 			if (redir_out(data, cmd_str + i, &i))
 				break;
 		}
-		else if (cmd_str[i] == '$')
-		{
-			//do something
-		}
+		// else if (cmd_str[i] == '$')
+		// {
+		// 	//do something
+		// }
 		else if (cmd_str[i] != ' ')
 		{
 			if (create_token(data, send_unquoted_string(cmd_str + i, &i), type))

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 08:30:56 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 09:03:43 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,18 @@ static int	redirection_handler(t_data *data, int i)
 static int	wait_all_children(t_data *data)
 {
 	int	i;
-	// int	res;
+	int status;
+	int	res;
 
 	i = 0;
+	status = 0;
 	while (i <= (data->num_of_pipe))
 	{
 		// res = waitpid(data->process_ids[i], NULL, 0);
-		data->waitpid_res = waitpid(data->process_ids[i], NULL, WIFSIGNALED);
-		printf("waited for %d\n", res);
+		res = waitpid(data->process_ids[i], &status, 0);
+		data->waitpid_res = WIFSIGNALED(status);
+		
+		printf("waited for %d\nwaitpid_res = %d\n", res, data->waitpid_res);
 		if (res == -1)
 		{
 			ft_putstr_fd("Error, waitpid\n", 2);
@@ -83,8 +87,6 @@ int	exec_cmd(t_data *data, char **envp)
 		}
 		i++;	
 	}
-	printf("Goes here, main\n");
-	
 	if (close_pipe_fds(data))
 		return (1);
 	if (wait_all_children(data))
