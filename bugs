@@ -24,3 +24,5 @@ init_env error ok just local_env(env_utils) return always 1.
 changer command_buf or new_str?
 
 Attention la commande exit* marche, a regarder
+
+Remplacer tout les messages d'erreur en utilisant la fonction perror

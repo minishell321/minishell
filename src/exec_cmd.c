@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 11:11:24 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 12:07:47 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,21 @@ static int	wait_all_children(t_data *data)
 	{
 		res = waitpid(data->process_ids[i], NULL, WUNTRACED);
 		// res = waitpid(data->process_ids[i], &status, WUNTRACED);
-		// if (WIFSIGNALED(status))
-		// {
-		// 	if (WTERMSIG(status) == SIGINT)
-		// 	{
-		// 		ft_putstr_fd("SIGINT terminated child\n", 2);
-		// 		rl_replace_line("", 0);
-		// //		rl_on_new_line();
-		// //		rl_redisplay();
-		// 	}
-		// 	else if (WTERMSIG(status) == SIGQUIT)
-		// 	{
-		// 		ft_putstr_fd("^\\Quit: 3\n", 2);
-		// 	}
-		// }
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT)
+			{
+				ft_putstr_fd("SIGINT terminated child\n", 2);
+				ft_putstr_fd("^C\n", 2);
+		//		rl_replace_line("", 0);
+		//		rl_on_new_line();
+		//		rl_redisplay();
+			}
+		if (WTERMSIG(status) == SIGQUIT)
+		{
+			ft_putstr_fd("^\\Quit: 3\n", 2);
+		}
+	}
 	//	while (!WIFSIGNALED(status) && !WIFEXITED(status))
 		while (res == -1)
 		{
@@ -91,17 +92,23 @@ static int	wait_all_children(t_data *data)
 			if (WIFSIGNALED(status))
 			{
 				printf("***HERE\n");
+				if (WTERMSIG(status) == SIGQUIT)
+				{
+					printf("SIGQUIT detected\n");
+
+				}
 				if (WTERMSIG(status) == SIGINT)
 				{
-				//	ft_putstr_fd("SIGINT terminated child\n", 2);
+					ft_putstr_fd("SIGINT terminated child\n", 2);
+					ft_putstr_fd("^C\n", 2);
 					// rl_replace_line("", 0);
 			//		rl_on_new_line();
 			//		rl_redisplay();
 				}
-				else
-				{
-				//	ft_putstr_fd("Quit: 3\n", 2);	
-				}
+			//	else
+			//	{
+				//	ft_putstr_fd("^\\Quit: 3\n", 2);	
+			//	}
 				// else if (WTERMSIG(status) == SIGQUIT)
 				//{
 				//	ft_putstr_fd("Quit: 3\n", 2);
