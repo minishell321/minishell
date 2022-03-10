@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/10 08:34:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 10:32:12 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void handle_sigint(int sig)
 
 	// return prompt on a new line
 }
-/*
 void handle_sig_child(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "^C", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
+		// write(1, "^C", 1);
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
@@ -59,7 +58,7 @@ int	handle_sigs_child(void)
     sigaction(SIGQUIT, &sa_sigquit_ch, NULL);
 	return (0);
 }
-*/
+
 
 // CTRL + C sends SIGINT
 // CTRL + \ sends SIGQUIT

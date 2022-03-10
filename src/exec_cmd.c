@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 09:03:43 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 10:43:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	wait_all_children(t_data *data)
 	while (i <= (data->num_of_pipe))
 	{
 		// res = waitpid(data->process_ids[i], NULL, 0);
-		res = waitpid(data->process_ids[i], &status, 0);
+		res = waitpid(data->process_ids[i], &status, WUNTRACED);
 		data->waitpid_res = WIFSIGNALED(status);
 		
 		printf("waited for %d\nwaitpid_res = %d\n", res, data->waitpid_res);
@@ -60,6 +60,7 @@ int	exec_cmd(t_data *data, char **envp)
 	int	i;
 
 	i = 0;
+	handle_sigs_child();
 	while (i < data->num_of_pipe + 1)
 	{
 		data->process_ids[i] = fork();
