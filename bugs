@@ -22,3 +22,5 @@ l'instant". Je ne sais pas si c'est la cause du probleme mais c'est a addresser.
 init_env error ok just local_env(env_utils) return always 1.
 
 changer command_buf or new_str?
+
+Attention la commande exit* marche, a regarder

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 10:43:53 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 11:11:24 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,96 @@ static int	redirection_handler(t_data *data, int i)
 	return (0);
 }
 
+// static int	wait_all_children(t_data *data)
+// {
+// 	int	i;
+// 	int status;
+// 	int	res;
+
+// 	i = 0;
+// 	status = 0;
+// 	while (i <= (data->num_of_pipe))
+// 	{
+// 		// res = waitpid(data->process_ids[i], NULL, 0);
+// 		res = waitpid(data->process_ids[i], &status, WUNTRACED);
+// 		data->waitpid_res = WIFSIGNALED(status);
+		
+// 		printf("waited for %d\nwaitpid_res = %d\n", res, data->waitpid_res);
+// 		if (res == -1)
+// 		{
+// 			ft_putstr_fd("Error, waitpid\n", 2);
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+// 	printf("Waited for child....\n");
+// 	return (0);
+// }
+
 static int	wait_all_children(t_data *data)
 {
 	int	i;
-	int status;
 	int	res;
+	int status;
 
 	i = 0;
+	res = 0;
 	status = 0;
-	while (i <= (data->num_of_pipe))
+	while (i <= data->num_of_pipe)
 	{
-		// res = waitpid(data->process_ids[i], NULL, 0);
-		res = waitpid(data->process_ids[i], &status, WUNTRACED);
-		data->waitpid_res = WIFSIGNALED(status);
-		
-		printf("waited for %d\nwaitpid_res = %d\n", res, data->waitpid_res);
+		res = waitpid(data->process_ids[i], NULL, WUNTRACED);
+		// res = waitpid(data->process_ids[i], &status, WUNTRACED);
+		// if (WIFSIGNALED(status))
+		// {
+		// 	if (WTERMSIG(status) == SIGINT)
+		// 	{
+		// 		ft_putstr_fd("SIGINT terminated child\n", 2);
+		// 		rl_replace_line("", 0);
+		// //		rl_on_new_line();
+		// //		rl_redisplay();
+		// 	}
+		// 	else if (WTERMSIG(status) == SIGQUIT)
+		// 	{
+		// 		ft_putstr_fd("^\\Quit: 3\n", 2);
+		// 	}
+		// }
+	//	while (!WIFSIGNALED(status) && !WIFEXITED(status))
+		while (res == -1)
+		{
+		//	printf("Here\n");
+			res = waitpid(data->process_ids[i], &status, WUNTRACED);
+			printf("res: %d\n", res);
+			if (WIFSIGNALED(status))
+			{
+				printf("***HERE\n");
+				if (WTERMSIG(status) == SIGINT)
+				{
+				//	ft_putstr_fd("SIGINT terminated child\n", 2);
+					// rl_replace_line("", 0);
+			//		rl_on_new_line();
+			//		rl_redisplay();
+				}
+				else
+				{
+				//	ft_putstr_fd("Quit: 3\n", 2);	
+				}
+				// else if (WTERMSIG(status) == SIGQUIT)
+				//{
+				//	ft_putstr_fd("Quit: 3\n", 2);
+				//}
+			}
+		}
 		if (res == -1)
 		{
-			ft_putstr_fd("Error, waitpid\n", 2);
+			// ft_putstr_fd("Error, waitpid\n", 2);
+			perror("minishell: ");
 			return (1);
 		}
 		i++;
 	}
-	printf("Waited for child....\n");
 	return (0);
 }
+
 
 int	exec_cmd(t_data *data, char **envp)
 {

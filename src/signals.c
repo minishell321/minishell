@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/10 10:32:12 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 11:12:36 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void handle_sig_child(int sig)
 {
 	if (sig == SIGINT)
 	{
+		ft_putstr_fd("^C\n", 2);
 		// write(1, "^C", 1);
 		// rl_replace_line("", 0);
 		// rl_on_new_line();
@@ -39,9 +40,10 @@ void handle_sig_child(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
-		write(1, "Quit: 3\n", 8);
-		rl_replace_line("", 0);
-		rl_on_new_line();
+		ft_putstr_fd("^\\Quit: 3\n", 2);
+	//	write(1, "^\\Quit: 3\n", 8);
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
 		rl_redisplay();
 	}
 
