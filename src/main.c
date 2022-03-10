@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/08 15:59:22 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/10 07:30:47 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,20 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			}
 			if (token_handler(data))
 				continue;
-			if (exec_if_builtin(data, 0)) // builtin cmds must be exec without fork (!!! called with 0 as value for i - CHECK)
-				continue;
-			if (exec_cmd(data, envp))
-				continue;
-			//  pid = fork();
-			//  if (pid < 0)
-			//  	exit(1);
-			//  if (pid == 0)
-			//  {
-			//  //	data.cmd_args = ft_split("ls -l", ' ');
-			//  	data->cmd_args = ft_split(command_buf, ' ');
-			//  //	data->cmd = get_cmd(data->cmd_paths, data->cmd_args[0]);
-			//  	get_cmd(data);
-			//  	execve(data->cmd, data->cmd_args, envp);
-			//  }
-			//  waitpid(pid, NULL, 0);
+			if (check_if_builtin(data))
+			{
+				printf("IS BUILTIN\n");
+				// TODO, check error for builtins, ex if have a pipe.
+				if (exec_if_builtin(data))
+					continue;
+				close_fds(data);
+			}
+			else
+			{
+				printf("IS EXEC_CMD\n");
+				if (exec_cmd(data, envp))
+					continue;
+			}
 			if (data)
 				free_data(data);
 		}

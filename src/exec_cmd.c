@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/08 16:00:15 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/10 07:07:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,29 +87,14 @@ int	exec_cmd(t_data *data, char **envp)
 		//	handle_sigs_child();
 			if (pipe_handler(data, i))
 				return(1);
-		/*	if (exec_if_builtin(data, i))
+			if (get_cmd(data, i))
+			return (1);
+			if (execve(data->cmd, data->cmd_table[i], envp))
 			{
-				// a revoir le close pipe, non systematique pour l'instant
-				if (data->num_of_pipe > 0)
-					close(data->pipe_fds[i][1]);
-				if (data->fd_input != 0)
-					close(data->fd_input);
-				if (data->fd_output != 1)
-					close(data->fd_output);
-				return (0);
-			}
-		*/	else
-			{
-				if (get_cmd(data, i))
+			//	ft_putstr_fd("Error execve\n", 2);
+				perror("Error execve");
 				return (1);
-				if (execve(data->cmd, data->cmd_table[i], envp))
-				{
-				//	ft_putstr_fd("Error execve\n", 2);
-					perror("Error execve");
-					return (1);
-				}
 			}
-			
 		}
 		i++;
 	}

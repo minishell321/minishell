@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/05 11:23:47 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 07:16:07 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,12 @@ void	free_token_stack(t_data *data)
 		}
 		free(tmp);
 	}
+}
+
+void	close_fds(t_data *data)
+{
+	if (data->fd_input != 0)
+		close(data->fd_input);
+	if (data->fd_output != 1)
+		close(data->fd_output);
 }
