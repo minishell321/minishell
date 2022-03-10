@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:06:01 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 07:09:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 17:44:33 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ int	exec_if_builtin(t_data *data)
 		return (builtin_pwd(data->cmd_table[0], data->fd_output));
 	}
 	if ((ft_strncmp(data->cmd_table[0][0], "export", 6)) == 0)
-		return (1);
+	{
+		return (builtin_export(data));
+	}
 	if ((ft_strncmp(data->cmd_table[0][0], "unset", 5)) == 0)
-		return (1);
+	{
+		return (builtin_unset(data));
+	}
 	if ((ft_strncmp(data->cmd_table[0][0], "env", 3)) == 0)
 	{
 		return (builtin_env(data));

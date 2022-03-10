@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 09:02:33 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/10 17:43:15 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,7 @@ int	builtin_echo(char **argv, int fd_output);
 int	builtin_cd(char **arg);
 int	builtin_pwd(char **arg, int fd_output);
 int	builtin_env(t_data *data);
+int	builtin_export(t_data *data);
+int	builtin_unset(t_data *data);
 
 #endif
