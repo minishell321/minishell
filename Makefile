@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/11 07:52:08 by rburri           ###   ########.fr        #
+#    Updated: 2022/03/11 10:48:28 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ $(shell mkdir -p $(BIN))
 SOURCE = 	$(SRC)/main.c\
 			$(SRC)/path.c\
 			$(SRC)/redir1.c\
+			$(SRC)/redir2.c\
 			$(SRC)/signals.c\
 			$(SRC)/init.c\
 			$(SRC)/free_all.c\

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/11 09:21:49 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/11 11:35:56 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,16 +112,15 @@ int		init_env(t_data *data, char **envp);
 int		init_pipe_fds(t_data *data);
 int		init_pids_arr(t_data *data);
 // redir
+int redir(t_data *data, char *str, int *i);
 int get_fd_out_append(t_data *data, char *str, int *i);
 int get_fd_here_doc(t_data *data, char *str, int *i);
 int get_fd_out(t_data *data, char *str, int *i);
 int get_fd_in(t_data *data, char *str, int *i);
-int	redir_out(t_data *data, char *str, int *i);
-int	redir_in(t_data *data, char *str, int *i);
 // token_utils
-int create_token(t_data *data, char *str, int type);
-char *send_quoted_string(char *str, int *i);
-char *send_unquoted_string(char *str, int *i);
+int create_token(t_data *data, char *str, int *type);
+char *send_quoted_str(char *str, int *i);
+char *send_unquoted_str(char *str, int *i);
 // token_handler
 int token_handler(t_data *data);
 // cmd_table

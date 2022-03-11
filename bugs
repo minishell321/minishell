@@ -18,6 +18,28 @@ un commentaire dans le fichier exec_cmd indiquant que "le close pipe et non-syst
 l'instant". Je ne sais pas si c'est la cause du probleme mais c'est a addresser.
 
 
-Attention la commande exit* marche, a regarder
-
 Remplacer tout les messages d'erreur en utilisant la fonction perror
+
+testcli> cat ehfds | cat -e | grep $ > end
+CMD[0]
+cmd_table[0] = cat
+cmd_table[1] = ehfds
+CMD[1]
+cmd_table[0] = cat
+cmd_table[1] = -e
+CMD[2]
+cmd_table[0] = grep
+cmd_table[1] = rburri
+cmd_table[2] = 
+IS EXEC_CMD
+grep: : No such file or directory
+testcli> cat ehfds 
+CMD[0]
+cmd_table[0] = cat
+cmd_table[1] = ehfds
+cmd_table[2] = 
+IS EXEC_CMD
+pid = 3410
+hello 
+
+token_find bugs with space (take them as args)
