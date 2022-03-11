@@ -9,7 +9,6 @@ be ignored.
 	the hyphen (-) and increments the string position while spaces are found. This needs
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
-minishell se ferme apres 2 x Ctrl + C, normal?
 
 Il y a des bugs (ex. le comportement de exit ou CTRL+C ou CTRL+D) que j'ai remarque apres avoir
 lance plusieur commande de type builtin_cd. Il me semble que les bugs provienent non pas de la
@@ -18,10 +17,6 @@ maniere que l'on gere actuellement les pipes/forks lors d'un appelle d'une fonct
 un commentaire dans le fichier exec_cmd indiquant que "le close pipe et non-systematique pour
 l'instant". Je ne sais pas si c'est la cause du probleme mais c'est a addresser.
 
-
-init_env error ok just local_env(env_utils) return always 1.
-
-changer command_buf or new_str?
 
 Attention la commande exit* marche, a regarder
 

@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/10 17:43:44 by vbotev           ###   ########.fr        #
+#    Updated: 2022/03/11 07:52:08 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/env_utils.c\
 			$(SRC)/builtin_export.c\
 			$(SRC)/builtin_unset.c\
-			$(SRC)/exec_if_builtin.c
+			$(SRC)/exec_if_builtin.c\
+			$(SRC)/replace_var_env.c\
 			
 
 		

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 17:43:15 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/11 09:21:49 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,9 @@ int cmd_table(t_data *data);
 
 // included in order to make rl_replace_line work
 void	rl_replace_line(const char *, int);
+// replace_var_env
+char	*find_dollars(char *command_buf, t_data *data);
+
 //builtins
 int	check_if_builtin(t_data *data);
 int	exec_if_builtin(t_data *data);
