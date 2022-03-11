@@ -82,28 +82,3 @@ char	*send_unquoted_str(char *str, int *i)
 	*i += (k);
 	return (new_str);
 }
-
-// void print_token_stack(t_data *data)
-// {
-// 	t_token *tmp;
-// 	tmp = data->token_stack;
-// 	int j = 0;
-// 	while (tmp)
-// 	{
-// 		printf("cmd[%d]: %s\n", j, tmp->str);
-// 		if (tmp->args)
-// 		{
-// 			t_token *tmp_arg;
-// 			tmp_arg = tmp->args;
-// 			int i = 0;
-// 			while (tmp_arg)
-// 			{
-// 				printf("arg[%d]: %s\n", i, tmp_arg->str);
-// 				tmp_arg = tmp_arg->next;
-// 				i++;
-// 			}
-// 		}
-// 		tmp = tmp->next;
-// 		j++;
-// 	}
-// }

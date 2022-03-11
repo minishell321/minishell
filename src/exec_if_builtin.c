@@ -38,8 +38,6 @@ int	exec_if_builtin(t_data *data)
 	{
 		return (builtin_env(data));
 	}
-	// if ((ft_strncmp(data->cmd_table[0][0], "exit", 4)) == 0)
-	// 	return (1);
 	return (0);
 }
 
@@ -57,7 +55,5 @@ int	check_if_builtin(t_data *data)
 		return (1);
 	if ((ft_strncmp(data->cmd_table[0][0], "env", 3)) == 0)
 		return (1);
-	// if ((ft_strncmp(data->cmd_table[0][0], "exit", 4)) == 0)
-	// 	return (1);
 	return (0);
 }
