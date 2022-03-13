@@ -6,27 +6,52 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 17:29:40 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 17:37:37 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	redirection_handler(t_data *data, int i)
+static int	redir_handler(t_data *data, int i)
 {
 	if ((i == 0) && (data->fd_input != 0))
 	{
 		if (dup2(data->fd_input, STDIN_FILENO) == -1)
+		{
+			ft_putstr_fd("redir_handler error\n", 2);
 			return (1);
+		}
 		close(data->fd_input);
 	}
 	if ((i == data->num_of_pipe) && (data->fd_output != 1))
 	{
 		if (dup2(data->fd_output, STDOUT_FILENO) == -1)
+		{
+			ft_putstr_fd("redir_handler error\n", 2);
 			return (1);
+		}
 		close(data->fd_output);
 	}
 	return (0);
+}
+
+static void child_handler(t_data *data, char **envp, int i)
+{
+	if (redir_handler(data, i))
+		exit (1);
+	if (pipe_handler(data, i))
+		exit (1);
+	if (get_cmd(data, i))
+	{
+		ft_putstr_fd("Get_cmd error\n", 2);
+		exit (1);
+	}
+	printf("pid = %d\n", getpid());
+	if (execve(data->cmd, data->cmd_table[i], envp))
+	{
+		perror("execve");
+		exit (1);
+	}
 }
 
 // static int	wait_all_children(t_data *data)
@@ -136,25 +161,7 @@ int	exec_cmd(t_data *data, char **envp)
 		if (data->process_ids[i] == -1)
 			return (1);
 		if (data->process_ids[i] == 0)
-		{
-			redirection_handler(data, i);
-			if (pipe_handler(data, i))
-			{
-				printf("PIPE ERR IN CHILD\n");
-				exit (1);
-			}
-			if (get_cmd(data, i))
-			{
-				printf("error get_cmd\n");
-				exit (1);
-			}
-			printf("pid = %d\n", getpid());
-			if (execve(data->cmd, data->cmd_table[i], envp))
-			{
-				ft_putstr_fd("Error execve\n", 2);
-				// exit (1);
-			}
-		}
+			child_handler(data, envp, i);
 		i++;	
 	}
 	if (close_pipe_fds(data))

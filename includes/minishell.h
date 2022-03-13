@@ -99,7 +99,6 @@ int		handle_sigs_child(void);
 int		exec_cmd(t_data *data, char **envp);
 int		check_command(char *command_buf);
 int		find_token(t_data *data, char *cmd_str);
-// void	print_token_stack(t_data *data);
 // Free_all
 int		free_env(t_data *data);
 int		free_data(t_data *data);

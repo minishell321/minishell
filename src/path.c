@@ -36,7 +36,6 @@ int	get_cmd(t_data *data, int i)
 		data->cmd = ft_strdup(data->cmd_table[i][0]);
 		return (0);
 	}
-
 	paths = data->cmd_paths;
 	while (*paths)
 	{
