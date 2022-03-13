@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:06:01 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 17:44:33 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/13 15:12:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int	exec_if_builtin(t_data *data)
 {
+	if (data->num_of_pipe > 0)
+	{
+		ft_putstr_fd("Error, pipe with built-ins no supported\n", 2);
+		return (1);
+	}
 	if ((ft_strncmp(data->cmd_table[0][0], "echo", 4)) == 0)
 	{
 		return (builtin_echo(data->cmd_table[0], data->fd_output));
@@ -38,8 +43,6 @@ int	exec_if_builtin(t_data *data)
 	{
 		return (builtin_env(data));
 	}
-	// if ((ft_strncmp(data->cmd_table[0][0], "exit", 4)) == 0)
-	// 	return (1);
 	return (0);
 }
 
@@ -57,7 +60,5 @@ int	check_if_builtin(t_data *data)
 		return (1);
 	if ((ft_strncmp(data->cmd_table[0][0], "env", 3)) == 0)
 		return (1);
-	// if ((ft_strncmp(data->cmd_table[0][0], "exit", 4)) == 0)
-	// 	return (1);
 	return (0);
 }

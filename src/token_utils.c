@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 08:31:07 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/11 11:36:12 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 14:10:26 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*send_unquoted_str(char *str, int *i)
 		j++;
 	}
 	new_str[j] = '\0';
+	while (str[k] == ' ')
+		k++;
 	*i += (k);
 	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/11 09:42:15 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 15:06:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*replace(char *command_buf, char *env, int start, int finish)
 	return (tmp1);
 }
 
-char	*find_dollars(char *command_buf, t_data *data)
+char	*find_dollars(char *cmd_buf, t_data *data)
 {
 	char	*env;
 	int		single_quote;
@@ -65,17 +65,20 @@ char	*find_dollars(char *command_buf, t_data *data)
 	i = 0;
 	env_finish = 0;
 	single_quote = 0;
-	while (command_buf[i])
+	while (cmd_buf[i])
 	{
-		if (command_buf[i] == '\'')
+		if (cmd_buf[i] == '\'')
 			single_quote++;
-		if (command_buf[i] == '$' && single_quote % 2 == 0)
+		if (cmd_buf[i] == '$' && single_quote % 2 == 0)
 		{
-			env = find_env(command_buf + i, data, &env_finish);
-			command_buf = replace(command_buf, env, i, env_finish);
+			if (cmd_buf[i + 1] == '?' && (cmd_buf[i + 2] == ' ' || cmd_buf[ i + 2] == '\0'))
+				env = ft_itoa(data->exit_code);
+			else
+				env = find_env(cmd_buf + i, data, &env_finish);
+			cmd_buf = replace(cmd_buf, env, i, env_finish);
 			free(env);
 		}
 		i++;
 	}
-	return (command_buf);
+	return (cmd_buf);
 }

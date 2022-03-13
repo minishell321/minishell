@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/11 11:20:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 15:13:11 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			if (check_if_builtin(data))
 			{
 				printf("IS BUILTIN\n");
-				// TODO, check error for builtins, ex if have a pipe.
 				if (exec_if_builtin(data))
 					continue;
 				close_fds(data);
