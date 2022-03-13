@@ -49,7 +49,7 @@ int	pipe_handler(t_data *data, int i)
 			perror("dup2");
 			return (1);
 		}
-		close(data->pipe_fds[i][1]);
+		if (close(data->pipe_fds[i][1]))
 		{
 			perror("close pipe");
 			return (1);
@@ -62,7 +62,7 @@ int	pipe_handler(t_data *data, int i)
 			perror("dup2");
 			return (1);
 		}
-		close(data->pipe_fds[i - 1][0]);
+		if (close(data->pipe_fds[i - 1][0]))
 		{
 			perror("close pipe");
 			return (1);

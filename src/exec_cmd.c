@@ -42,10 +42,7 @@ static void child_handler(t_data *data, char **envp, int i)
 	if (pipe_handler(data, i))
 		exit (1);
 	if (get_cmd(data, i))
-	{
-		ft_putstr_fd("Get_cmd error\n", 2);
 		exit (1);
-	}
 	printf("pid = %d\n", getpid());
 	if (execve(data->cmd, data->cmd_table[i], envp))
 	{
@@ -109,13 +106,15 @@ static int	wait_all_children(t_data *data)
 	// 	}
 	// }
 	//	while (!WIFSIGNALED(status) && !WIFEXITED(status))
-	
+		printf("status = %d\n", status);
+		data->exit_code = WEXITSTATUS(status);
+		printf("WEXITSTATUS = %d\n", data->exit_code);
 		while (res == -1)
 		{
 		//	printf("Here\n");
 			res = waitpid(data->process_ids[i], &status, WUNTRACED);
 			// printf("res: %d\n", res);
-			data->exit_code = status;
+			data->exit_code = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
 			{
 				// printf("***HERE\n");
@@ -134,8 +133,7 @@ static int	wait_all_children(t_data *data)
 				}
 			}
 		}
-		data->exit_code = status;
-		printf("status = %d\n", status);
+		printf("errno = %d\n", errno);
 		
 		// if (res == -1)
 		// {
