@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 15:44:19 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 17:29:40 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,13 @@ static int	wait_all_children(t_data *data)
 	// 	}
 	// }
 	//	while (!WIFSIGNALED(status) && !WIFEXITED(status))
+	
 		while (res == -1)
 		{
 		//	printf("Here\n");
 			res = waitpid(data->process_ids[i], &status, WUNTRACED);
 			// printf("res: %d\n", res);
-			data->waitpid_res = status;
+			data->exit_code = status;
 			if (WIFSIGNALED(status))
 			{
 				// printf("***HERE\n");
@@ -108,7 +109,8 @@ static int	wait_all_children(t_data *data)
 				}
 			}
 		}
-		data->waitpid_res = status;
+		data->exit_code = status;
+		printf("status = %d\n", status);
 		
 		// if (res == -1)
 		// {
@@ -138,12 +140,12 @@ int	exec_cmd(t_data *data, char **envp)
 			redirection_handler(data, i);
 			if (pipe_handler(data, i))
 			{
-				printf("PIPE ERR IN CHILD");
+				printf("PIPE ERR IN CHILD\n");
 				exit (1);
 			}
 			if (get_cmd(data, i))
 			{
-				printf("error get_cmd");
+				printf("error get_cmd\n");
 				exit (1);
 			}
 			printf("pid = %d\n", getpid());

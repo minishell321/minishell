@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 15:08:05 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 17:28:56 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct s_data
 	//free in free_data
 	int		exit_code;
 	// no free needed
-	int		waitpid_res;
 	t_token	*token_stack;
 	// free just after cmd_table is created in find_token
 	char	***cmd_table;

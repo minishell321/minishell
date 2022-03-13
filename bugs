@@ -19,3 +19,7 @@ l'instant". Je ne sais pas si c'est la cause du probleme mais c'est a addresser.
 
 
 Remplacer tout les messages d'erreur en utilisant la fonction perror
+
+
+echo $? always print 0; WTF?
+no more but no good numbers; errno?

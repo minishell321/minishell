@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 15:06:39 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/13 17:20:48 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,16 @@ char	*find_dollars(char *cmd_buf, t_data *data)
 		if (cmd_buf[i] == '$' && single_quote % 2 == 0)
 		{
 			if (cmd_buf[i + 1] == '?' && (cmd_buf[i + 2] == ' ' || cmd_buf[ i + 2] == '\0'))
+			{
 				env = ft_itoa(data->exit_code);
+				env_finish += 2;
+				cmd_buf = replace(cmd_buf, env, i, env_finish);
+			}
 			else
+			{
 				env = find_env(cmd_buf + i, data, &env_finish);
-			cmd_buf = replace(cmd_buf, env, i, env_finish);
+				cmd_buf = replace(cmd_buf, env, i, env_finish);	
+			}
 			free(env);
 		}
 		i++;
