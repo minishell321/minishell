@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 08:58:09 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 09:45:28 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,31 @@ static char	*replace(char *command_buf, char *env, int start, int finish)
 	return (tmp1);
 }
 
-char	*find_dollars(char *cmd_buf, t_data *data)
+static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 {
 	char	*env;
+
+	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0'
+		|| cmd_buf[i + 1] == '\"')
+	{
+		env = ft_strdup("$");
+		*env_finish += 1;
+	}
+	else if (cmd_buf[i + 1] == '?'
+		&& (cmd_buf[i + 2] == ' ' || cmd_buf[i + 2] == '\0'))
+	{
+		env = ft_itoa(data->exit_code);
+		*env_finish += 2;
+	}
+	else
+		env = find_env(cmd_buf + i, data, env_finish);
+	cmd_buf = replace(cmd_buf, env, i, *env_finish);
+	free(env);
+	return (cmd_buf);
+}
+
+char	*find_dollars(char *cmd_buf, t_data *data)
+{
 	int		single_quote;
 	int		env_finish;
 	int		i;
@@ -70,39 +92,7 @@ char	*find_dollars(char *cmd_buf, t_data *data)
 		if (cmd_buf[i] == '\'')
 			single_quote++;
 		if (cmd_buf[i] == '$' && single_quote % 2 == 0)
-		{
-			printf("going in\n");
-			if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0' || cmd_buf[i + 1] == '\"')
-			{
-				printf("going in strdup $\n");
-
-				env = ft_strdup("$");
-				env_finish++;
-				cmd_buf = replace(cmd_buf, env, i, env_finish);
-				printf("cmd_buf: ***%s***\n", cmd_buf);
-			}
-			else if (cmd_buf[i + 1] == '?' && (cmd_buf[i + 2] == ' ' || cmd_buf[ i + 2] == '\0'))
-			{
-				printf("going in itoa\n");
-
-				env = ft_itoa(data->exit_code);
-				env_finish += 2;
-				cmd_buf = replace(cmd_buf, env, i, env_finish);
-				printf("cmd_buf: ***%s***\n", cmd_buf);
-
-			}
-			else
-			{
-				printf("going in else\n");
-
-				env = find_env(cmd_buf + i, data, &env_finish);
-				printf("env: ***%s***\n", env);
-				cmd_buf = replace(cmd_buf, env, i, env_finish);
-				printf("cmd_buf: ***%s***\n", cmd_buf);
-
-			}
-			free(env);
-		}
+			cmd_buf = find_replace(cmd_buf, data, &env_finish, i);
 		i++;
 	}
 	return (cmd_buf);
