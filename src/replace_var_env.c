@@ -24,18 +24,11 @@ static char	*find_env(char *str, t_data *data, int *env_finish)
 	tmp = data->environment;
 	while (str[i] != ' ' && str[i] != '\0')
 		i++;
-	printf("i = %d\n", i);
 	if (str[i - 1] == '\"')
-	{
-		printf("has double quotes\n");
 		j--;
-	}
-	printf("j = %d\n", j);
-
-	env = ft_substr(str, 1, ((i - j) - 1));
-	printf("env : ***%s***\n", env);
+	env = ft_substr(str, 1, ((i + j) - 1));
 	i = ft_strlen(env);
-	*env_finish += (i + 1 - j);
+	*env_finish += (i + j + 1);
 	while (tmp != 0)
 	{
 		if (ft_strncmp(env, tmp->variable, i) == 0)
@@ -82,11 +75,7 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 		*env_finish += 2;
 	}
 	else
-	{
-		printf("went in else\n");
 		env = find_env(cmd_buf + i, data, env_finish);
-		printf("env = ***%s***\n", env);
-	}
 	cmd_buf = replace(cmd_buf, env, i, *env_finish);
 	free(env);
 	return (cmd_buf);
