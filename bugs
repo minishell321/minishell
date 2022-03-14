@@ -10,8 +10,6 @@ be ignored.
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
 
-
-
 Remplacer tout les messages d'erreur en utilisant la fonction perror
 
 commented out -fsanitize=address, too many errors.
@@ -19,5 +17,4 @@ commented out -fsanitize=address, too many errors.
 test eval 14.03
 - How many global variables? why? Give a concrete example of why it feels mandatory or logical.
 - Test only spaces or tabs.
-- Execute exit command with or without arguments
 - Export environment variables, create new ones and replace old ones

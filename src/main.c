@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 07:20:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 10:13:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ static int check_exit(char *command_buf)
 
 	tmp = ft_strtrim(command_buf, " ");
 	i = ft_strlen(tmp);	
-	if (i == 4 && (!ft_strncmp(tmp, "exit", 4)))
+	if ((i == 4 && !ft_strncmp(tmp, "exit", 4)) || !ft_strncmp(tmp, "exit ", 5))
 	{
+		printf("exit\n");
 		free(tmp);	
 		return (1);
 	}
