@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:29:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/14 08:27:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 18:13:27 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	handle_paths(char **arg, char *cwd)
 	return (0);
 }
 
-int	handle_tilde_ext(char**arg, char *path)
+int	handle_tilde_ext(char **arg, char *path)
 {
 	char	*path2;
 
@@ -141,20 +141,37 @@ int	handle_symbols(char **arg, char *cwd)
 	return (0);
 }
 
-int	builtin_cd(char **arg)
+void update_pwd(t_data *data, char *cwd)
+{
+	t_env	*tmp;
+
+	tmp = data->environment;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->variable, "OLDPWD", ft_strlen("OLDPWD")) == 0
+				&& ft_strlen(tmp->variable) == ft_strlen("OLDPWD"))
+		{
+			free (tmp->value);
+			tmp->value = cwd;
+		}
+		else if (ft_strncmp(tmp->variable, "PWD", ft_strlen("PWD")) == 0
+				&& ft_strlen(tmp->variable) == ft_strlen("PWD"))
+		{
+			free (tmp->value);
+			tmp->value = getcwd(ft_strdup(cwd), 256);
+		}
+		tmp = tmp->next;
+	}
+}
+
+int	builtin_cd(t_data *data)
 {
 	char	*cwd;
+	char	**arg;
 
-	cwd = 0;
+	arg = data->cmd_table[0];
 	cwd = malloc(256 * sizeof(char));
-	if (cwd == 0)
-		return (1);
-	if (getcwd(cwd, 256) == NULL)
-	{
-		ft_putstr_fd("Error: getcwd\n", 2);
-		return (1);
-	}
-	if (arg[1] == 0 || arg[2] != 0)
+	if (cwd == 0 || arg[1] == 0 || arg[2] != 0 || getcwd(cwd, 256) == NULL)
 		return (1);
 	if ((*arg[1] == '.' && arg[1][1] == 0) || (*arg[1] == '~')
 		|| (*arg[1] == '.' && *(arg[1] + 1) == '.' && *(arg[1] + 2) == 0))
@@ -165,14 +182,12 @@ int	builtin_cd(char **arg)
 			return (1);
 		}
 	}
-	else
+	else if (handle_paths(arg, cwd))
 	{
-		if (handle_paths(arg, cwd))
-		{
-			free(cwd);
-			return (1);
-		}
+		free(cwd);
+		return (1);
 	}
-	free(cwd);
+	update_pwd(data, cwd);
+//	free(cwd);
 	return (0);
 }

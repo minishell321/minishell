@@ -23,3 +23,5 @@ test eval 14.03
 
 TODO
 PATH not envp but struuct_env
+
+PWD & OLDPWD in env are not updated when builtin_cd is called

@@ -6,11 +6,27 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:35:33 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/10 13:06:00 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/14 15:16:32 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	cnt_var(t_data *data)
+{
+	t_env	*tmp;
+	int		num;
+
+	num = 0;
+	tmp = data->environment;
+	while (tmp != 0)
+	{
+		tmp = tmp->next;
+		num++;
+	}
+	return (num);
+
+}
 
 void disp_env(t_data *data)
 {

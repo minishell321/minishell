@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 07:25:22 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 17:49:31 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ typedef struct s_data
 // };
 
 int		local_env(t_data *data, char **envp);
+int		create_env_entry(t_data *data, char *value, char *variable);
+int		cnt_var(t_data *data);
+int		identify_env(t_data *data, char *cmd);
 int		find_path(t_data *data, char **envp);
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
@@ -136,7 +139,7 @@ int	check_if_builtin(t_data *data);
 int	exec_if_builtin(t_data *data);
 void	close_fds(t_data *data);
 int	builtin_echo(char **argv, int fd_output);
-int	builtin_cd(char **arg);
+int	builtin_cd(t_data *data);
 int	builtin_pwd(int fd_output);
 int	builtin_env(t_data *data);
 int	builtin_export(t_data *data);
