@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 08:15:25 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:58:09 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*find_env(char *str, t_data *data, int *env_finish)
 
 	i = 0;
 	tmp = data->environment;
-	while (str[i] != ' ' && str[i] != '\0')
+	while (str[i] != ' ' && str[i] != '\0' && str[i] != '\"')
 		i++;
 	*env_finish += i;
 	env = ft_substr(str, 1, i - 1);
@@ -71,16 +71,35 @@ char	*find_dollars(char *cmd_buf, t_data *data)
 			single_quote++;
 		if (cmd_buf[i] == '$' && single_quote % 2 == 0)
 		{
-			if (cmd_buf[i + 1] == '?' && (cmd_buf[i + 2] == ' ' || cmd_buf[ i + 2] == '\0'))
+			printf("going in\n");
+			if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0' || cmd_buf[i + 1] == '\"')
 			{
+				printf("going in strdup $\n");
+
+				env = ft_strdup("$");
+				env_finish++;
+				cmd_buf = replace(cmd_buf, env, i, env_finish);
+				printf("cmd_buf: ***%s***\n", cmd_buf);
+			}
+			else if (cmd_buf[i + 1] == '?' && (cmd_buf[i + 2] == ' ' || cmd_buf[ i + 2] == '\0'))
+			{
+				printf("going in itoa\n");
+
 				env = ft_itoa(data->exit_code);
 				env_finish += 2;
 				cmd_buf = replace(cmd_buf, env, i, env_finish);
+				printf("cmd_buf: ***%s***\n", cmd_buf);
+
 			}
 			else
 			{
+				printf("going in else\n");
+
 				env = find_env(cmd_buf + i, data, &env_finish);
+				printf("env: ***%s***\n", env);
 				cmd_buf = replace(cmd_buf, env, i, env_finish);
+				printf("cmd_buf: ***%s***\n", cmd_buf);
+
 			}
 			free(env);
 		}

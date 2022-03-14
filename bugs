@@ -20,6 +20,4 @@ test eval 14.03
 - How many global variables? why? Give a concrete example of why it feels mandatory or logical.
 - Test only spaces or tabs.
 - Execute exit command with or without arguments
-- anything except $. (and "$")
-- echo "$USER" should print the value of $USER
 - Export environment variables, create new ones and replace old ones
