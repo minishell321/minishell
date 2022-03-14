@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/10 07:16:07 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:04:04 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static void	free_cmd_table(t_data *data)
 	{
 		j = 0;
 		while (data->cmd_table[i][j])
-		{
-			// printf("free : cmd_table[%d][%d] : %s\n", i, j, data->cmd_table[i][j]);
 			free(data->cmd_table[i][j++]);
-		}
 		i++;
 	}
 	free(data->cmd_table);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 17:37:37 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:10:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ static void child_handler(t_data *data, char **envp, int i)
 	if (redir_handler(data, i))
 		exit (1);
 	if (pipe_handler(data, i))
+	{
+		perror("pipe_handler");
 		exit (1);
+	}
 	if (get_cmd(data, i))
 		exit (1);
 	printf("pid = %d\n", getpid());
@@ -50,32 +53,6 @@ static void child_handler(t_data *data, char **envp, int i)
 		exit (1);
 	}
 }
-
-// static int	wait_all_children(t_data *data)
-// {
-// 	int	i;
-// 	int status;
-// 	int	res;
-
-// 	i = 0;
-// 	status = 0;
-// 	while (i <= (data->num_of_pipe))
-// 	{
-// 		// res = waitpid(data->process_ids[i], NULL, 0);
-// 		res = waitpid(data->process_ids[i], &status, WUNTRACED);
-// 		data->waitpid_res = WIFSIGNALED(status);
-		
-// 		printf("waited for %d\nwaitpid_res = %d\n", res, data->waitpid_res);
-// 		if (res == -1)
-// 		{
-// 			ft_putstr_fd("Error, waitpid\n", 2);
-// 			return (1);
-// 		}
-// 		i++;
-// 	}
-// 	printf("Waited for child....\n");
-// 	return (0);
-// }
 
 static int	wait_all_children(t_data *data)
 {

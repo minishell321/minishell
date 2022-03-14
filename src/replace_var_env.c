@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 17:20:48 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:15:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*find_dollars(char *cmd_buf, t_data *data)
 			else
 			{
 				env = find_env(cmd_buf + i, data, &env_finish);
-				cmd_buf = replace(cmd_buf, env, i, env_finish);	
+				cmd_buf = replace(cmd_buf, env, i, env_finish);
 			}
 			free(env);
 		}

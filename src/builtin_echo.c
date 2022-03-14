@@ -6,13 +6,13 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 10:11:19 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/07 17:05:39 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:01:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int builtin_echo(char **argv, int fd_output)
+int	builtin_echo(char **argv, int fd_output)
 {
 	int	i;
 	int	n_flag;
