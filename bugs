@@ -10,16 +10,16 @@ be ignored.
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
 
-Il y a des bugs (ex. le comportement de exit ou CTRL+C ou CTRL+D) que j'ai remarque apres avoir
-lance plusieur commande de type builtin_cd. Il me semble que les bugs provienent non pas de la
-fonction built_cd (car les memes bugs survienent quand j'appelle builtin_echo) mais plutot de la
-maniere que l'on gere actuellement les pipes/forks lors d'un appelle d'une fonction builtin. J'ai vu
-un commentaire dans le fichier exec_cmd indiquant que "le close pipe et non-systematique pour
-l'instant". Je ne sais pas si c'est la cause du probleme mais c'est a addresser.
 
 
 Remplacer tout les messages d'erreur en utilisant la fonction perror
 
+commented out -fsanitize=address, too many errors.
 
-echo $? always print 0; WTF?
-no more but no good numbers; errno?
+test eval 14.03
+- How many global variables? why? Give a concrete example of why it feels mandatory or logical.
+- Test only spaces or tabs.
+- Execute exit command with or without arguments
+- anything except $. (and "$")
+- echo "$USER" should print the value of $USER
+- Export environment variables, create new ones and replace old ones

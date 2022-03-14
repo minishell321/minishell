@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:49:06 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/07 16:58:37 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/14 07:25:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	builtin_pwd(char **arg, int fd_output)
+int	builtin_pwd(int fd_output)
 {
 	char	*cwd;
 

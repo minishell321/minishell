@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:34 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/11 11:30:10 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 07:18:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,20 @@ int	get_fd_here_doc(t_data *data, char *str, int *i)
 
 	j = 0;
 	k = 0;
-	while (str[j] == '<' || str[j] == ' ')
-		j++;
-	while (str[k + j] != ' ' && str[k + j] != '\0')
-		k++;
-	*i += (j + k);
-	delim = ft_substr(str, j, k);
-	if (delim == 0)
-		return (1);
-	printf("HEREDOC delim = %s\n", delim);
-	free(delim);
+	//the if data is only here to shut Werror, to delete 
+	if (data)
+	{
+		while (str[j] == '<' || str[j] == ' ')
+			j++;
+		while (str[k + j] != ' ' && str[k + j] != '\0')
+			k++;
+		*i += (j + k);
+		delim = ft_substr(str, j, k);
+		if (delim == 0)
+			return (1);
+		printf("HEREDOC delim = %s\n", delim);
+		free(delim);
+	}
 	return (0);
 }
 

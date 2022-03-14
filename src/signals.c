@@ -6,14 +6,14 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/13 15:44:50 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 07:19:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // Captures the sigint and correctly displays a new prompt but need to handle the display of ^C which should not appear
-void handle_sigint(int sig)
+void handle_sigint()
 {
 	// if (data->waitpid_res == 0)
 	// {

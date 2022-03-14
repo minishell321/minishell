@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/11 10:48:28 by rburri           ###   ########.fr        #
+#    Updated: 2022/03/14 07:28:53 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ CC = gcc
 
 NAME = minishell
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 
+
+#-fsanitize=address
 
 LIBFT_DIR	= libft
 LIBFT_A		= libft.a

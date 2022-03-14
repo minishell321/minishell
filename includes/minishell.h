@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 17:28:56 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 07:25:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	free_token_stack(t_data *data);
 int		pipe_handler(t_data *data, int i);
 int		close_pipe_fds(t_data *data);
 // init
-int		init_data(t_data *data, char **envp);
+int		init_data(t_data *data);
 int		init_env(t_data *data, char **envp);
 int		init_pipe_fds(t_data *data);
 int		init_pids_arr(t_data *data);
@@ -137,7 +137,7 @@ int	exec_if_builtin(t_data *data);
 void	close_fds(t_data *data);
 int	builtin_echo(char **argv, int fd_output);
 int	builtin_cd(char **arg);
-int	builtin_pwd(char **arg, int fd_output);
+int	builtin_pwd(int fd_output);
 int	builtin_env(t_data *data);
 int	builtin_export(t_data *data);
 int	builtin_unset(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 15:13:11 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 07:20:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static int check_exit(char *command_buf)
 
 int	start_prompt(char *command_buf, t_data *data, char **envp)
 {
-	int pid;
-
 	 while(1)
     {
 		handle_sigs();
@@ -47,7 +45,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			if (check_exit(command_buf))
 				break;
 			//handle_sigs();
-			init_data(data, envp);
+			init_data(data);
 			if (check_command(command_buf))
 			 	continue;
 			command_buf = find_dollars(command_buf, data);
@@ -82,9 +80,13 @@ int main(int argc, char **argv, char **envp)
 {
     char *command_buf;
 	t_data data;
-	int pid;
 	
 	command_buf = NULL;
+	if (argc != 1 || (!argv))
+	{
+		ft_putstr_fd("Error, no argument allowed\n", 2);
+		return (1);
+	}
 	if (init_env(&data, envp))
 	{
 		printf("init env ERROR\n");

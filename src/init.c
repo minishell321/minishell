@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/13 17:29:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 07:21:09 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_pids_arr(t_data *data)
 
 // Initialise the struct t_data, setting variables
 //that are not yet assigned to 0 (or default)
-int	init_data(t_data *data, char **envp)
+int	init_data(t_data *data)
 {
 	data->cmd = 0;
 	data->fd_input = 0;
