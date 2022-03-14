@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 08:25:10 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 10:45:59 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,16 @@ static int	wait_all_children(t_data *data)
 				// printf("***HERE\n");
 				if (WTERMSIG(status) == SIGINT)
 				{
-			// 		ft_putstr_fd("SIGINT terminated child second\n", 2);
-			// 		// ft_putstr_fd("^C\n", 2);
+					// ft_putstr_fd("SIGINT terminated child second\n", 2);
+					// ft_putstr_fd("^C\n", 2);
 			// 		// rl_replace_line("", 0);
 			// //		rl_on_new_line();
 			// //		rl_redisplay();
 				}
 				if (WTERMSIG(status) == SIGQUIT)
 				{
-				// 	printf("SIGQUIT detected\n");
-				// 	// ft_putstr_fd("^\\Quit: 3\n", 2);	
+					// printf("SIGQUIT detected\n");
+					// ft_putstr_fd("^\\Quit: 3\n", 2);	
 				}
 			}
 		}

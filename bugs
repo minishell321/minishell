@@ -18,3 +18,8 @@ test eval 14.03
 - How many global variables? why? Give a concrete example of why it feels mandatory or logical.
 - Test only spaces or tabs.
 - Export environment variables, create new ones and replace old ones
+
+
+
+TODO
+PATH not envp but struuct_env
