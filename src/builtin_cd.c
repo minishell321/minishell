@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:29:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/14 07:22:46 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:27:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	handle_paths(char **arg, char *cwd)
 	return (0);
 }
 
-// int	handle_tilde_ext(char**arg, char *cwd, char *path)
 int	handle_tilde_ext(char**arg, char *path)
 {
 	char	*path2;
@@ -97,7 +96,6 @@ int	handle_tilde(char **arg, char *cwd)
 	path = ft_substr(cwd, 0, i);
 	if (path == 0)
 		return (1);
-	// i = handle_tilde_ext(arg, cwd, path);
 	i = handle_tilde_ext(arg, path);
 	free(path);
 	if (i)

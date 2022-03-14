@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 08:10:23 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 08:25:10 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ static int	wait_all_children(t_data *data)
 	// 	}
 	// }
 	//	while (!WIFSIGNALED(status) && !WIFEXITED(status))
-		printf("status = %d\n", status);
 		data->exit_code = WEXITSTATUS(status);
-		printf("WEXITSTATUS = %d\n", data->exit_code);
 		while (res == -1)
 		{
 		//	printf("Here\n");
@@ -110,7 +108,6 @@ static int	wait_all_children(t_data *data)
 				}
 			}
 		}
-		printf("errno = %d\n", errno);
 		
 		// if (res == -1)
 		// {
@@ -122,7 +119,6 @@ static int	wait_all_children(t_data *data)
 	}
 	return (0);
 }
-
 
 int	exec_cmd(t_data *data, char **envp)
 {
