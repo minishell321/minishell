@@ -46,7 +46,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			if (check_exit(command_buf))
 				break;
 			//handle_sigs();
-			init_data(data);
+			if (init_data(data))
+				continue;
 			if (check_command(command_buf))
 			 	continue;
 			command_buf = find_dollars(command_buf, data);

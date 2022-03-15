@@ -91,7 +91,7 @@ typedef struct s_data
 // };
 
 int		local_env(t_data *data, char **envp);
-int		find_path(t_data *data, char **envp);
+int		find_path(t_data *data);
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
 int		handle_sigs(void);
