@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 09:45:28 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/14 11:55:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,25 @@ static char	*find_env(char *str, t_data *data, int *env_finish)
 	t_env	*tmp;
 	char	*env;
 	int		i;
+	int 	j;
 
 	i = 0;
+	j = 0;
 	tmp = data->environment;
-	while (str[i] != ' ' && str[i] != '\0' && str[i] != '\"')
+	while (str[i] != ' ' && str[i] != '\0')
 		i++;
-	*env_finish += i;
-	env = ft_substr(str, 1, i - 1);
+	printf("i = %d\n", i);
+	if (str[i - 1] == '\"')
+	{
+		printf("has double quotes\n");
+		j--;
+	}
+	printf("j = %d\n", j);
+
+	env = ft_substr(str, 1, ((i - j) - 1));
+	printf("env : ***%s***\n", env);
 	i = ft_strlen(env);
+	*env_finish += (i + 1 - j);
 	while (tmp != 0)
 	{
 		if (ft_strncmp(env, tmp->variable, i) == 0)
@@ -59,8 +70,7 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 {
 	char	*env;
 
-	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0'
-		|| cmd_buf[i + 1] == '\"')
+	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0')
 	{
 		env = ft_strdup("$");
 		*env_finish += 1;
@@ -72,7 +82,11 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 		*env_finish += 2;
 	}
 	else
+	{
+		printf("went in else\n");
 		env = find_env(cmd_buf + i, data, env_finish);
+		printf("env = ***%s***\n", env);
+	}
 	cmd_buf = replace(cmd_buf, env, i, *env_finish);
 	free(env);
 	return (cmd_buf);
