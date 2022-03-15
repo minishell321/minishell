@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 14:16:51 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:35:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,21 @@ typedef struct s_data
 // 	t_token	*next;
 // };
 
-int		local_env(t_data *data, char **envp);
-int		find_path(t_data *data);
-int		get_cmd(t_data *data, int i);
-int		redirect(t_data *data, char *command_buf);
-int		handle_sigs(void);
-int		handle_sigs_child(void);
-int		exec_cmd(t_data *data, char **envp);
-int		check_command(char *command_buf);
-int		find_token(t_data *data, char *cmd_str);
+int     local_env(t_data *data, char **envp);
+int     create_env_entry(t_data *data, char *value, char *variable);
+int     cnt_var(t_data *data);
+int     identify_env(t_data *data, char *cmd);
+void    update_pwd(t_data *data, char *cwd);
+int     cpy_env(t_data *data, char **cpy_env_variables);
+void    sort_env(char **cpy);
+int     find_path(t_data *data, char **envp);
+int     get_cmd(t_data *data, int i);
+int     redirect(t_data *data, char *command_buf);
+int     handle_sigs(void);
+int     handle_sigs_child(void);
+int     exec_cmd(t_data *data, char **envp);
+int     check_command(char *command_buf);
+int     find_token(t_data *data, char *cmd_str);
 // Free_all
 int		free_env(t_data *data);
 int		free_data(t_data *data);
@@ -132,6 +138,7 @@ void	rl_replace_line(const char *, int);
 char	*find_dollars(char *command_buf, t_data *data);
 
 //builtins
+void update_pwd(t_data *data,char *cwd);
 int	check_if_builtin(t_data *data);
 int	exec_if_builtin(t_data *data);
 void	close_fds(t_data *data);
