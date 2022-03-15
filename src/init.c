@@ -66,6 +66,14 @@ int	init_data(t_data *data)
 	data->process_ids = 0;
 	data->token_stack = 0;
 	data->cmd_table = 0;
+	if (find_path(data))
+		return (1);
+	data->cmd_paths = ft_split(data->env_paths, ':');
+	if (data->cmd_paths == NULL)
+	{
+		ft_putstr_fd("Error, split env_paths\n", 2);
+		return (1);
+	}
 	return (0);
 }
 
@@ -75,14 +83,6 @@ int	init_env(t_data *data, char **envp)
 	if (local_env(data, envp))
 		return (1);
 	data->env_paths = 0;
-	if (find_path(data, envp))
-		return (1);
-	data->cmd_paths = ft_split(data->env_paths, ':');
-	if (data->cmd_paths == NULL)
-	{
-		ft_putstr_fd("Error, split env_paths\n", 2);
-		return (1);
-	}
 	data->cmd_table = 0;
 	data->exit_code = 0;
 	data->heredoc_delim = 0;
@@ -90,18 +90,3 @@ int	init_env(t_data *data, char **envp)
 	data->heredoc_other_cmds = 0;
 	return (0);
 }
-
-// int	init_env(t_data *data, char **envp)
-// {
-// 	data->env_paths = 0;
-// 	if (find_path(data, envp))
-// 		return (1);
-// 	data->cmd_paths = ft_split(data->env_paths, ':');
-// 	if (data->cmd_paths == NULL)
-// 	{
-// 		ft_putstr_fd("Error, split env_paths\n", 2);
-// 		return (1);
-// 	}
-// 	data->cmd_table = 0;
-// 	return (0);
-// }

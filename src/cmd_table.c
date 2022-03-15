@@ -12,13 +12,14 @@
 
 #include "../includes/minishell.h"
 
-static char **create_cmd_table(int cnt_arg, t_token *cmd)
+static char	**create_cmd_table(int cnt_arg, t_token *cmd)
 {
-    char	**cmd_table;
-    t_token *tmp;
-    int j = 0;
+	t_token	*tmp;
+	char	**cmd_table;
+	int		j;
 
-    cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
+	j = 0;
+	cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
 	if (cmd_table == NULL)
 		return (NULL);
 	cmd_table[0] = cmd->str;
@@ -37,16 +38,16 @@ static char **create_cmd_table(int cnt_arg, t_token *cmd)
 	return (cmd_table);
 }
 
-static char **cmd_split(t_data *data, int cnt_cmds, int cmd_num)
+static char	**cmd_split(t_data *data, int cnt_cmds, int cmd_num)
 {
-	t_token *tmp;
-	t_token *tmp_arg;
-	int i;
-	int cnt_arg;
-	int cmd_to_find;
+	t_token	*tmp;
+	t_token	*tmp_arg;
+	int		i;
+	int		cnt_arg;
+	int		cmd_to_find;
 
-    i = 0;
-    cnt_arg = 0;
+	i = 0;
+	cnt_arg = 0;
 	cmd_to_find = (cnt_cmds - 1 - cmd_num);
 	tmp = data->token_stack;
 	while (i++ < cmd_to_find)
@@ -63,12 +64,12 @@ static char **cmd_split(t_data *data, int cnt_cmds, int cmd_num)
 	return (create_cmd_table(cnt_arg, tmp));
 }
 
-int cmd_table(t_data *data)
+int	cmd_table(t_data *data)
 {
-	t_token *tmp;
+	t_token	*tmp;
 	int		cnt_cmds;
 	int		i;
-	
+
 	i = 0;
 	cnt_cmds = 0;
 	tmp = data->token_stack;

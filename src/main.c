@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 16:27:51 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:52:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			if (check_exit(command_buf))
 				break;
 			//handle_sigs();
-			init_data(data);
+			if (init_data(data))
+				continue;
 			if (check_command(command_buf))
 			 	continue;
 			if (data->heredoc)

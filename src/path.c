@@ -6,20 +6,33 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 10:23:21 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:09:15 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-// not envp but struuct_env
-int	find_path(t_data *data, char **envp)
+
+int	find_path(t_data *data)
 {
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	data->env_paths = *envp + 5;
+	t_env	*tmp;
+
+	tmp = data->environment;
+	while (ft_strncmp("PATH", tmp->variable, 4))
+		tmp = tmp->next;
+	data->env_paths = tmp->value;
 	if (data->env_paths == NULL)
 	{
 		ft_putendl_fd("env PATH not found", 2);
+		return (1);
+	}
+	return (0);
+}
+
+static int	check_is_full_cmd(t_data *data, int i)
+{
+	if (access(data->cmd_table[i][0], F_OK) == 0)
+	{
+		data->cmd = ft_strdup(data->cmd_table[i][0]);
 		return (1);
 	}
 	return (0);
@@ -31,11 +44,8 @@ int	get_cmd(t_data *data, int i)
 	char	*command;
 	char	**paths;
 
-	if (access(data->cmd_table[i][0], F_OK) == 0)
-	{
-		data->cmd = ft_strdup(data->cmd_table[i][0]);
+	if (check_is_full_cmd(data, i))
 		return (0);
-	}
 	paths = data->cmd_paths;
 	while (*paths)
 	{
