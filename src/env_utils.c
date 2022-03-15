@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:35:33 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/14 15:16:32 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/15 10:24:09 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ int	cnt_var(t_data *data)
 		num++;
 	}
 	return (num);
-
 }
 
-void disp_env(t_data *data)
+void	disp_env(t_data *data)
 {
 	t_env	*tmp;
 
@@ -63,12 +62,13 @@ int	create_env_entry(t_data *data, char *value, char *variable)
 	return (0);
 }
 
-int local_env(t_data *data, char **envp)
+int	local_env(t_data *data, char **envp)
 {
 	int		i;
+	int		start;
 	char	*value;
 	char	*variable;
-	
+
 	i = 0;
 	while (envp[i] != 0)
 	{
@@ -77,16 +77,12 @@ int local_env(t_data *data, char **envp)
 		variable = ft_substr(envp[i], 0, (ft_strchr(envp[i], '=') - envp[i]));
 		if (variable == 0)
 			return (1);
-		value = ft_substr(envp[i], (ft_strchr(envp[i], '=') - envp[i] + 1), ft_strlen(envp[i]));
+		start = ft_strchr(envp[i], '=') - envp[i] + 1;
+		value = ft_substr(envp[i], start, ft_strlen(envp[i]));
 		if (value == 0)
 			return (1);
 		create_env_entry(data, value, variable);
-	//	printf("%s\n", envp[i]);
-	//	printf("variable = %s\n", variable);
-	//	printf("value = %s\n", value);
 		i++;
 	}
-
-//	disp_env(data);
 	return (0);
 }
