@@ -91,6 +91,7 @@ typedef struct s_data
 // };
 
 int		local_env(t_data *data, char **envp);
+<<<<<<< HEAD
 int		create_env_entry(t_data *data, char *value, char *variable);
 int		cnt_var(t_data *data);
 int		identify_env(t_data *data, char *cmd);
@@ -98,6 +99,9 @@ void	update_pwd(t_data *data, char *cwd);
 int		cpy_env(t_data *data, char **cpy_env_variables);
 void	sort_env(char **cpy);
 int		find_path(t_data *data, char **envp);
+=======
+int		find_path(t_data *data);
+>>>>>>> 11467c214a338eb78483911311e55e78b82882b5
 int		get_cmd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
 int		handle_sigs(void);

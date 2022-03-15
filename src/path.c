@@ -11,12 +11,15 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-// not envp but struuct_env
-int	find_path(t_data *data, char **envp)
+
+int	find_path(t_data *data)
 {
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	data->env_paths = *envp + 5;
+	t_env *tmp;
+
+	tmp = data->environment;
+	while (ft_strncmp("PATH", tmp->variable, 4))
+		tmp = tmp->next;
+	data->env_paths = tmp->value;
 	if (data->env_paths == NULL)
 	{
 		ft_putendl_fd("env PATH not found", 2);

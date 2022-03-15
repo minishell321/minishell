@@ -66,9 +66,7 @@ void	free_token_stack(t_data *data)
 {
 	t_token	*tmp;
 	t_token	*tmp_arg;
-	int		j;
 
-	j = 0;
 	while (data->token_stack)
 	{
 		tmp = data->token_stack;
