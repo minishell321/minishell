@@ -17,18 +17,14 @@ static char	*find_env(char *str, t_data *data, int *env_finish)
 	t_env	*tmp;
 	char	*env;
 	int		i;
-	int 	j;
 
-	i = 0;
-	j = 0;
+	i = 1;
 	tmp = data->environment;
-	while (str[i] != ' ' && str[i] != '\0')
+	while (ft_isalnum(str[i]))
 		i++;
-	if (str[i - 1] == '\"')
-		j--;
-	env = ft_substr(str, 1, ((i + j) - 1));
+	*env_finish += (i);
+	env = ft_substr(str, 1, i - 1);
 	i = ft_strlen(env);
-	*env_finish += (i + j + 1);
 	while (tmp != 0)
 	{
 		if (ft_strncmp(env, tmp->variable, i) == 0)
@@ -63,7 +59,7 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 {
 	char	*env;
 
-	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0')
+	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0' || cmd_buf[i + 1] == '\"')
 	{
 		env = ft_strdup("$");
 		*env_finish += 1;
