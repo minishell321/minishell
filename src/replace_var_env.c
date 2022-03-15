@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 11:55:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:44:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static char	*find_env(char *str, t_data *data, int *env_finish)
 		i++;
 	*env_finish += (i);
 	env = ft_substr(str, 1, i - 1);
+	printf("env : ***%s***\n", env);
 	i = ft_strlen(env);
 	while (tmp != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 14:35:58 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:41:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int     identify_env(t_data *data, char *cmd);
 void    update_pwd(t_data *data, char *cwd);
 int     cpy_env(t_data *data, char **cpy_env_variables);
 void    sort_env(char **cpy);
-int     find_path(t_data *data, char **envp);
+int     find_path(t_data *data);
 int     get_cmd(t_data *data, int i);
 int     redirect(t_data *data, char *command_buf);
 int     handle_sigs(void);
