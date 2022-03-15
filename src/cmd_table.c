@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/03 10:03:50 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/15 18:01:34 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char **create_cmd_table(int cnt_arg, t_token *cmd)
 	{
 		cmd_table[cnt_arg--] = tmp->str;
 		tmp = tmp->next;
-	}
+	} 
 	while (cmd_table[j] != 0)
 	{
 		printf("cmd_table[%d] = %s\n", j, cmd_table[j]);
@@ -77,16 +77,37 @@ int cmd_table(t_data *data)
 		tmp = tmp->next;
 		cnt_cmds++;
 	}
-	data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
-	if (data->cmd_table == NULL)
-		return (1);
-	data->cmd_table[cnt_cmds] = 0;
+	if (data->heredoc)
+	{
+		data->heredoc_other_cmds = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
+		if (data->heredoc_other_cmds == NULL)
+			return (1);
+		data->heredoc_other_cmds[cnt_cmds] = 0;
+		
+	}
+//	else
+//	{
+		data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
+		if (data->cmd_table == NULL)
+			return (1);
+		data->cmd_table[cnt_cmds] = 0;
+//	}
 	while (i < cnt_cmds)
 	{
 		printf("CMD[%d]\n", i);
-		data->cmd_table[i] = cmd_split(data, cnt_cmds, i);
-        if (data->cmd_table[i] == NULL)
-            return (1);
+		if (data->heredoc)
+		{
+			data->heredoc_other_cmds[i] = cmd_split(data, cnt_cmds, i);
+			if (data->heredoc_other_cmds[i] == NULL)
+				return (1);
+			data->cmd_table[i] = 0;
+		}
+		else
+		{
+			data->cmd_table[i] = cmd_split(data, cnt_cmds, i);
+			if (data->cmd_table[i] == NULL)
+				return (1);
+		}
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 10:13:22 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:27:51 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 {
 	 while(1)
     {
+		data->command_buf = NULL;
 		handle_sigs();
-        command_buf = readline("testcli> ");
+	//	printf("WHILE LOOP\n");
+		if (data->heredoc)
+			command_buf = readline("> ");
+		else
+			command_buf = readline("testcli> ");
 		if (command_buf == 0)
 		{
 			printf("exit\n");
@@ -42,6 +47,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 		}
         if (command_buf && *command_buf)
 		{
+			data->command_buf = command_buf;
             add_history(command_buf);
 			if (check_exit(command_buf))
 				break;
@@ -49,6 +55,12 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			init_data(data);
 			if (check_command(command_buf))
 			 	continue;
+			if (data->heredoc)
+			{
+			//	printf("-IN HERE-\n");
+				heredoc_handler(data);
+				continue;
+			}
 			command_buf = find_dollars(command_buf, data);
 			if (find_token(data, command_buf))
 				continue;

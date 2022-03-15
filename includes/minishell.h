@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 10:12:06 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:46:48 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,17 @@ typedef struct s_env
 typedef struct s_data
 {
 	t_env	*environment;
+	char	*command_buf;
 	char	*env_paths;
 	// pointer to envp PATH no free needed?
 	char	**cmd_paths;
 	//free by free_env;
 	char	*cmd;
 	//free in free_data
+	char	*heredoc_delim;
+	char	*heredoc_str;
+	char	***heredoc_other_cmds;
+	int		heredoc;
 	int		fd_input;
 	// No free needed
 	int		fd_output;
@@ -147,5 +152,6 @@ int	builtin_pwd(int fd_output);
 int	builtin_env(t_data *data);
 int	builtin_export(t_data *data);
 int	builtin_unset(t_data *data);
+int	heredoc_handler(t_data *data);
 
 #endif

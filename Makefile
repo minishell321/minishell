@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/15 10:13:36 by vbotev           ###   ########.fr        #
+#    Updated: 2022/03/15 16:40:39 by vbotev           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC = gcc
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3
 
 #-fsanitize=address
 
@@ -64,6 +64,7 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/builtin_unset.c\
 			$(SRC)/exec_if_builtin.c\
 			$(SRC)/replace_var_env.c\
+			$(SRC)/heredoc.c\
 			
 
 		

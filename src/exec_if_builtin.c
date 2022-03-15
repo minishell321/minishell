@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:06:01 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 17:49:10 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/15 16:13:48 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	exec_if_builtin(t_data *data)
 
 int	check_if_builtin(t_data *data)
 {
+	if (data->cmd_table[0])
+	{
 	if ((ft_strncmp(data->cmd_table[0][0], "echo", 4)) == 0)
 		return (1);
 	if ((ft_strncmp(data->cmd_table[0][0], "cd", 2)) == 0)
@@ -48,5 +50,7 @@ int	check_if_builtin(t_data *data)
 		return (1);
 	if ((ft_strncmp(data->cmd_table[0][0], "env", 3)) == 0)
 		return (1);
+	}
+
 	return (0);
 }
