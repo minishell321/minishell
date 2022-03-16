@@ -15,3 +15,14 @@ Remplacer tout les messages d'erreur en utilisant la fonction perror
 
 test eval 14.03
 - Test only spaces or tabs.
+
+
+HERE DOC
+
+cat << eof => heredoc_other_cmds [0][0] & [0][1]
+<< eof cat => heredoc_other_cmds [0][0]
+Enter 2x =>out of HEREDOC
+problem of history
+
+
+exec_cmd/child_handler => use locale env not envp?

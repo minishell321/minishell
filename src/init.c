@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/15 16:55:49 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/16 09:35:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,17 @@ int	init_pids_arr(t_data *data)
 //that are not yet assigned to 0 (or default)
 int	init_data(t_data *data)
 {
-	if (data->heredoc_delim)
-	{
-//		printf("The flag was set to 1\n");
-		data->heredoc = 1;
-	}
-	else
-	{
-//		printf("The flag is at default (NULL)\n");
-		data->heredoc = 0;
-	}
+// 	if (data->heredoc_delim)
+// 	{
+// //		printf("The flag was set to 1\n");
+// 		data->heredoc = 1;
+// 	}
+// 	else
+// 	{
+// //		printf("The flag is at default (NULL)\n");
+// 		data->heredoc = 0;
+// 	}
+	data->heredoc = 0;
 	data->cmd = 0;
 	data->fd_input = 0;
 	data->fd_output = 1;

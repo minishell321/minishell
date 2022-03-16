@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 10:45:59 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/16 11:27:56 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,25 @@ static void child_handler(t_data *data, char **envp, int i)
 		exit (1);
 	}
 	if (get_cmd(data, i))
+		exit (1);
+	printf("pid = %d\n", getpid());
+	if (execve(data->cmd, data->cmd_table[i], envp))
+	{
+		perror("execve");
+		exit (1);
+	}
+}
+
+static void child_handler_hd(t_data *data, char **envp, int i)
+{
+	if (redir_handler(data, i))
+		exit (1);
+	if (pipe_handler(data, i))
+	{
+		perror("pipe_handler");
+		exit (1);
+	}
+	if (get_cmd_hd(data, i))
 		exit (1);
 	printf("pid = %d\n", getpid());
 	if (execve(data->cmd, data->cmd_table[i], envp))
@@ -133,6 +152,29 @@ int	exec_cmd(t_data *data, char **envp)
 			return (1);
 		if (data->process_ids[i] == 0)
 			child_handler(data, envp, i);
+		i++;	
+	}
+	if (close_pipe_fds(data))
+		return (1);
+	if (wait_all_children(data))
+		return (1);
+	return (0);
+}
+
+int	exec_cmd_hd(t_data *data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	printf("goes in exec_cmd_hd\n");
+	handle_sigs_child();
+	while (i < data->num_of_pipe + 1)
+	{
+		data->process_ids[i] = fork();
+		if (data->process_ids[i] == -1)
+			return (1);
+		if (data->process_ids[i] == 0)
+			child_handler_hd(data, envp, i);
 		i++;	
 	}
 	if (close_pipe_fds(data))

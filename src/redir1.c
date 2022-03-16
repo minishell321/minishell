@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 08:27:23 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 15:42:42 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/16 09:04:45 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	redir_in(t_data *data, char *str, int *i)
 {
 	if (*(str + 1) == '<')
 	{
-		if (get_fd_here_doc(data, str, i))
+		if (get_here_doc(data, str, i))
 			return (1);
 	}
 	else

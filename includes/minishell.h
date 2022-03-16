@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 17:46:48 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/16 11:28:37 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,15 @@ int     cpy_env(t_data *data, char **cpy_env_variables);
 void    sort_env(char **cpy);
 int     find_path(t_data *data);
 int     get_cmd(t_data *data, int i);
+int		get_cmd_hd(t_data *data, int i);
 int     redirect(t_data *data, char *command_buf);
 int     handle_sigs(void);
 int     handle_sigs_child(void);
 int     exec_cmd(t_data *data, char **envp);
 int     check_command(char *command_buf);
+int		exec_cmd_hd(t_data *data, char **envp);
 int     find_token(t_data *data, char *cmd_str);
+
 // Free_all
 int		free_env(t_data *data);
 int		free_data(t_data *data);
@@ -125,7 +128,7 @@ int		init_pids_arr(t_data *data);
 // redir
 int redir(t_data *data, char *str, int *i);
 int get_fd_out_append(t_data *data, char *str, int *i);
-int get_fd_here_doc(t_data *data, char *str, int *i);
+int get_here_doc(t_data *data, char *str, int *i);
 int get_fd_out(t_data *data, char *str, int *i);
 int get_fd_in(t_data *data, char *str, int *i);
 // token_utils
@@ -153,6 +156,10 @@ int	builtin_pwd(int fd_output);
 int	builtin_env(t_data *data);
 int	builtin_export(t_data *data);
 int	builtin_unset(t_data *data);
-int	heredoc_handler(t_data *data);
-
+//HEREDOC
+int	heredoc_handler(t_data *data, char **envp);
+int	heredoc_handler_2(t_data *data, char **envp);
+int	check_is_heredoc(char *cmd_buf);
+int	token_handler_heredoc(t_data *data);
+int	cmd_table_heredoc(t_data *data);
 #endif

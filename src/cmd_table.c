@@ -30,11 +30,11 @@ static char	**create_cmd_table(int cnt_arg, t_token *cmd)
 		cmd_table[cnt_arg--] = tmp->str;
 		tmp = tmp->next;
 	} 
-	while (cmd_table[j] != 0)
-	{
-		printf("cmd_table[%d] = %s\n", j, cmd_table[j]);
-		j++;
-	}
+	// while (cmd_table[j] != 0)
+	// {
+	// 	printf("create_cmd_table(heredoc or exec_cmd[%d] = ***%s***\n", j, cmd_table[j]);
+	// 	j++;
+	// }
 	return (cmd_table);
 }
 
@@ -64,6 +64,28 @@ static char	**cmd_split(t_data *data, int cnt_cmds, int cmd_num)
 	return (create_cmd_table(cnt_arg, tmp));
 }
 
+static char	**cmd_split_hd(t_data *data)
+{
+	t_token	*tmp;
+	t_token	*tmp_arg;
+	int		cnt_arg;
+
+	cnt_arg = 0;
+	tmp = data->token_stack;
+	if (tmp->args)
+	{
+		tmp_arg = tmp->args;
+		while (tmp_arg)
+		{
+			tmp_arg = tmp_arg->next;
+			cnt_arg++;
+		}
+	}
+	// printf("seg before that?\n");
+	// printf("cnt_arg: %d\n", cnt_arg);
+	return (create_cmd_table(cnt_arg, tmp));
+}
+
 int	cmd_table(t_data *data)
 {
 	t_token	*tmp;
@@ -78,38 +100,51 @@ int	cmd_table(t_data *data)
 		tmp = tmp->next;
 		cnt_cmds++;
 	}
-	if (data->heredoc)
-	{
-		data->heredoc_other_cmds = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
-		if (data->heredoc_other_cmds == NULL)
-			return (1);
-		data->heredoc_other_cmds[cnt_cmds] = 0;
-		
-	}
-//	else
-//	{
-		data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
-		if (data->cmd_table == NULL)
-			return (1);
-		data->cmd_table[cnt_cmds] = 0;
-//	}
+	data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
+	if (data->cmd_table == NULL)
+		return (1);
+	data->cmd_table[cnt_cmds] = 0;
 	while (i < cnt_cmds)
 	{
 		printf("CMD[%d]\n", i);
-		if (data->heredoc)
-		{
-			data->heredoc_other_cmds[i] = cmd_split(data, cnt_cmds, i);
-			if (data->heredoc_other_cmds[i] == NULL)
-				return (1);
-			data->cmd_table[i] = 0;
-		}
-		else
-		{
-			data->cmd_table[i] = cmd_split(data, cnt_cmds, i);
-			if (data->cmd_table[i] == NULL)
-				return (1);
-		}
+		data->cmd_table[i] = cmd_split(data, cnt_cmds, i);
+		if (data->cmd_table[i] == NULL)
+			return (1);
 		i++;
 	}
+	return (0);
+}
+
+int	cmd_table_heredoc(t_data *data)
+{
+	t_token	*tmp;
+	int		cnt_cmds;
+	int		i;
+
+	i = 1;
+	cnt_cmds = 0;
+	tmp = data->token_stack;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		cnt_cmds++;
+	}
+	if (data->heredoc)
+	{
+		data->heredoc_other_cmds = (char ***)malloc(sizeof(char **) * (cnt_cmds + 2));
+		if (data->heredoc_other_cmds == NULL)
+			return (1);
+		data->heredoc_other_cmds[cnt_cmds + 1] = 0;
+		data->heredoc_other_cmds[0] = ft_split("/bin/echo .", ' '); 
+	}
+	while (i < (cnt_cmds + 1))
+	{
+		data->heredoc_other_cmds[1] = cmd_split_hd(data);
+		if (data->heredoc_other_cmds[i] == NULL)
+			return (1);
+		i++;
+	}
+	printf("cmd 1 : *%s*\n", data->heredoc_other_cmds[1][0]);
+	printf("cmd 0 : *%s*\n", data->heredoc_other_cmds[0][0]);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:34 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 16:45:21 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/16 08:49:12 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_fd_out_append(t_data *data, char *str, int *i)
 	return (0);
 }
 
-int	get_fd_here_doc(t_data *data, char *str, int *i)
+int	get_here_doc(t_data *data, char *str, int *i)
 {
 	int		j;
 	int		k;
