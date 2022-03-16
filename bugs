@@ -22,7 +22,10 @@ HERE DOC
 cat << eof => heredoc_other_cmds [0][0] & [0][1]
 << eof cat => heredoc_other_cmds [0][0]
 Enter 2x =>out of HEREDOC
-problem of history
 
+Free all here doc: 
+- delim ok
+- str ok
+-other_cmd TODO (from delete cmd_table)
 
 exec_cmd/child_handler => use locale env not envp?
