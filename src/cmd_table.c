@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 18:01:34 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/17 14:36:38 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,20 @@ static char	**cmd_split(t_data *data, int cnt_cmds, int cmd_num)
 	return (create_cmd_table(cnt_arg, tmp));
 }
 
-static char	**cmd_split_hd(t_data *data)
+static char	**cmd_split_hd(t_data *data, int cnt_cmds, int cmd_num)
 {
 	t_token	*tmp;
 	t_token	*tmp_arg;
 	int		cnt_arg;
+	int		i; // new
+	int		cmd_to_find; // new
 
+	i = 0; //
 	cnt_arg = 0;
+	cmd_to_find = (cnt_cmds - 1 - cmd_num); //
 	tmp = data->token_stack;
+	while (i++ < cmd_to_find)
+		tmp = tmp->next; //
 	if (tmp->args)
 	{
 		tmp_arg = tmp->args;
@@ -135,14 +141,23 @@ int	cmd_table_heredoc(t_data *data)
 		return (1);
 	data->heredoc_other_cmds[cnt_cmds + 1] = 0;
 	data->heredoc_other_cmds[0] = ft_split("/bin/echo -n .", ' ');
+	printf("^^^%s\n", data->heredoc_other_cmds[0][0]);
+	printf("^^^%s\n", data->heredoc_other_cmds[0][1]);
 	while (i < (cnt_cmds + 1))
 	{
-		data->heredoc_other_cmds[1] = cmd_split_hd(data);
+	//	data->heredoc_other_cmds[1] = cmd_split_hd(data);
+		data->heredoc_other_cmds[i] = cmd_split_hd(data, cnt_cmds, i - 1);
 		if (data->heredoc_other_cmds[i] == NULL)
 			return (1);
 		i++;
 	}
-	printf("cmd 1 : *%s*\n", data->heredoc_other_cmds[1][0]);
-	printf("cmd 0 : *%s*\n", data->heredoc_other_cmds[0][0]);
+	i = 0;
+	while (data->heredoc_other_cmds[i])
+	{
+		printf("cmd %d : *%s*\n", i, data->heredoc_other_cmds[i][0]);
+//		printf("cmd 1 : *%s*\n", data->heredoc_other_cmds[1][0]);
+//		printf("cmd 0 : *%s*\n", data->heredoc_other_cmds[0][0]);
+		i++;
+	}
 	return (0);
 }
