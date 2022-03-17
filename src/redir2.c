@@ -59,7 +59,7 @@ int	get_here_doc(t_data *data, char *str, int *i)
 		if (data->heredoc_delim == 0)
 			return (1);
 		printf("HEREDOC delim = %s\n", data->heredoc_delim);
-		data->heredoc = 1;
+		// data->heredoc = 1;
 	//	free(delim);
 //	}
 	return (0);

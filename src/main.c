@@ -58,7 +58,6 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			 	continue;
 			if (check_is_heredoc(command_buf))
 			{
-				data->heredoc = 1;
 				if (find_token(data, command_buf))
 					continue;
 				if (token_handler_heredoc(data))

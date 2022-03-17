@@ -16,9 +16,9 @@ static char	**create_cmd_table(int cnt_arg, t_token *cmd)
 {
 	t_token	*tmp;
 	char	**cmd_table;
-	int		j;
+	// int		j;
 
-	j = 0;
+	// j = 0;
 	cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
 	if (cmd_table == NULL)
 		return (NULL);
@@ -129,14 +129,11 @@ int	cmd_table_heredoc(t_data *data)
 		tmp = tmp->next;
 		cnt_cmds++;
 	}
-	if (data->heredoc)
-	{
-		data->heredoc_other_cmds = (char ***)malloc(sizeof(char **) * (cnt_cmds + 2));
-		if (data->heredoc_other_cmds == NULL)
-			return (1);
-		data->heredoc_other_cmds[cnt_cmds + 1] = 0;
-		data->heredoc_other_cmds[0] = ft_split("/bin/echo .", ' '); 
-	}
+	data->heredoc_other_cmds = (char ***)malloc(sizeof(char **) * (cnt_cmds + 2));
+	if (data->heredoc_other_cmds == NULL)
+		return (1);
+	data->heredoc_other_cmds[cnt_cmds + 1] = 0;
+	data->heredoc_other_cmds[0] = ft_split("/bin/echo -n .", ' ');
 	while (i < (cnt_cmds + 1))
 	{
 		data->heredoc_other_cmds[1] = cmd_split_hd(data);

@@ -58,7 +58,7 @@ int	init_data(t_data *data)
 // //		printf("The flag is at default (NULL)\n");
 // 		data->heredoc = 0;
 // 	}
-	data->heredoc = 0;
+	// data->heredoc = 0;
 	data->cmd = 0;
 	data->fd_input = 0;
 	data->fd_output = 1;
