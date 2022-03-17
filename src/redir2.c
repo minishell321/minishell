@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:34 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 09:20:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 15:20:59 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ int	get_here_doc(t_data *data, char *str, int *i)
 	k = 0;
 	while (str[j] == '<' || str[j] == ' ')
 		j++;
+	if (str[j] == '-')
+	{
+		data->heredoc_ign_tab = 1;
+		j++;
+		while (str[j] == ' ')
+			j++;
+	}
+
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	printf("j + k : %d\n", (j + k));

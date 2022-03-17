@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 09:00:47 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 17:02:31 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			{
 				printf("IS BUILTIN\n");
 				if (exec_if_builtin(data))
-					continue;
+					continue;			
 				close_fds(data);
 			}
 			else

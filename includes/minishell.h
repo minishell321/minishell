@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 08:58:51 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 15:17:04 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_data
 	char	*heredoc_delim;
 	char	*heredoc_str;
 	char	***heredoc_other_cmds;
-	// int		heredoc;
+	int		heredoc_ign_tab;
 	//***************************
 	int		fd_input;
 	// No free needed
