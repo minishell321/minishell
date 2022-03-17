@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 08:10:09 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 08:58:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		get_fd_in(t_data *data, char *str, int *i);
 int		create_token(t_data *data, char *str, int *type);
 char	*send_quoted_str(char *str, int *i);
 char	*send_unquoted_str(char *str, int *i);
+void	print_token(t_data *data);
 // token_handler
 int		token_handler(t_data *data);
 // cmd_table

@@ -10,7 +10,6 @@ be ignored.
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
 
-Remplacer tout les messages d'erreur en utilisant la fonction perror
 
 
 
@@ -27,3 +26,14 @@ Free all here doc:
 -other_cmd TODO (from delete cmd_table)
 
 exec_cmd/child_handler => use locale env not envp?
+
+
+TODO LIST
+multiple pipes heredocs
+substitution heredoc
+manage - in heredoc
+heredoc manage quotes
+
+$? number
+
+Remplacer tout les messages d'erreur en utilisant la fonction perror

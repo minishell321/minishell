@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 08:10:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 09:00:47 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			{
 				if (find_token(data, command_buf))
 					continue;
+				printf("PRINT TOKEN STARTS\n");	
+				print_token(data);
+				printf("PRINT TOKEN ENDS\n");	
 				if (token_handler_heredoc(data))
 					continue;
 				printf("FINISHED TOKEN_HANDLER_HEREDOC\n");

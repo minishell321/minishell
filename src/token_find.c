@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 15:51:49 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/17 09:13:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int	find_token(t_data *data, char *cmd_str)
 	i = 0;
 	while (cmd_str[i])
 	{
+		printf("start i = %d\n", i);
 		if (cmd_str[i] == ' ')
 			i++;
+		printf("start after ++ i = %d\n", i);
 		if (cmd_str[i] == '\'' || cmd_str[i] == '\"')
 			if (create_token(data, send_quoted_str(cmd_str + i, &i), &type))
 				return (1);
@@ -41,6 +43,29 @@ int	find_token(t_data *data, char *cmd_str)
 		if (cmd_str[i] != ' ')
 			if (create_token(data, send_unquoted_str(cmd_str + i, &i), &type))
 				return (1);
+		printf("end i = %d\n", i);
 	}
 	return (0);
+}
+
+void	print_token(t_data *data)
+{
+	t_token *tmp;
+	tmp = data->token_stack;
+
+	while (tmp != NULL)
+	{
+		printf("str: *%s*\n", tmp->str);
+		if (tmp->args != NULL)
+		{
+			t_token *tmp_arg;
+			tmp_arg = tmp->args;
+			while (tmp_arg != NULL)
+			{
+				printf("args str : *%s*\n",tmp_arg->str);
+				tmp_arg = tmp_arg->next;
+			}
+		}
+		tmp = tmp->next;
+	}
 }
