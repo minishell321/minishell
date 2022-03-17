@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 07:25:17 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 08:10:09 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ int		builtin_export(t_data *data);
 int		builtin_unset(t_data *data);
 //HEREDOC
 int		heredoc_handler(t_data *data, char **envp);
-int		heredoc_handler_2(t_data *data, char **envp);
 int		check_is_heredoc(char *cmd_buf);
 int		token_handler_heredoc(t_data *data);
 int		cmd_table_heredoc(t_data *data);

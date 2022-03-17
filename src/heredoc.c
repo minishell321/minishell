@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:40:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/16 11:33:13 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 08:13:39 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,7 @@
 // 	return (0);
 // }
 
-static void	free_heredoc(t_data *data)
-{
-	free (data->heredoc_str);
-	data->heredoc_str = 0;
-	// printf("***HEREDOC END\n");
-	free(data->heredoc_delim);
-	data->heredoc_delim = 0;
-}
-
-static int malloc_heredoc_str(t_data *data)
+static int	malloc_heredoc_str(t_data *data)
 {
 	data->heredoc_str = malloc(sizeof(char));
 	if (data->heredoc_str == 0)
@@ -93,71 +84,64 @@ static int malloc_heredoc_str(t_data *data)
 	return (0);
 }
 
-static void	join_str(char *str, t_data *data)
+static void	check_if_must_send(t_data *data, char **envp)
 {
-	char 	*str_endl;
-	char	*tmp;
-
-	tmp = NULL;
-	str_endl = NULL;
-	str_endl = ft_strjoin(str, "\n");
-	free(str);
-	tmp = ft_strdup(data->heredoc_str);
-	free(data->heredoc_str);
-	data->heredoc_str = ft_strjoin(tmp, str_endl);
-	free (str_endl);
-	free (tmp);
-	str = readline("> ");
-}
-
-int	heredoc_handler_2(t_data *data, char **envp)
-{
-	char	*delim;
-	char	*str;
-
-	str = NULL;
-	delim = data->heredoc_delim;
-	str = readline("> ");
-	if (malloc_heredoc_str(data))
-			return (1);
-	while (ft_strncmp(str, delim, ft_strlen(str)))
-		join_str(str, data);
-	free(str);
 	if (ft_strncmp(data->heredoc_other_cmds[1][0], "", 1) == 0)
-	{
 		free_heredoc(data);
-		return (0);
-	}
 	else
 	{
-		data->heredoc_other_cmds[0][2] = data->heredoc_str; 
+		data->heredoc_other_cmds[0][2] = data->heredoc_str;
 		data->num_of_pipe += 1;
 		init_pids_arr(data);
 		init_pipe_fds(data);
 		exec_cmd_hd(data, envp);
-		printf("STILL HERE???\n");
 		free_heredoc(data);
-		return (0);
 	}
+}
+
+int	heredoc_handler(t_data *data, char **envp)
+{
+	char	*str;
+	char	*tmp;
+	char	*str_endl;
+
+	str = NULL;
+	str = readline("> ");
+	if (malloc_heredoc_str(data))
+		return (1);
+	while (ft_strncmp(str, data->heredoc_delim, ft_strlen(str)))
+	{
+		str_endl = ft_strjoin(str, "\n");
+		free(str);
+		tmp = ft_strdup(data->heredoc_str);
+		free(data->heredoc_str);
+		data->heredoc_str = ft_strjoin(tmp, str_endl);
+		free (str_endl);
+		free (tmp);
+		str = readline("> ");
+	}
+	free(str);
+	check_if_must_send(data, envp);
+	return (0);
 }
 
 int	check_is_heredoc(char *cmd_buf)
 {
 	int	i;
-	int s_quote;
-	int d_quote;
+	int	s_quote;
+	int	d_quote;
 
 	i = 0;
 	s_quote = 0;
 	d_quote = 0;
-	
-	while(cmd_buf[i])
+	while (cmd_buf[i])
 	{
 		if (cmd_buf[i] == '\"')
 			d_quote++;
 		if (cmd_buf[i] == '\'')
 			s_quote++;
-		if (cmd_buf[i] == '<' && cmd_buf[i + 1] == '<' && s_quote % 2 == 0 && d_quote % 2 == 0)
+		if (cmd_buf[i] == '<' && cmd_buf[i + 1] == '<'
+			&& s_quote % 2 == 0 && d_quote % 2 == 0)
 			return (1);
 		i++;
 	}
