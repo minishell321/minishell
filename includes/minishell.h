@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/16 11:28:37 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:25:17 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		wait_all_children(t_data *data);
 int		free_env(t_data *data);
 int		free_data(t_data *data);
 void	free_token_stack(t_data *data);
+void	free_heredoc(t_data *data);
 // pipe_utils
 int		pipe_handler(t_data *data, int i);
 int		close_pipe_fds(t_data *data);

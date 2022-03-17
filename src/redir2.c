@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:34 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/16 08:49:12 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:12:54 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,18 @@ int	get_here_doc(t_data *data, char *str, int *i)
 {
 	int		j;
 	int		k;
-//	char	*delim;
 
 	j = 0;
 	k = 0;
-	//the if data is only here to shut Werror, to delete 
-//	if (data)
-//	{
-		while (str[j] == '<' || str[j] == ' ')
-			j++;
-		while (str[k + j] != ' ' && str[k + j] != '\0')
-			k++;
-		*i += (j + k);
-		data->heredoc_delim = ft_substr(str, j, k);
-		if (data->heredoc_delim == 0)
-			return (1);
-		printf("HEREDOC delim = %s\n", data->heredoc_delim);
-		// data->heredoc = 1;
-	//	free(delim);
-//	}
+	while (str[j] == '<' || str[j] == ' ')
+		j++;
+	while (str[k + j] != ' ' && str[k + j] != '\0')
+		k++;
+	*i += (j + k);
+	data->heredoc_delim = ft_substr(str, j, k);
+	if (data->heredoc_delim == 0)
+		return (1);
+	printf("HEREDOC delim = %s\n", data->heredoc_delim);
 	return (0);
 }
 
@@ -117,4 +110,12 @@ int	get_fd_in(t_data *data, char *str, int *i)
 	}
 	free(fd_name);
 	return (0);
+}
+
+void	close_fds(t_data *data)
+{
+	if (data->fd_input != 0)
+		close(data->fd_input);
+	if (data->fd_output != 1)
+		close(data->fd_output);
 }

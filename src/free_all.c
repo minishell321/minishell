@@ -6,11 +6,27 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/15 15:57:10 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:29:11 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	free_heredoc_other_cmds(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->heredoc_other_cmds[i])
+	{
+		j = 0;
+		while (data->heredoc_other_cmds[i][j])
+			free(data->heredoc_other_cmds[i][j++]);
+		i++;
+	}
+	free(data->heredoc_other_cmds);
+}
 
 static void	free_cmd_table(t_data *data)
 {
@@ -62,32 +78,12 @@ int	free_env(t_data *data)
 	return (0);
 }
 
-void	free_token_stack(t_data *data)
+void	free_heredoc(t_data *data)
 {
-	t_token	*tmp;
-	t_token	*tmp_arg;
-
-	while (data->token_stack)
-	{
-		tmp = data->token_stack;
-		data->token_stack = data->token_stack->next;
-		if (tmp->args)
-		{
-			while (tmp->args)
-			{
-				tmp_arg = tmp->args;
-				tmp->args = tmp->args->next;
-				free(tmp_arg);
-			}
-		}
-		free(tmp);
-	}
-}
-
-void	close_fds(t_data *data)
-{
-	if (data->fd_input != 0)
-		close(data->fd_input);
-	if (data->fd_output != 1)
-		close(data->fd_output);
+	free (data->heredoc_str);
+	data->heredoc_str = 0;
+	free(data->heredoc_delim);
+	data->heredoc_delim = 0;
+	if (data->heredoc_other_cmds)
+		free_heredoc_other_cmds(data);
 }

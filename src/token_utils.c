@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 08:31:07 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/13 14:10:26 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 07:27:02 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,26 @@ char	*send_unquoted_str(char *str, int *i)
 		k++;
 	*i += (k);
 	return (new_str);
+}
+
+void	free_token_stack(t_data *data)
+{
+	t_token	*tmp;
+	t_token	*tmp_arg;
+
+	while (data->token_stack)
+	{
+		tmp = data->token_stack;
+		data->token_stack = data->token_stack->next;
+		if (tmp->args)
+		{
+			while (tmp->args)
+			{
+				tmp_arg = tmp->args;
+				tmp->args = tmp->args->next;
+				free(tmp_arg);
+			}
+		}
+		free(tmp);
+	}
 }
