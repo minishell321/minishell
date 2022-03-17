@@ -13,8 +13,6 @@ be ignored.
 Remplacer tout les messages d'erreur en utilisant la fonction perror
 
 
-test eval 14.03
-- Test only spaces or tabs.
 
 
 HERE DOC
