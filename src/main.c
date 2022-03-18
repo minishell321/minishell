@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 09:47:18 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 11:00:33 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 {
 	 while(1)
     {
+		if (init_data(data))
+			continue;
 		data->command_buf = NULL;
 		handle_sigs();
 		command_buf = readline("testcli> ");
@@ -47,8 +49,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
             add_history(command_buf);
 			if (check_exit(command_buf))
 				break;
-			if (init_data(data))
-				continue;
+			// if (init_data(data))
+			// 	continue;
 			if (check_command(command_buf))
 			 	continue;
 			if (check_is_heredoc(command_buf))
@@ -85,8 +87,9 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 		}
 		if (data)
 		{
-			printf("goes in free data\n");
+			printf("FREE DATA STARTS\n");
 			free_data(data);
+			printf("FREE DATA ENDS\n");
 		}
 		if (command_buf)
 		{
@@ -114,6 +117,5 @@ int main(int argc, char **argv, char **envp)
 		printf("init env ERROR\n");
 	}
 	start_prompt(command_buf, &data, envp);
-	free_env(&data);
 	return (0);
 }

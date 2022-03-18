@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/16 11:27:56 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 10:04:03 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void child_handler(t_data *data, char **envp, int i)
 	}
 	if (get_cmd(data, i))
 		exit (1);
-	printf("pid = %d\n", getpid());
 	if (execve(data->cmd, data->cmd_table[i], envp))
 	{
 		perror("execve");

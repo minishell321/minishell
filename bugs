@@ -29,6 +29,22 @@ Remplacer tout les messages d'erreur en utilisant la fonction perror
 cd ~ + cd Music/ == SEG FAULT?
 
 
+TEST 18 Mars
 
+QUESTIONS;
+makefile must not re-link?./m
+exit message error if argument is not number
+
+
+
+BUGS:
+double tab != bash
+$? after a good cmd, doesn't return to 0;
+after just $ => return 186a7: command not found
+export NEWENV without value must not work
+cd ~ cd Music still segfault
+unset PATH & ls must print error ls: No such file or directory
+
+Continue test from redirection
 
 
