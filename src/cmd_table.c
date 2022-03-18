@@ -19,7 +19,6 @@ static char	**create_cmd_table(int cnt_arg, t_token *cmd)
 	int		j;
 
 	j = 0;
-	printf("cnt_arg : %d\n", cnt_arg);
 	cmd_table = (char **)malloc(sizeof(char *) * (cnt_arg + 2));
 	if (cmd_table == NULL)
 		return (NULL);

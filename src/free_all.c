@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 08:16:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 09:52:19 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,23 @@ static void	free_cmd_table(t_data *data)
 	int	j;
 
 	i = 0;
-	while (data->cmd_table[i])
+	while (data->cmd_table[i] != NULL)
 	{
-		// printf("data->cmd_table[%d]\n", i);
+		printf("data->cmd_table[%d]\n", i);
 		j = 0;
-		while (data->cmd_table[i][j])
+		// SOMETHING MAKES SEGFAULT WHEN WHILE CHECKS CONDITION
+		while (data->cmd_table[i][j] != NULL)
 		{
-			// printf("data->cmd_table[%d][%d] = %s\n", i, j, data->cmd_table[i][j]);
-			free(data->cmd_table[i][j++]);
+			printf("goes inner while\n");
+			printf("data->cmd_table[%d][%d] = %s\n", i, j, data->cmd_table[i][j]);
+			free(data->cmd_table[i][j]);
+			j++;
 		}
 		free(data->cmd_table[i]);
 		i++;
 	}
-	// printf("-here-\n");
+	printf("-here-\n");
+	// data->cmd_table = 0;
 	free(data->cmd_table);
 }
 
@@ -64,7 +68,7 @@ int	free_data(t_data *data)
 			free(data->pipe_fds[i++]);
 		free(data->pipe_fds);
 	}
-	if (data->cmd_table)
+	if (data->cmd_table[0])
 		free_cmd_table(data);
 	if (data->heredoc_other_cmds)
 		free_heredoc_other_cmds(data);

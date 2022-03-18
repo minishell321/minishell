@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:49:06 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/14 07:25:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 09:53:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	builtin_pwd(int fd_output)
 	ft_putstr_fd(cwd, fd_output);
 	write(fd_output, "\n", 1);
 	free (cwd);
-	return (1);
+	return (0);
 }

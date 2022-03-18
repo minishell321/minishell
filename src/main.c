@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 07:07:52 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 09:47:18 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			{
 				printf("IS BUILTIN\n");
 				if (exec_if_builtin(data))
-					continue;			
+				{
+					printf("Problem BUILTINS\n");
+					continue;
+				}		
 				close_fds(data);
 			}
 			else
@@ -79,11 +82,17 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 				if (exec_cmd(data, envp))
 					continue;
 			}
-			if (data)
-				free_data(data);
+		}
+		if (data)
+		{
+			printf("goes in free data\n");
+			free_data(data);
 		}
 		if (command_buf)
+		{
+			printf("goes in free cmd_buf\n");
 			free(command_buf);
+		}
 	}
 	return (0);
 }
