@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/16 09:35:58 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 15:20:17 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	init_data(t_data *data)
 // //		printf("The flag is at default (NULL)\n");
 // 		data->heredoc = 0;
 // 	}
-	// data->heredoc = 0;
+	data->heredoc_ign_tab = 0;
 	data->cmd = 0;
 	data->fd_input = 0;
 	data->fd_output = 1;

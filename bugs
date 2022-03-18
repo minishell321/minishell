@@ -29,11 +29,12 @@ exec_cmd/child_handler => use locale env not envp?
 
 
 TODO LIST
-multiple pipes heredocs
-substitution heredoc
-manage - in heredoc
-heredoc manage quotes
+multiple pipes heredocs - DONE??
+substitution heredoc - DONE??
+
 
 $? number
 
 Remplacer tout les messages d'erreur en utilisant la fonction perror
+
+cd ~ + cd Music/ == SEG FAULT?

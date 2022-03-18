@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 08:01:43 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/17 17:37:15 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,17 @@ static void	free_cmd_table(t_data *data)
 	i = 0;
 	while (data->cmd_table[i])
 	{
+		printf("data->cmd_table[%d]\n", i);
 		j = 0;
 		while (data->cmd_table[i][j])
+		{
+			printf("data->cmd_table[%d][%d] = %s\n", i, j, data->cmd_table[i][j]);
 			free(data->cmd_table[i][j++]);
+		}
+		// free data->cmd_table[i] ???
 		i++;
 	}
+	printf("-here-\n");
 	free(data->cmd_table);
 }
 
@@ -63,6 +69,7 @@ int	free_data(t_data *data)
 		free_heredoc_other_cmds(data);
 	if (data->process_ids)
 		free(data->process_ids);
+	printf("--here--\n");
 	return (0);
 }
 

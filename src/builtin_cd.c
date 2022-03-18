@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:29:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/15 10:13:03 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/17 16:56:54 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_paths(char **arg, char *cwd)
 			return (1);
 		if (chdir(path))
 		{
-			ft_putstr_fd("Error: chdir\n", 2);
+			perror("minishell");
 			free(path);
 			return (1);
 		}
@@ -33,7 +33,7 @@ int	handle_paths(char **arg, char *cwd)
 	}
 	else if (chdir(arg[1]))
 	{
-		ft_putstr_fd("Error: chdir\n", 2);
+		perror("minishell");
 		return (1);
 	}
 	return (0);
@@ -48,7 +48,7 @@ int	handle_tilde_ext(char **arg, char *path)
 	{
 		if (chdir(path))
 		{
-			ft_putstr_fd("Error: chdir\n", 2);
+			perror("minishell");
 			return (1);
 		}
 	}
@@ -59,7 +59,7 @@ int	handle_tilde_ext(char **arg, char *path)
 			return (1);
 		if (chdir(path2))
 		{
-			ft_putstr_fd("Error: chdir\n", 2);
+			perror("minishell");
 			free(path2);
 			return (1);
 		}
@@ -105,7 +105,7 @@ int	handle_symbols(char **arg, char *cwd)
 	{
 		if (chdir(cwd))
 		{
-			ft_putstr_fd("Error: chdir\n", 2);
+			perror("minishell");
 			return (1);
 		}
 	}
@@ -114,7 +114,7 @@ int	handle_symbols(char **arg, char *cwd)
 		path = ft_substr(cwd, 0, (ft_strrchr(cwd, '/') - cwd));
 		if (chdir(path))
 		{
-			ft_putstr_fd("Error: chdir\n", 2);
+			perror("minishell");
 			free(path);
 			return (1);
 		}
