@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 15:17:04 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:43:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,13 @@ typedef struct s_data
 	//free in free_data
 	//HEREDOC********************
 	char	*heredoc_delim;
+	// free in free_heredoc
 	char	*heredoc_str;
+	// free in free_heredoc
 	char	***heredoc_other_cmds;
+	// free in free_data
 	int		heredoc_ign_tab;
+	// init to 0 in init_data
 	//***************************
 	int		fd_input;
 	// No free needed

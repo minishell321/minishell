@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/17 15:20:17 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:55:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,9 @@ int	init_pids_arr(t_data *data)
 //that are not yet assigned to 0 (or default)
 int	init_data(t_data *data)
 {
-// 	if (data->heredoc_delim)
-// 	{
-// //		printf("The flag was set to 1\n");
-// 		data->heredoc = 1;
-// 	}
-// 	else
-// 	{
-// //		printf("The flag is at default (NULL)\n");
-// 		data->heredoc = 0;
-// 	}
+	data->heredoc_delim = 0;
+	data->heredoc_str = 0;
+	data->heredoc_other_cmds = 0;
 	data->heredoc_ign_tab = 0;
 	data->cmd = 0;
 	data->fd_input = 0;
@@ -86,8 +79,8 @@ int	init_env(t_data *data, char **envp)
 	data->env_paths = 0;
 	data->cmd_table = 0;
 	data->exit_code = 0;
-	data->heredoc_delim = 0;
-	data->heredoc_str = 0;
-	data->heredoc_other_cmds = 0;
+	// data->heredoc_delim = 0;
+	// data->heredoc_str = 0;
+	// data->heredoc_other_cmds = 0;
 	return (0);
 }

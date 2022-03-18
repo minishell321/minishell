@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 17:37:15 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:47:02 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	free_heredoc_other_cmds(t_data *data)
 		j = 0;
 		while (data->heredoc_other_cmds[i][j])
 			free(data->heredoc_other_cmds[i][j++]);
+		free(data->heredoc_other_cmds[i]);
 		i++;
 	}
 	free(data->heredoc_other_cmds);
@@ -43,7 +44,7 @@ static void	free_cmd_table(t_data *data)
 			printf("data->cmd_table[%d][%d] = %s\n", i, j, data->cmd_table[i][j]);
 			free(data->cmd_table[i][j++]);
 		}
-		// free data->cmd_table[i] ???
+		free(data->cmd_table[i]);
 		i++;
 	}
 	printf("-here-\n");
