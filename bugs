@@ -9,15 +9,12 @@ be ignored.
 	the hyphen (-) and increments the string position while spaces are found. This needs
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
+NOW in heredoc prompt 
+>tab hello
+>EOF
+=> segfault
 
-
-
-
-
-HERE DOC
-
-cat << eof => heredoc_other_cmds [0][0] & [0][1]
-<< eof cat => heredoc_other_cmds [0][0]
+bash doesn't use EOF
 Enter 2x =>out of HEREDOC
 
 Free all here doc: 
@@ -25,16 +22,13 @@ Free all here doc:
 - str ok
 -other_cmd TODO (from delete cmd_table)
 
-exec_cmd/child_handler => use locale env not envp?
-
-
 TODO LIST
-multiple pipes heredocs - DONE??
-substitution heredoc - DONE??
-
-
+exec_cmd/child_handler => use locale env not envp?
 $? number
-
 Remplacer tout les messages d'erreur en utilisant la fonction perror
-
 cd ~ + cd Music/ == SEG FAULT?
+
+
+
+
+

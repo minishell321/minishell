@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 08:13:28 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/16 09:02:20 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:28:20 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	token_handler_heredoc(t_data *data)
 			free_token_stack(data);
 		return (1);
 	}
+	data->num_of_pipe += 1;
 	if (data->token_stack)
 		free_token_stack(data);
 	init_pids_arr(data);
