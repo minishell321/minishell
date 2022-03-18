@@ -143,6 +143,7 @@ int	cmd_table_heredoc(t_data *data)
 	data->heredoc_other_cmds[0] = ft_split("/bin/echo -n .", ' ');
 	printf("^^^%s\n", data->heredoc_other_cmds[0][0]);
 	printf("^^^%s\n", data->heredoc_other_cmds[0][1]);
+	printf("^^^%s\n", data->heredoc_other_cmds[0][2]);
 	while (i < (cnt_cmds + 1))
 	{
 	//	data->heredoc_other_cmds[1] = cmd_split_hd(data);

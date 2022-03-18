@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 17:02:31 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:07:52 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
     {
 		data->command_buf = NULL;
 		handle_sigs();
-	//	printf("WHILE LOOP\n");
-		// if (data->heredoc)
-		// 	command_buf = readline("> ");
-		// else
 		command_buf = readline("testcli> ");
 		if (command_buf == 0)
 		{
@@ -51,7 +47,6 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
             add_history(command_buf);
 			if (check_exit(command_buf))
 				break;
-			//handle_sigs();
 			if (init_data(data))
 				continue;
 			if (check_command(command_buf))
@@ -60,21 +55,12 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			{
 				if (find_token(data, command_buf))
 					continue;
-				printf("PRINT TOKEN STARTS\n");	
-				print_token(data);
-				printf("PRINT TOKEN ENDS\n");	
 				if (token_handler_heredoc(data))
 					continue;
 				printf("FINISHED TOKEN_HANDLER_HEREDOC\n");
 				heredoc_handler(data, envp);
 				continue;
 			}
-			// if (data->heredoc)
-			// {
-			// //	printf("-IN HERE-\n");
-			// 	heredoc_handler(data, envp);
-			// 	continue;
-			// }
 			command_buf = find_dollars(command_buf, data);
 			if (find_token(data, command_buf))
 				continue;
@@ -118,7 +104,6 @@ int main(int argc, char **argv, char **envp)
 	{
 		printf("init env ERROR\n");
 	}
-	// handle_sigs();
 	start_prompt(command_buf, &data, envp);
 	free_env(&data);
 	return (0);

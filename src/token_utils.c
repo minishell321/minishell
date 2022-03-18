@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 08:31:07 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 09:31:20 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:04:55 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	*send_unquoted_str(char *str, int *i)
 	k = 0;
 	while (str[k] && str[k] != ' ')
 		k++;
-	printf("send_unquote k : %d\n", k);
 	new_str = (char *)malloc(sizeof(char) * k + 1);
 	if (new_str == NULL)
 		return (NULL);

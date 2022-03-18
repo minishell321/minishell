@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 09:13:46 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/18 07:04:34 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	find_token(t_data *data, char *cmd_str)
 	i = 0;
 	while (cmd_str[i])
 	{
-		printf("start i = %d\n", i);
 		if (cmd_str[i] == ' ')
 			i++;
-		printf("start after ++ i = %d\n", i);
 		if (cmd_str[i] == '\'' || cmd_str[i] == '\"')
 			if (create_token(data, send_quoted_str(cmd_str + i, &i), &type))
 				return (1);
@@ -40,10 +38,9 @@ int	find_token(t_data *data, char *cmd_str)
 		if (cmd_str[i] == '<' || cmd_str[i] == '>')
 			if (redir(data, cmd_str + i, &i))
 				return (1);
-		if (cmd_str[i] != ' ')
+		if (cmd_str[i] != ' ' && cmd_str[i] != '\0')
 			if (create_token(data, send_unquoted_str(cmd_str + i, &i), &type))
 				return (1);
-		printf("end i = %d\n", i);
 	}
 	return (0);
 }
