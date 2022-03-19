@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 11:00:33 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/19 14:30:14 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,21 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 				continue;
 			if (check_if_builtin(data))
 			{
-				printf("IS BUILTIN\n");
+				// printf("IS BUILTIN\n");
 				if (exec_if_builtin(data))
 				{
 					printf("Problem BUILTINS\n");
 					continue;
-				}		
+				}
+				data->exit_code = 0;		
 				close_fds(data);
 			}
 			else
 			{
-				printf("IS EXEC_CMD\n");
+				// printf("IS EXEC_CMD\n");
 				if (exec_cmd(data, envp))
 					continue;
+				printf("errno : %d\n", errno);
 			}
 		}
 		if (data)

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/18 10:57:27 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/19 13:58:38 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ int	init_data(t_data *data)
 	data->process_ids = 0;
 	data->token_stack = 0;
 	data->cmd_table = 0;
-	// if (find_path(data))
-	// 	return (1);
-	// data->cmd_paths = ft_split(data->env_paths, ':');
-	// if (data->cmd_paths == NULL)
-	// {
-	// 	ft_putstr_fd("Error, split env_paths\n", 2);
-	// 	return (1);
-	// }
+	if (find_path(data))
+		return (1);
+	data->cmd_paths = ft_split(data->env_paths, ':');
+	if (data->cmd_paths == NULL)
+	{
+		ft_putstr_fd("Error, split env_paths\n", 2);
+		return (1);
+	}
 	return (0);
 }
 

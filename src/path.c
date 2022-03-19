@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/17 07:09:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/19 14:05:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	get_cmd_hd(t_data *data, int i)
 	char	*tmp;
 	char	*command;
 	char	**paths;
-
+	
 	if (check_is_full_cmd_hd(data, i))
 		return (0);
 	paths = data->cmd_paths;
