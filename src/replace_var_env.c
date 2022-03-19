@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 10:39:45 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/19 14:40:24 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 	char	*env;
 
 	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0'
-		|| cmd_buf[i + 1] == '\"')
+		|| cmd_buf[i + 1] == '\"' || cmd_buf[ i = 1] == '\'')
 	{
-		env = ft_strdup("'$'");
+		env = ft_strdup("$");
 		*env_finish += 1;
 	}
 	else if (cmd_buf[i + 1] == '?'

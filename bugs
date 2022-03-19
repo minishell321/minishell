@@ -1,4 +1,3 @@
-
 HEREDOC:
 After reading (https://linuxize.com/post/bash-heredoc/), the heredoc identifier (<<) cannot
 be followed by leading whitespace characters (e.g. space), only tabs.
@@ -9,13 +8,7 @@ be ignored.
 	the hyphen (-) and increments the string position while spaces are found. This needs
 	to be addressed but I would like to verify the behaviour in bash to double-check.
 
-NOW in heredoc prompt 
->tab hello
->EOF
-=> segfault
 
-bash doesn't use EOF
-Enter 2x =>out of HEREDOC
 
 Free all here doc: 
 - delim ok
@@ -26,25 +19,31 @@ TODO LIST
 exec_cmd/child_handler => use locale env not envp?
 $? number
 Remplacer tout les messages d'erreur en utilisant la fonction perror
+***************************************************************************************************
 cd ~ + cd Music/ == SEG FAULT?
 
+cd ~ => ok
+cd goinfre => ok
+cd ~ => not moving to home
+
+cd ~ => ok
+cd Music => segfault
+Only bug when start from home and to when going to goinfre
 
 TEST 18 Mars
 
 QUESTIONS;
-makefile must not re-link?./m
+makefile must not re-link? What does it means?
 exit message error if argument is not number
 
 
 
 BUGS:
+in HEREDOC prompt > Enter 2x => out of HEREDOC
+
 double tab != bash
-$? after a good cmd, doesn't return to 0;
-after just $ => return 186a7: command not found
 export NEWENV without value must not work
-cd ~ cd Music still segfault
 unset PATH & ls must print error ls: No such file or directory
 
-Continue test from redirection
 
 

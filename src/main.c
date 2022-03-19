@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/19 14:30:14 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/19 16:04:19 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			command_buf = find_dollars(command_buf, data);
 			if (find_token(data, command_buf))
 				continue;
+			print_token(data);
 			if (token_handler(data))
 				continue;
 			if (check_if_builtin(data))
@@ -84,20 +85,13 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 				// printf("IS EXEC_CMD\n");
 				if (exec_cmd(data, envp))
 					continue;
-				printf("errno : %d\n", errno);
 			}
 		}
+		printf("############################create_cmd_table(heredoc or exec_cmd[0] = ***%s***\n", data->cmd_table[0][0]);
 		if (data)
-		{
-			printf("FREE DATA STARTS\n");
 			free_data(data);
-			printf("FREE DATA ENDS\n");
-		}
 		if (command_buf)
-		{
-			printf("goes in free cmd_buf\n");
 			free(command_buf);
-		}
 	}
 	return (0);
 }

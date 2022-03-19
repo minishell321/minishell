@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 10:17:19 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/19 14:56:03 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	free_data(t_data *data)
 		printf("free data->cmd_table\n");
 		free_cmd_table(data);
 	}
+	printf("free data->cmd_table FINISHED\n");
 	if (data->heredoc_other_cmds)
 	{	
 		printf("data->heredoc_other_cmds\n");
