@@ -10,11 +10,6 @@ be ignored.
 
 
 
-Free all here doc: 
-- delim ok
-- str ok
--other_cmd TODO (from delete cmd_table)
-
 TODO LIST
 exec_cmd/child_handler => use locale env not envp?
 $? number
@@ -28,7 +23,7 @@ cd ~ => not moving to home
 
 cd ~ => ok
 cd Music => segfault
-Only bug when start from home and to when going to goinfre
+Only bug when start from home and to when going to goinfre and not from free but anytime trying to read cmd_table[0][0]
 
 TEST 18 Mars
 
