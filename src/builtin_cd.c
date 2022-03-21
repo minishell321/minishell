@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 16:29:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/19 15:55:07 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:47:30 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	handle_tilde_ext(char **arg, char *path)
 	char	*path2;
 
 	path2 = 0;
-	if (*(arg[1] + 1) == 0)
+	if (arg[1] == 0 || *(arg[1] + 1) == 0)
 	{
 		if (chdir(path))
 		{
@@ -68,39 +68,36 @@ int	handle_tilde_ext(char **arg, char *path)
 	return (0);
 }
 
-int	handle_tilde(char **arg, char *cwd)
+int	handle_tilde(char **arg, t_data *data)
 {
-	int		i;
-	int		cnt;
+	t_env	*tmp;
+	int		ret;
 	char	*path;
 
-	i = -1;
-	cnt = 0;
-	path = 0;
-	while (cwd[++i] != 0)
+	tmp = data->environment;
+	while (tmp)
 	{
-		if (cwd[i] == '/')
-			cnt++;
-		if (cnt == 3)
-			break ;
+		if (ft_strncmp(tmp->variable, "HOME", ft_strlen("HOME")) == 0
+			&& ft_strlen(tmp->variable) == ft_strlen("HOME"))
+			path = ft_strdup(tmp->value);
+		tmp = tmp->next;
 	}
-	path = ft_substr(cwd, 0, i);
 	if (path == 0)
 		return (1);
-	i = handle_tilde_ext(arg, path);
+	ret = handle_tilde_ext(arg, path);
 	free(path);
-	if (i)
+	if (ret)
 		return (1);
 	return (0);
 }
 
-int	handle_symbols(char **arg, char *cwd)
+int	handle_symbols(char **arg, char *cwd, t_data *data)
 {
 	char	*path;
 
 	path = 0;
-	if (*arg[1] == '~')
-		return (handle_tilde(arg, cwd));
+	if (arg[1] == 0 || *arg[1] == '~' || *arg[1] == 0)
+		return (handle_tilde(arg, data));
 	else if (*(arg[1]) == '.' && *(arg[1] + 1) == 0)
 	{
 		if (chdir(cwd))
@@ -111,7 +108,7 @@ int	handle_symbols(char **arg, char *cwd)
 	}
 	else if (*arg[1] == '.' && *(arg[1] + 1) == '.' && *(arg[1] + 2) == 0)
 	{
-		path = ft_substr(cwd, 0, (ft_strrchr(cwd, '/') - cwd));
+		path = ft_substr(cwd, 0, (ft_strrchr(cwd, '/') - cwd + 1));
 		if (chdir(path))
 		{
 			perror("minishell");
@@ -131,12 +128,12 @@ int	builtin_cd(t_data *data)
 	cwd = 0;
 	arg = data->cmd_table[0];
 	cwd = malloc(256 * sizeof(char));
-	if (cwd == 0 || arg[1] == 0 || arg[2] != 0 || getcwd(cwd, 256) == NULL)
+	if (cwd == 0 || getcwd(cwd, 256) == NULL)
 		return (1);
-	if ((*arg[1] == '.' && arg[1][1] == 0) || (*arg[1] == '~')
+	if (arg[1] == 0 || (*arg[1] == '.' && arg[1][1] == 0) || (*arg[1] == '~')
 		|| (*arg[1] == '.' && *(arg[1] + 1) == '.' && *(arg[1] + 2) == 0))
 	{
-		if (handle_symbols(arg, cwd))
+		if (handle_symbols(arg, cwd, data))
 		{
 			free(cwd);
 			return (1);
@@ -148,5 +145,6 @@ int	builtin_cd(t_data *data)
 		return (1);
 	}
 	update_pwd(data, cwd);
+	free (cwd);
 	return (0);
 }

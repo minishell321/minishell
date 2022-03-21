@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:00:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/15 10:09:52 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/21 14:26:07 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	update_pwd(t_data *data, char *cwd)
 {
 	t_env	*tmp;
+	char	*cwd_cpy;
 
 	tmp = data->environment;
 	while (tmp)
@@ -24,13 +25,14 @@ void	update_pwd(t_data *data, char *cwd)
 		{
 			if (tmp->value)
 				free (tmp->value);
-			tmp->value = cwd;
+			tmp->value = ft_strdup(cwd);
 		}
 		else if (ft_strncmp(tmp->variable, "PWD", ft_strlen("PWD")) == 0
 			&& ft_strlen(tmp->variable) == ft_strlen("PWD"))
 		{
 			free (tmp->value);
-			tmp->value = getcwd(ft_strdup(cwd), 256);
+			cwd_cpy = malloc(256 * sizeof(char));
+			tmp->value = getcwd(cwd_cpy, 256);
 		}
 		tmp = tmp->next;
 	}
