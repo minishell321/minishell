@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:40:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/18 07:32:32 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 07:42:49 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	heredoc_handler(t_data *data, char **envp)
 	str = readline("> ");
 	if (malloc_heredoc_str(data) || delim == 0)
 		return (1);
-	while (ft_strncmp(str, delim, ft_strlen(str)))
+	while (ft_strncmp(str, delim, ft_strlen(str)) || *str == '\0')
 	{
 		join_hd_str(data, str, flag);
 		str = readline("> ");
