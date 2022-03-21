@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:34 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 07:05:55 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 08:39:13 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,12 @@ int	get_here_doc(t_data *data, char *str, int *i)
 		while (str[j] == ' ')
 			j++;
 	}
-
 	while (str[k + j] != ' ' && str[k + j] != '\0')
 		k++;
 	*i += (j + k);
 	data->heredoc_delim = ft_substr(str, j, k);
 	if (data->heredoc_delim == 0)
 		return (1);
-	// printf("HEREDOC delim = %s\n", data->heredoc_delim);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/18 07:04:34 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 08:36:59 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_token(t_data *data)
 			tmp_arg = tmp->args;
 			while (tmp_arg != NULL)
 			{
-				printf("args str : *%s*\n",tmp_arg->str);
+				printf("args str : *%s*\n", tmp_arg->str);
 				tmp_arg = tmp_arg->next;
 			}
 		}

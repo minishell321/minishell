@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:06:01 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/19 14:25:52 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 08:42:52 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,18 @@ int	check_if_builtin(t_data *data)
 {
 	if (data->cmd_table[0])
 	{
-	if ((ft_strncmp(data->cmd_table[0][0], "echo", 4)) == 0)
-		return (1);
-	if ((ft_strncmp(data->cmd_table[0][0], "cd", 2)) == 0)
-		return (1);
-	if ((ft_strncmp(data->cmd_table[0][0], "pwd", 3)) == 0)
-		return (1);
-	if ((ft_strncmp(data->cmd_table[0][0], "export", 6)) == 0)
-		return (1);
-	if ((ft_strncmp(data->cmd_table[0][0], "unset", 5)) == 0)
-		return (1);
-	if ((ft_strncmp(data->cmd_table[0][0], "env", 3)) == 0)
-		return (1);
+		if ((ft_strncmp(data->cmd_table[0][0], "echo", 4)) == 0)
+			return (1);
+		if ((ft_strncmp(data->cmd_table[0][0], "cd", 2)) == 0)
+			return (1);
+		if ((ft_strncmp(data->cmd_table[0][0], "pwd", 3)) == 0)
+			return (1);
+		if ((ft_strncmp(data->cmd_table[0][0], "export", 6)) == 0)
+			return (1);
+		if ((ft_strncmp(data->cmd_table[0][0], "unset", 5)) == 0)
+			return (1);
+		if ((ft_strncmp(data->cmd_table[0][0], "env", 3)) == 0)
+			return (1);
 	}
-
 	return (0);
 }

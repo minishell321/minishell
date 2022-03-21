@@ -1,7 +1,7 @@
 HEREDOC:
-After reading (https://linuxize.com/post/bash-heredoc/), the heredoc identifier (<<) cannot
+After reading (https://linuxize.com/post/bash-heredoc/), the heredoc identifier cannot
 be followed by leading whitespace characters (e.g. space), only tabs.
-If the heredoc identifier (<<) is followed by a hyphen (-), the leading tab characters will
+If the heredoc identifier  is followed by a hyphen (-), the leading tab characters will
 be ignored.
 	
 	=> Currently, the way we are tokenising the heredoc, the function does not check for
@@ -12,8 +12,7 @@ be ignored.
 
 TODO LIST
 exec_cmd/child_handler => use locale env not envp?
-$? number
-Remplacer tout les messages d'erreur en utilisant la fonction perror
+Remplacer tout les messages d erreur en utilisant la fonction perror
 ***************************************************************************************************
 cd ~ + cd Music/ == SEG FAULT?
 
@@ -34,11 +33,10 @@ exit message error if argument is not number
 
 
 BUGS:
-in HEREDOC prompt > Enter 2x => out of HEREDOC
+
 
 double tab != bash
 export NEWENV without value must not work
-unset PATH & ls must print error ls: No such file or directory
 
 
 

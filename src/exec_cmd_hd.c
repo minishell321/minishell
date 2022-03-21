@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd_hd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/21 08:40:36 by rburri            #+#    #+#             */
+/*   Updated: 2022/03/21 08:41:09 by rburri           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void child_handler_hd(t_data *data, char **envp, int i)
+static void	child_handler_hd(t_data *data, char **envp, int i)
 {
 	if (redir_handler(data, i))
 		exit (1);
@@ -32,7 +43,7 @@ int	exec_cmd_hd(t_data *data, char **envp)
 			return (1);
 		if (data->process_ids[i] == 0)
 			child_handler_hd(data, envp, i);
-		i++;	
+		i++;
 	}
 	if (close_pipe_fds(data))
 		return (1);
