@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 10:25:35 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 17:22:04 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@
 
 typedef struct s_token
 {
-	int type;
-	char	*str;
-	struct s_token *args;
+	int				type;
+	char			*str;
+	struct s_token	*args;
 	struct s_token	*next;
-}				t_token;
+}	t_token;
 
 typedef struct s_env
 {
-	char	*variable;
-	char	*value;
+	char			*variable;
+	char			*value;
 	struct s_env	*next;
 }	t_env;
 
@@ -88,7 +88,7 @@ typedef struct s_data
 	// free just after cmd_table is created in find_token
 	char	***cmd_table;
 	//free in free_data
-}				t_data;
+}	t_data;
 
 // struct s_token
 // {
@@ -99,12 +99,12 @@ typedef struct s_data
 
 int		local_env(t_data *data, char **envp);
 int		create_env_entry(t_data *data, char *value, char *variable);
-int 	cnt_var(t_data *data);
-int 	identify_env(t_data *data, char *cmd);
+int		cnt_var(t_data *data);
+int		identify_env(t_data *data, char *cmd);
 void	update_pwd(t_data *data, char *cwd);
 int		cpy_env(t_data *data, char **cpy_env_variables);
 void	sort_env(char **cpy);
-int 	find_path(t_data *data);
+int		find_path(t_data *data);
 int		get_cmd(t_data *data, int i);
 int		get_cmd_hd(t_data *data, int i);
 int		redirect(t_data *data, char *command_buf);
@@ -144,14 +144,14 @@ void	print_token(t_data *data);
 // token_handler
 int		token_handler(t_data *data);
 // cmd_table
-int 	cmd_table(t_data *data);
+int		cmd_table(t_data *data);
 // included in order to make rl_replace_line work
-void	rl_replace_line(const char *, int);
+void	rl_replace_line(const char *var1, int var2);
 // replace_var_env
 char	*find_dollars(char *command_buf, t_data *data);
 
 //builtins
-void	update_pwd(t_data *data,char *cwd);
+void	update_pwd(t_data *data, char *cwd);
 void	close_fds(t_data *data);
 int		check_if_builtin(t_data *data);
 int		exec_if_builtin(t_data *data);

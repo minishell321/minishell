@@ -6,11 +6,40 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 11:11:01 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 17:04:00 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	valid_command_buf(t_data *data, char *command_buf, char **envp)
+{
+	data->command_buf = command_buf;
+	add_history(command_buf);
+	if (check_command(command_buf))
+		return (1);
+	if (check_is_heredoc(command_buf))
+	{
+		if (find_token(data, command_buf) || token_handler_heredoc(data))
+			return (1);
+		heredoc_handler(data, envp);
+		return (1);
+	}
+	command_buf = find_dollars(command_buf, data);
+	if (find_token(data, command_buf) || token_handler(data))
+		return (1);
+	check_exit(data);
+	if (check_if_builtin(data))
+	{
+		if (exec_if_builtin(data))
+			return (1);
+		data->exit_code = 0;
+		close_fds(data);
+	}
+	else if (exec_cmd(data, envp))
+		return (1);
+	return (0);
+}
 
 int	start_prompt(char *command_buf, t_data *data, char **envp)
 {
@@ -28,7 +57,9 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 		}
         if (command_buf && *command_buf)
 		{
-			data->command_buf = command_buf;
+			if (valid_command_buf(data, command_buf, envp))
+				continue;
+/*			data->command_buf = command_buf;
             add_history(command_buf);
 			// if (check_exit(command_buf))
 			// 	break;
@@ -71,7 +102,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 				if (exec_cmd(data, envp))
 					continue;
 			}
-		}
+*/		}
 		// printf("############################create_cmd_table(heredoc or exec_cmd[0] = ***%s***\n", data->cmd_table[0][0]);
 		if (data)
 			free_data(data);

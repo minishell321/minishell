@@ -28,25 +28,29 @@ readline history to free?
 BUGS:
 only space SEGFAULT ALSO tab
 only tab pass to execve
-export NEWENV without value must not work
+FIXED - export NEWENV without value must not work
 
-cd to root using cd ..
-cd ~ doesn t work after reach /
+FIXED - cd to root using cd ..
+FIXED - cd ~ doesn t work after reach /
 
-from /Users cd rburri/Desktop/ = SEGFAULT
-cd ~ + cd Music/ == SEG FAULT?
+FIXED - from /Users cd rburri/Desktop/ = SEGFAULT
+FIXED - cd ~ + cd Music/ == SEG FAULT?
 
-cd without nothing = cd ..
+FIXED - cd without nothing = cd ..
 
-cd ~ => ok
-cd goinfre => ok
-cd ~ => not moving to home
+FIXED - cd ~ => ok
+		cd goinfre => ok
+		cd ~ => not moving to home
 
-cd ~ => ok
-cd Music => segfault
-Only bug when start from home and to when going to goinfre and not from free but anytime trying to read cmd_table[0][0]
+FIXED - cd ~ => ok
+		cd Music => segfault
+		Only bug when start from home and to when going to goinfre and not from free but anytime trying to read cmd_table[0][0]
 
 
 change error msg after PATH unset
+
+<< EOF == SEGFAULT !?
+
+remove debugging messages
 
 Currently the function check_command does not have a general verification to detect special characters in all cases when they are outside quotes. Does such a general verification exist in the tokenizing?
