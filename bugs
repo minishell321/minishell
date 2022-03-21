@@ -48,3 +48,5 @@ Only bug when start from home and to when going to goinfre and not from free but
 
 
 change error msg after PATH unset
+
+Currently the function check_command does not have a general verification to detect special characters in all cases when they are outside quotes. Does such a general verification exist in the tokenizing?

@@ -3,49 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:29:39 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/14 10:42:06 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:20:24 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Captures the sigint and correctly displays a new prompt but need to handle the display of ^C which should not appear
-void handle_sigint()
+void	handle_sigint(int sig)
 {
-	// if (data->waitpid_res == 0)
-	// {
-	// write(1, "\n", 1);
-	// rl_replace_line("", 0);
-	// rl_on_new_line();
-	// }
+	(void)sig;
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-
-	// return prompt on a new line
 }
-void handle_sig_child(int sig)
-{
-	
+
+void	handle_sig_child(int sig)
+{	
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("^C\n", 2);
-		// write(1, "^C", 1);
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
 	{
 		ft_putstr_fd("^\\Quit: 3\n", 2);
-		// printf("SIGQUIT detected\n");
-	//	write(1, "^\\Quit: 3\n", 8);
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
 		rl_redisplay();
 	}
 }
@@ -56,12 +41,11 @@ int	handle_sigs_child(void)
 	struct sigaction	sa_sigquit_ch;
 
 	sa_sigint_ch.sa_handler = &handle_sig_child;
-    sa_sigquit_ch.sa_handler = &handle_sig_child;
-    sigaction(SIGINT, &sa_sigint_ch, NULL);
-    sigaction(SIGQUIT, &sa_sigquit_ch, NULL);
+	sa_sigquit_ch.sa_handler = &handle_sig_child;
+	sigaction(SIGINT, &sa_sigint_ch, NULL);
+	sigaction(SIGQUIT, &sa_sigquit_ch, NULL);
 	return (0);
 }
-
 
 // CTRL + C sends SIGINT
 // CTRL + \ sends SIGQUIT
@@ -81,7 +65,7 @@ int	handle_sigs(void)
 		printf("Error: tcgetattr\n");
 		return (1);
 	}
-	term.c_lflag &= ~ ECHOCTL;
+	term.c_lflag &= ~ECHOCTL ;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) != 0)
 	{
 		printf("Error: tcsetattr\n");

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:40:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/21 07:42:49 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:25:00 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ static void	check_if_must_send(t_data *data, char **envp)
 	else
 	{
 		data->heredoc_other_cmds[0][2] = data->heredoc_str;
-		// Next three lines are taken care in token_handler_heredoc
-		// data->num_of_pipe += 1;
-		// init_pids_arr(data);
-		// init_pipe_fds(data);
 		exec_cmd_hd(data, envp);
 		free_heredoc(data);
 	}

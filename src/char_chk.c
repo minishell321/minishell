@@ -6,11 +6,21 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:16:03 by vbotev            #+#    #+#             */
-/*   Updated: 2022/02/28 17:30:30 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/21 16:07:13 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	check_return(int cnt, int flag)
+{
+	if (cnt % 2 != 0)
+		return (1);
+	else if (cnt % 2 == 0 && flag != 0)
+		return (-1);
+	else
+		return (0);
+}
 
 int	cnt_quotes(char *command_buf, char c)
 {
@@ -20,8 +30,6 @@ int	cnt_quotes(char *command_buf, char c)
 	int		cnt;
 	int		flag;
 
-//	first = ft_strchr(command_buf, 'c');
-//	last = ft_strrchr(command_buf, 'c');
 	cnt = 0;
 	flag = 0;
 	if (ft_strchr(command_buf, c))
@@ -38,53 +46,41 @@ int	cnt_quotes(char *command_buf, char c)
 			cnt++;
 		}
 		free(cpy);
-		if (cnt % 2 != 0)
-			return (1);
-		if (cnt % 2 == 0 && flag != 0)
-			return (-1);
 	}
-	return (0);
+	return (check_return(cnt, flag));
 }
 
-
-// NOT GENERAL!! - Correction needed so that it detects special chars in all cases when they are outside quotes
+// NOT GENERAL!! - Correction needed so that it detects special chars in all
+// cases when they are outside quotes
 int	find_spec_char(char *command_buf)
 {
-	char	*tmp;
+	char	*s;
 
 	if (ft_strchr(command_buf, '\\') || ft_strchr(command_buf, ';'))
 		if (!ft_strchr(command_buf, '\'') && !ft_strchr(command_buf, '\"'))
 			return (1);
-//	tmp = ft_strchr(command_buf, '\'');
-//	if (tmp++)
 	if (ft_strchr(command_buf, '\''))
 	{
-		tmp = ft_strchr(command_buf, '\'') + 1;
-		if ((ft_strchr(tmp, '\\') && ft_strchr(tmp, '\\') > ft_strrchr(tmp, '\''))
-				|| (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\'')))
+		s = ft_strchr(command_buf, '\'') + 1;
+		if ((ft_strchr(s, '\\') && ft_strchr(s, '\\') > ft_strrchr(s, '\''))
+			|| (ft_strchr(s, ';') && ft_strchr(s, ';') > ft_strrchr(s, '\'')))
 		{
 			return (1);
 		}
-	//	if (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\''))
-	//		return (1);
 	}
-//	tmp = ft_strchr(command_buf, '\"');
-//	if (tmp++)
 	if (ft_strchr(command_buf, '\"'))
 	{
-		tmp = ft_strchr(command_buf, '\"') + 1;
-		if ((ft_strchr(tmp, '\\') && ft_strchr(tmp, '\\') > ft_strrchr(tmp, '\"'))
-				|| (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\"')))
+		s = ft_strchr(command_buf, '\"') + 1;
+		if ((ft_strchr(s, '\\') && ft_strchr(s, '\\') > ft_strrchr(s, '\"'))
+			|| (ft_strchr(s, ';') && ft_strchr(s, ';') > ft_strrchr(s, '\"')))
 		{
 			return (1);
 		}
-	//	if (ft_strchr(tmp, ';') && ft_strchr(tmp, ';') > ft_strrchr(tmp, '\"'))
-	//		return (1);
 	}	
 	return (0);
 }
 
-int check_command(char *command_buf)
+int	check_command(char *command_buf)
 {
 	int	ret;
 

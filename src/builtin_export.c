@@ -6,7 +6,7 @@
 /*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:15:48 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/15 10:15:28 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/21 15:25:22 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	display_sorted(t_data *data, char **cpy)
 	t_env	*tmp;
 	int		i;
 
-	i = 0;
-	while (cpy[i])
+	i = -1;
+	while (cpy[++i])
 	{
 		tmp = data->environment;
 		while (tmp != 0)
@@ -28,13 +28,16 @@ void	display_sorted(t_data *data, char **cpy)
 			{
 				ft_putstr_fd("declare -x ", data->fd_output);
 				ft_putstr_fd(tmp->variable, data->fd_output);
-				ft_putstr_fd("=\"", data->fd_output);
-				ft_putstr_fd(tmp->value, data->fd_output);
-				ft_putstr_fd("\"\n", data->fd_output);
+				if (tmp->value)
+				{
+					ft_putstr_fd("=\"", data->fd_output);
+					ft_putstr_fd(tmp->value, data->fd_output);
+					ft_putstr_fd("\"", data->fd_output);
+				}
+				ft_putstr_fd("\n", data->fd_output);
 			}
 			tmp = tmp->next;
 		}
-		i++;
 	}
 }
 
