@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 08:40:36 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 08:41:09 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:22:28 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	child_handler_hd(t_data *data, char **envp, int i)
 		exit (1);
 	}
 	if (get_cmd_hd(data, i))
-		exit (1);
+		exit (127);
 	if (execve(data->cmd, data->heredoc_other_cmds[i], envp))
 	{
 		perror("execve");

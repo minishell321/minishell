@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/19 14:06:48 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:22:06 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void child_handler(t_data *data, char **envp, int i)
 		exit (1);
 	}
 	if (get_cmd(data, i))
-		exit (1);
+		exit (127);
 	if (execve(data->cmd, data->cmd_table[i], envp))
 	{
 		perror("execve");

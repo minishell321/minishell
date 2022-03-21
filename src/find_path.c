@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 08:23:31 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 08:23:35 by rburri           ###   ########.fr       */
+/*   Created: 2022/03/21 09:40:45 by rburri            #+#    #+#             */
+/*   Updated: 2022/03/21 09:44:50 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	find_path(t_data *data)
 	tmp = data->environment;
 	while (tmp != NULL)
 	{
-		if (ft_strncmp("PATH", tmp->variable, 4))
+		if (!ft_strncmp("PATH", tmp->variable, 4))
 		{
 			data->env_paths = tmp->value;
 			return (0);

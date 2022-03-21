@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 08:22:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 08:29:19 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 09:47:16 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	get_cmd_hd(t_data *data, int i)
 		tmp = ft_strjoin(*paths, "/");
 		command = ft_strjoin(tmp, data->heredoc_other_cmds[i][0]);
 		free(tmp);
+
 		if (access(command, F_OK) == 0)
 		{
 			data->cmd = command;
