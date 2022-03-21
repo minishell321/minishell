@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/19 13:58:38 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 07:08:53 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	init_env(t_data *data, char **envp)
 	if (local_env(data, envp))
 		return (1);
 	data->env_paths = 0;
-	data->cmd_table = 0;
 	data->exit_code = 0;
 	// data->heredoc_delim = 0;
 	// data->heredoc_str = 0;

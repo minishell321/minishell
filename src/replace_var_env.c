@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/19 14:40:24 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 07:23:08 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static char	*find_env(char *str, t_data *data, int *env_finish)
 
 	i = 1;
 	tmp = data->environment;
+	printf("str : %s\n", str);
 	while (ft_isalnum(str[i]))
 		i++;
+	printf(" i = %d\n", i);
 	*env_finish += i;
 	env = ft_substr(str, 1, i - 1);
 	i = ft_strlen(env);
@@ -59,6 +61,7 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 {
 	char	*env;
 
+	printf("cmd_buf :*%s*\n", cmd_buf);
 	if (cmd_buf[i + 1] == ' ' || cmd_buf[i + 1] == '\0'
 		|| cmd_buf[i + 1] == '\"' || cmd_buf[ i = 1] == '\'')
 	{
@@ -75,6 +78,7 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 	{
 		env = find_env(cmd_buf + i, data, env_finish);
 	}
+	printf("env :*%s*\n", env);
 	cmd_buf = replace(cmd_buf, env, i, *env_finish);
 	free(env);
 	return (cmd_buf);

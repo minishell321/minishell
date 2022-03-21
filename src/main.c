@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/19 16:04:19 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 07:07:08 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 					continue;
 				if (token_handler_heredoc(data))
 					continue;
-				printf("FINISHED TOKEN_HANDLER_HEREDOC\n");
+				// printf("FINISHED TOKEN_HANDLER_HEREDOC\n");
 				heredoc_handler(data, envp);
 				continue;
 			}
@@ -87,7 +87,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 					continue;
 			}
 		}
-		printf("############################create_cmd_table(heredoc or exec_cmd[0] = ***%s***\n", data->cmd_table[0][0]);
+		// printf("############################create_cmd_table(heredoc or exec_cmd[0] = ***%s***\n", data->cmd_table[0][0]);
 		if (data)
 			free_data(data);
 		if (command_buf)
