@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 10:46:34 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 08:39:13 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 12:22:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	get_fd_out_append(t_data *data, char *str, int *i)
 	fd_name = ft_substr(str, j, k);
 	if (fd_name == NULL)
 		return (1);
+	if (data->fd_output != 1)
+		close(data->fd_output);
 	data->fd_output = open(fd_name, O_RDWR | O_APPEND, 0777);
 	if (data->fd_output == -1)
 	{
@@ -80,6 +82,8 @@ int	get_fd_out(t_data *data, char *str, int *i)
 	fd_name = ft_substr(str, j, k);
 	if (fd_name == NULL)
 		return (1);
+	if (data->fd_output != 1)
+		close(data->fd_output);
 	data->fd_output = open(fd_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
 	if (data->fd_output == -1)
 	{

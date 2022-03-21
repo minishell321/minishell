@@ -6,28 +6,11 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 07:57:46 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 11:11:01 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static int check_exit(char *command_buf)
-{
-	char	*tmp;
-	int		i;
-
-	tmp = ft_strtrim(command_buf, " ");
-	i = ft_strlen(tmp);	
-	if ((i == 4 && !ft_strncmp(tmp, "exit", 4)) || !ft_strncmp(tmp, "exit ", 5))
-	{
-		printf("exit\n");
-		free(tmp);	
-		return (1);
-	}
-	free(tmp);	
-	return (0);
-}
 
 int	start_prompt(char *command_buf, t_data *data, char **envp)
 {
@@ -37,7 +20,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			continue;
 		data->command_buf = NULL;
 		handle_sigs();
-		command_buf = readline("testcli> ");
+		command_buf = readline("minishell> ");
 		if (command_buf == 0)
 		{
 			printf("exit\n");
@@ -47,8 +30,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 		{
 			data->command_buf = command_buf;
             add_history(command_buf);
-			if (check_exit(command_buf))
-				break;
+			// if (check_exit(command_buf))
+			// 	break;
 			// if (init_data(data))
 			// 	continue;
 			if (check_command(command_buf))
@@ -69,6 +52,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			print_token(data);
 			if (token_handler(data))
 				continue;
+			check_exit(data);
+			// check if free after break;
 			if (check_if_builtin(data))
 			{
 				printf("IS BUILTIN\n");

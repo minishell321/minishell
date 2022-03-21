@@ -14,7 +14,29 @@ TODO LIST
 exec_cmd/child_handler => use locale env not envp?
 Remplacer tout les messages d erreur en utilisant la fonction perror
 ***************************************************************************************************
+
+TEST 18 Mars
+
+QUESTIONS;
+makefile must not re-link? What does it means?
+
+exit message error if argument is not number
+need to redo exit like a real builtin  
+
+readline history to free?
+
+BUGS:
+only space SEGFAULT ALSO tab
+only tab pass to execve
+export NEWENV without value must not work
+
+cd to root using cd ..
+cd ~ doesn t work after reach /
+
+from /Users cd rburri/Desktop/ = SEGFAULT
 cd ~ + cd Music/ == SEG FAULT?
+
+cd without nothing = cd ..
 
 cd ~ => ok
 cd goinfre => ok
@@ -24,19 +46,5 @@ cd ~ => ok
 cd Music => segfault
 Only bug when start from home and to when going to goinfre and not from free but anytime trying to read cmd_table[0][0]
 
-TEST 18 Mars
 
-QUESTIONS;
-makefile must not re-link? What does it means?
-exit message error if argument is not number
-
-
-
-BUGS:
-
-
-double tab != bash
-export NEWENV without value must not work
-
-
-
+change error msg after PATH unset
