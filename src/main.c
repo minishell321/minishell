@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 07:49:09 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 07:57:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			command_buf = find_dollars(command_buf, data);
 			if (find_token(data, command_buf))
 				continue;
-			if (!data->process_ids)
-				printf("OK!!!!!!!!!!\n");
 			print_token(data);
 			if (token_handler(data))
 				continue;

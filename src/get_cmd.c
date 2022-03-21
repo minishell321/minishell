@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 07:28:29 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/19 14:05:58 by rburri           ###   ########.fr       */
+/*   Created: 2022/03/21 08:22:37 by rburri            #+#    #+#             */
+/*   Updated: 2022/03/21 08:29:19 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	find_path(t_data *data)
+static int	split_path(t_data *data)
 {
-	t_env	*tmp;
-
-	tmp = data->environment;
-	while (ft_strncmp("PATH", tmp->variable, 4))
-		tmp = tmp->next;
-	data->env_paths = tmp->value;
-	if (data->env_paths == NULL)
+	data->cmd_paths = ft_split(data->env_paths, ':');
+	if (data->cmd_paths == NULL)
 	{
-		ft_putendl_fd("env PATH not found", 2);
+		ft_putstr_fd("Error, split env_paths\n", 2);
 		return (1);
 	}
 	return (0);
@@ -46,6 +41,8 @@ int	get_cmd(t_data *data, int i)
 
 	if (check_is_full_cmd(data, i))
 		return (0);
+	if (find_path(data) || split_path(data))
+		return (1);
 	paths = data->cmd_paths;
 	while (*paths)
 	{
@@ -80,9 +77,11 @@ int	get_cmd_hd(t_data *data, int i)
 	char	*tmp;
 	char	*command;
 	char	**paths;
-	
+
 	if (check_is_full_cmd_hd(data, i))
 		return (0);
+	if (find_path(data) || split_path(data))
+		return (1);
 	paths = data->cmd_paths;
 	while (*paths)
 	{

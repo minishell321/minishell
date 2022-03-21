@@ -30,11 +30,11 @@ static char	**create_cmd_table(int cnt_arg, t_token *cmd)
 		cmd_table[cnt_arg--] = tmp->str;
 		tmp = tmp->next;
 	} 
-	while (cmd_table[j] != 0)
-	{
-		printf("create_cmd_table(heredoc or exec_cmd[%d] = ***%s***\n", j, cmd_table[j]);
-		j++;
-	}
+	// while (cmd_table[j] != 0)
+	// {
+	// 	printf("create_cmd_table(heredoc or exec_cmd[%d] = ***%s***\n", j, cmd_table[j]);
+	// 	j++;
+	// }
 	return (cmd_table);
 }
 
@@ -106,7 +106,6 @@ int	cmd_table(t_data *data)
 		tmp = tmp->next;
 		cnt_cmds++;
 	}
-	printf("cnt_cmds: %d\n", cnt_cmds);
 	data->cmd_table = (char ***)malloc(sizeof(char **) * (cnt_cmds + 1));
 	if (data->cmd_table == NULL)
 		return (1);

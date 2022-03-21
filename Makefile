@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/15 16:40:39 by vbotev           ###   ########.fr        #
+#    Updated: 2022/03/21 08:24:14 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ BIN = bin
 $(shell mkdir -p $(BIN))
 
 SOURCE = 	$(SRC)/main.c\
-			$(SRC)/path.c\
+			$(SRC)/find_path.c\
+			$(SRC)/get_cmd.c\
 			$(SRC)/redir1.c\
 			$(SRC)/redir2.c\
 			$(SRC)/signals.c\

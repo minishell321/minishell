@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 07:06:03 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/21 07:55:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	free_data(t_data *data)
 		printf("data->process_ids\n");
 		free(data->process_ids);
 	}
-	// printf("--here--\n");
+	printf("--here--\n");
 	return (0);
 }
 
