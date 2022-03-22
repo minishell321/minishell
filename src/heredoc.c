@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:40:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/22 06:57:58 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:29:45 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ int	heredoc_handler(t_data *data, char **envp)
 
 	str = NULL;
 	flag = 0;
+	if (data->heredoc_delim[0] == 0)
+	{
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		return (1);
+	}
 	delim = data->heredoc_delim;
 	if (ft_strchr(delim, '\'') || ft_strchr(delim, '\"'))
 	{

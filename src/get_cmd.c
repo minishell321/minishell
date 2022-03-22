@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 08:22:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 07:22:15 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 11:08:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int	get_cmd(t_data *data, int i)
 		free(command);
 		paths++;
 	}
-	ft_putstr_fd(data->cmd_table[i][0], 2);
-	ft_putendl_fd(": command not found", 2);
+	perror("minishell");
+	// ft_putstr_fd(data->cmd_table[i][0], 2);
+	// ft_putendl_fd(": command not found", 2);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 10:00:13 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 08:47:29 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 11:28:35 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ static int	str_isdigit(char *str)
 
 int	check_exit(t_data *data)
 {
-	if ((ft_strncmp(data->cmd_table[0][0], "exit\0", 5) == 0))
+	if ((ft_strncmp(data->cmd_table[0][0], "exit", 5) == 0))
 	{
 		printf("exit\n");
-		if (data->cmd_table[0][2])
+	//	if (data->cmd_table[0][2])
+		int i=0;
+		while (data->cmd_table[0][i])
+		{
+			i++;
+		}
+		if (i > 2)
+		// if (data->cmd_table[0][1] != 0)
 		{
 			printf("exit: too many arguments\n");
 			return (0);
@@ -46,6 +53,8 @@ int	check_exit(t_data *data)
 				data->cmd_table[0][1]);
 			data->exit_code = 255;
 		}
+		if (data->environment)
+			free_env(data);
 		if (data)
 			free_data(data);
 		if (data->command_buf)

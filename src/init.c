@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/22 08:50:05 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:40:20 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	init_data(t_data *data)
 	data->token_stack = 0;
 	data->cmd_table = 0;
 	data->cmd_paths = 0;
+	data->env_paths = 0;
 	data->command_buf = NULL;
 	return (0);
 }
@@ -70,7 +71,6 @@ int	init_env(t_data *data, char **envp)
 	data->environment = 0;
 	if (local_env(data, envp))
 		return (1);
-	data->env_paths = 0;
 	data->exit_code = 0;
 	return (0);
 }

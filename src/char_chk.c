@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_chk.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbotev <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 15:16:03 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/21 16:07:13 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:49:22 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int	check_command(char *command_buf)
 			printf("Error: Odd number of double-quotes found\n");
 			return (1);
 		}
-		else
-			printf("Caution: $ detected between valid open double-quotes\n");
 	}
 	if (cnt_quotes(command_buf, '\''))
 	{

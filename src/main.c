@@ -6,27 +6,26 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 08:55:30 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 10:58:34 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	valid_command_buf(t_data *data, char *command_buf, char **envp)
+ static int	valid_command_buf(t_data *data, char **envp)
 {
-	data->command_buf = command_buf;
-	add_history(command_buf);
-	if (check_command(command_buf))
+	add_history(data->command_buf);
+	if (check_command(data->command_buf))
 		return (1);
-	if (check_is_heredoc(command_buf))
+	if (check_is_heredoc(data->command_buf))
 	{
-		if (find_token(data, command_buf) || token_handler_heredoc(data))
+		if (find_token(data, data->command_buf) || token_handler_heredoc(data))
 			return (1);
 		heredoc_handler(data, envp);
 		return (1);
 	}
-	command_buf = find_dollars(command_buf, data);
-	if (find_token(data, command_buf) || token_handler(data))
+	data->command_buf = find_dollars(data->command_buf, data);
+	if (find_token(data, data->command_buf) || token_handler(data))
 		return (1);
 	if (check_exit(data))
 		exit (data->exit_code);
@@ -42,23 +41,23 @@ int	valid_command_buf(t_data *data, char *command_buf, char **envp)
 	return (0);
 }
 
-int	start_prompt(char *command_buf, t_data *data, char **envp)
+static int	start_prompt(t_data *data, char **envp)
 {
 	 while(1)
     {
 		if (init_data(data))
 			continue;
-		// data->command_buf = NULL;
+		data->command_buf = NULL;
 		handle_sigs();
-		command_buf = readline("minishell> ");
-		if (command_buf == 0)
+		data->command_buf = readline("minishell> ");
+		if (data->command_buf == 0)
 		{
 			printf("exit\n");
 			break;
 		}
-        if (command_buf && *command_buf)
+        if (data->command_buf && *data->command_buf)
 		{
-			if (valid_command_buf(data, command_buf, envp))
+			if (valid_command_buf(data, envp))
 				continue;
 /*			data->command_buf = command_buf;
             add_history(command_buf);
@@ -105,10 +104,10 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 			}
 */		}
 		// printf("############################create_cmd_table(heredoc or exec_cmd[0] = ***%s***\n", data->cmd_table[0][0]);
-		if (data)
-			free_data(data);
-		if (command_buf)
-			free(command_buf);
+		
+		free_data(data);
+		if (data->command_buf)
+			free(data->command_buf);
 	}
 	return (0);
 }
@@ -116,10 +115,8 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-    char *command_buf;
 	t_data data;
-	
-	command_buf = NULL;
+
 	if (argc != 1 || (!argv))
 	{
 		ft_putstr_fd("Error, no argument allowed\n", 2);
@@ -129,6 +126,12 @@ int main(int argc, char **argv, char **envp)
 	{
 		printf("init env ERROR\n");
 	}
-	start_prompt(command_buf, &data, envp);
+	start_prompt(&data, envp);
+	
+	free_data(&data);
+	if (data.command_buf)
+		free(data.command_buf);
+	if (data.environment)
+		free_env(&data);
 	return (0);
 }

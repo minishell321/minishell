@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 10:11:19 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/14 08:01:31 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 10:14:02 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtin_echo(char **argv, int fd_output)
 	if (argv[1] == 0)
 	{
 		write(fd_output, "\n", 1);
-		return (1);
+		return (0);
 	}
 	if (!ft_strncmp(argv[i], "-n", 2))
 	{

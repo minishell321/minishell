@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 10:38:20 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 08:30:46 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:38:25 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,26 @@ int	free_data(t_data *data)
 	return (0);
 }
 
-// int	free_env(t_data *data)
-// {
-// 	int	i;
 
-// 	i = 0;
-// 	if (data->cmd_paths)
-// 	{
-// 		while (data->cmd_paths[i])
-// 			free(data->cmd_paths[i++]);
-// 		free(data->cmd_paths);
-// 	}
-// 	return (0);
-// }
+
+int	free_env(t_data *data)
+{
+	t_env *tmp;
+	t_env *tmp2;
+
+	tmp = data->environment;
+	while (tmp != NULL)
+	{
+		if (tmp->variable)
+			free(tmp->variable);
+		if (tmp->value)
+			free(tmp->value);
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2);
+	}
+	return (0);
+}
 
 void	free_heredoc(t_data *data)
 {

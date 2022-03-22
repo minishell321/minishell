@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 08:38:12 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 10:34:46 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 		env = find_env(cmd_buf + i, data, env_finish);
 	}
 	cmd_buf = replace(cmd_buf, env, i, *env_finish);
+	printf("cmd_buf: *%s*\n", cmd_buf);
 	free(env);
 	return (cmd_buf);
 }
@@ -96,7 +97,7 @@ char	*find_dollars(char *cmd_buf, t_data *data)
 		if (cmd_buf[i] == '$' && single_quote % 2 == 0)
 		{
 			cmd_buf = find_replace(cmd_buf, data, &env_finish, i);
-			i = 0;
+			i = - 1;
 			env_finish = 0;
 		}
 		i++;

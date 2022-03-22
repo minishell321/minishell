@@ -46,7 +46,19 @@ FIXED  - << EOF == SEGFAULT !?
 
 readline history to free?
 
-free data->environment???
+$$ WTF
+
+ls fdsafsda | grep blh | mrer
+minishell: No such file or directory
+ls: fdsafsda: No such file or directory
+VS
+bash-3.2$ ls fdsafsda | grep blh | mrer
+bash: ls: No such file or directory
+bash: grep: No such file or directory
+bash: mrer: No such file or directory
+
+exit : too many args
+
 remove debugging messages
 
 Currently the function check_command does not have a general verification to detect special characters in all cases when they are outside quotes. Does such a general verification exist in the tokenizing?
