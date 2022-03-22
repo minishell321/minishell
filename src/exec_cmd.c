@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 09:22:06 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 07:24:43 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	redir_handler(t_data *data, int i)
 	return (0);
 }
 
-static void child_handler(t_data *data, char **envp, int i)
+static void	child_handler(t_data *data, char **envp, int i)
 {
 	if (redir_handler(data, i))
 		exit (1);
@@ -57,63 +57,31 @@ int	wait_all_children(t_data *data)
 {
 	int	i;
 	int	res;
-	int status;
+	int	status;
 
 	i = 0;
 	res = 0;
 	status = 0;
 	while (i <= data->num_of_pipe)
 	{
-		// res = waitpid(data->process_ids[i], NULL, WUNTRACED);
 		res = waitpid(data->process_ids[i], &status, WUNTRACED);
-	// 	if (WIFSIGNALED(status))
-	// 	{
-	// 		if (WTERMSIG(status) == SIGINT)
-	// 		{
-	// 			ft_putstr_fd("SIGINT terminated child first\n", 2);
-	// 			// ft_putstr_fd("^C\n", 2);
-	// 	//		rl_replace_line("", 0);
-	// 	//		rl_on_new_line();
-	// 	//		rl_redisplay();
-	// 		}
-	// 	if (WTERMSIG(status) == SIGQUIT)
-	// 	{
-	// 		ft_putstr_fd("^\\Quit: 3\n", 2);
-	// 	}
-	// }
-	//	while (!WIFSIGNALED(status) && !WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
 		while (res == -1)
 		{
-		//	printf("Here\n");
 			res = waitpid(data->process_ids[i], &status, WUNTRACED);
-			// printf("res: %d\n", res);
 			data->exit_code = WEXITSTATUS(status);
-			if (WIFSIGNALED(status))
-			{
-				// printf("***HERE\n");
-				if (WTERMSIG(status) == SIGINT)
-				{
-					// ft_putstr_fd("SIGINT terminated child second\n", 2);
-					// ft_putstr_fd("^C\n", 2);
-			// 		// rl_replace_line("", 0);
-			// //		rl_on_new_line();
-			// //		rl_redisplay();
-				}
-				if (WTERMSIG(status) == SIGQUIT)
-				{
-					// printf("SIGQUIT detected\n");
-					// ft_putstr_fd("^\\Quit: 3\n", 2);	
-				}
-			}
+			// if (WIFSIGNALED(status))
+			// {
+			// 	if (WTERMSIG(status) == SIGINT)
+			// 	{
+
+			// 	}
+			// 	if (WTERMSIG(status) == SIGQUIT)
+			// 	{
+
+			// 	}
+			// }
 		}
-		
-		// if (res == -1)
-		// {
-		// 	// ft_putstr_fd("Error, waitpid\n", 2);
-		// 	perror("minishell: ");
-		// 	return (1);
-		// }
 		i++;
 	}
 	return (0);
@@ -140,4 +108,3 @@ int	exec_cmd(t_data *data, char **envp)
 		return (1);
 	return (0);
 }
-

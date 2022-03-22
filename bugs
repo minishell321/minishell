@@ -26,8 +26,8 @@ need to redo exit like a real builtin
 readline history to free?
 
 BUGS:
-only space SEGFAULT ALSO tab
-only tab pass to execve
+FIXED - only space SEGFAULT ALSO tab
+FIXED - only tab pass to execve
 FIXED - export NEWENV without value must not work
 
 FIXED - cd to root using cd ..
@@ -47,9 +47,9 @@ FIXED - cd ~ => ok
 		Only bug when start from home and to when going to goinfre and not from free but anytime trying to read cmd_table[0][0]
 
 
-change error msg after PATH unset
+FIXED - change error msg after PATH unset
 
-<< EOF == SEGFAULT !?
+FIXED  - << EOF == SEGFAULT !?
 
 remove debugging messages
 

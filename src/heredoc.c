@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:40:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/21 16:25:00 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/22 06:57:58 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	malloc_heredoc_str(t_data *data)
 
 static void	check_if_must_send(t_data *data, char **envp)
 {
-	if (ft_strncmp(data->heredoc_other_cmds[1][0], "", 1) == 0)
+	if (!data->heredoc_other_cmds[1])
 		free_heredoc(data);
 	else
 	{
