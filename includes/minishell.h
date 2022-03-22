@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:18 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/21 17:22:04 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/22 08:24:31 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,45 +57,21 @@ typedef struct s_data
 	t_env	*environment;
 	char	*command_buf;
 	char	*env_paths;
-	// pointer to envp PATH no free needed?
 	char	**cmd_paths;
-	//free by free_env;
 	char	*cmd;
-	//free in free_data
-	//HEREDOC********************
 	char	*heredoc_delim;
-	// free in free_heredoc
 	char	*heredoc_str;
-	// free in free_heredoc
 	char	***heredoc_other_cmds;
-	// free in free_data
 	int		heredoc_ign_tab;
-	// init to 0 in init_data
-	//***************************
 	int		fd_input;
-	// No free needed
 	int		fd_output;
-	// No free needed
 	int		num_of_pipe;
-	// No free needed
 	int		**pipe_fds;
-	//free in free_data
 	int		*process_ids;
-	//free in free_data
 	int		exit_code;
-	// no free needed
 	t_token	*token_stack;
-	// free just after cmd_table is created in find_token
 	char	***cmd_table;
-	//free in free_data
 }	t_data;
-
-// struct s_token
-// {
-// 	char	*str;
-// 	int		quotes;
-// 	t_token	*next;
-// };
 
 int		local_env(t_data *data, char **envp);
 int		create_env_entry(t_data *data, char *value, char *variable);
@@ -149,7 +125,6 @@ int		cmd_table(t_data *data);
 void	rl_replace_line(const char *var1, int var2);
 // replace_var_env
 char	*find_dollars(char *command_buf, t_data *data);
-
 //builtins
 void	update_pwd(t_data *data, char *cwd);
 void	close_fds(t_data *data);
@@ -161,7 +136,7 @@ int		builtin_pwd(int fd_output);
 int		builtin_env(t_data *data);
 int		builtin_export(t_data *data);
 int		builtin_unset(t_data *data);
-void	check_exit(t_data *data);
+int		check_exit(t_data *data);
 //HEREDOC
 int		heredoc_handler(t_data *data, char **envp);
 int		check_is_heredoc(char *cmd_buf);

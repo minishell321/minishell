@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 07:32:37 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 07:21:02 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 09:02:51 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,24 @@ int	find_token(t_data *data, char *cmd_str)
 	return (0);
 }
 
-// void	print_token(t_data *data)
-// {
-// 	t_token	*tmp;
-// 	tmp = data->token_stack;
+void	print_token(t_data *data)
+{
+	t_token	*tmp;
+	t_token	*tmp_arg;
 
-// 	while (tmp != NULL)
-// 	{
-// 		printf("str: *%s*\n", tmp->str);
-// 		if (tmp->args != NULL)
-// 		{
-// 			t_token *tmp_arg;
-// 			tmp_arg = tmp->args;
-// 			while (tmp_arg != NULL)
-// 			{
-// 				printf("args str : *%s*\n", tmp_arg->str);
-// 				tmp_arg = tmp_arg->next;
-// 			}
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// }
+	tmp = data->token_stack;
+	while (tmp != NULL)
+	{
+		printf("str: *%s*\n", tmp->str);
+		if (tmp->args != NULL)
+		{
+			tmp_arg = tmp->args;
+			while (tmp_arg != NULL)
+			{
+				printf("args str : *%s*\n", tmp_arg->str);
+				tmp_arg = tmp_arg->next;
+			}
+		}
+		tmp = tmp->next;
+	}
+}

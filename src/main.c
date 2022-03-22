@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 07:42:12 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 07:14:59 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 08:55:30 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	valid_command_buf(t_data *data, char *command_buf, char **envp)
 	command_buf = find_dollars(command_buf, data);
 	if (find_token(data, command_buf) || token_handler(data))
 		return (1);
-	check_exit(data);
+	if (check_exit(data))
+		exit (data->exit_code);
 	if (check_if_builtin(data))
 	{
 		if (exec_if_builtin(data))
@@ -47,7 +48,7 @@ int	start_prompt(char *command_buf, t_data *data, char **envp)
     {
 		if (init_data(data))
 			continue;
-		data->command_buf = NULL;
+		// data->command_buf = NULL;
 		handle_sigs();
 		command_buf = readline("minishell> ");
 		if (command_buf == 0)

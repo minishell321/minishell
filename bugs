@@ -15,15 +15,8 @@ exec_cmd/child_handler => use locale env not envp?
 Remplacer tout les messages d erreur en utilisant la fonction perror
 ***************************************************************************************************
 
-TEST 18 Mars
-
-QUESTIONS;
-makefile must not re-link? What does it means?
-
-exit message error if argument is not number
-need to redo exit like a real builtin  
-
-readline history to free?
+FIXED - exit message error if argument is not number
+		need to redo exit like a real builtin  
 
 BUGS:
 FIXED - only space SEGFAULT ALSO tab
@@ -51,6 +44,9 @@ FIXED - change error msg after PATH unset
 
 FIXED  - << EOF == SEGFAULT !?
 
+readline history to free?
+
+free data->environment???
 remove debugging messages
 
 Currently the function check_command does not have a general verification to detect special characters in all cases when they are outside quotes. Does such a general verification exist in the tokenizing?

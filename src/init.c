@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:13:13 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/22 07:21:40 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 08:50:05 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	init_data(t_data *data)
 	data->process_ids = 0;
 	data->token_stack = 0;
 	data->cmd_table = 0;
+	data->cmd_paths = 0;
+	data->command_buf = NULL;
 	return (0);
 }
 
