@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 09:13:43 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 11:48:03 by vbotev           ###   ########.fr       */
+/*   Updated: 2022/03/23 07:10:23 by rburri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static char	*find_replace(char *cmd_buf, t_data *data, int *env_finish, int i)
 		env = find_env(cmd_buf + i, data, env_finish);
 	}
 	cmd_buf = replace(cmd_buf, env, i, *env_finish);
-	printf("cmd_buf: *%s*\n", cmd_buf);
 	free(env);
 	return (cmd_buf);
 }

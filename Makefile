@@ -6,7 +6,7 @@
 #    By: rburri <rburri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 07:42:29 by rburri            #+#    #+#              #
-#    Updated: 2022/03/21 10:01:30 by rburri           ###   ########.fr        #
+#    Updated: 2022/03/23 07:22:34 by rburri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,7 @@ CC = gcc
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -g3
-
-#-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFT_DIR	= libft
 LIBFT_A		= libft.a
@@ -69,8 +67,6 @@ SOURCE = 	$(SRC)/main.c\
 			$(SRC)/replace_var_env.c\
 			$(SRC)/heredoc.c\
 			
-
-		
 OBJS = $(patsubst %,$(BIN)/%,$(notdir $(SOURCE:.c=.o)))
 
 $(BIN)/%.o : $(SRC)/%.c
