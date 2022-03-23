@@ -61,4 +61,6 @@ exit : too many args
 
 remove debugging messages
 
+REMOVE BUGS FILE WHEN SUBMITTING THE PROJECT!
+
 Currently the function check_command does not have a general verification to detect special characters in all cases when they are outside quotes. Does such a general verification exist in the tokenizing?

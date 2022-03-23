@@ -6,7 +6,7 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 07:44:00 by rburri            #+#    #+#             */
-/*   Updated: 2022/03/22 07:24:43 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 12:07:45 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,6 @@ int	wait_all_children(t_data *data)
 		{
 			res = waitpid(data->process_ids[i], &status, WUNTRACED);
 			data->exit_code = WEXITSTATUS(status);
-			// if (WIFSIGNALED(status))
-			// {
-			// 	if (WTERMSIG(status) == SIGINT)
-			// 	{
-
-			// 	}
-			// 	if (WTERMSIG(status) == SIGQUIT)
-			// 	{
-
-			// 	}
-			// }
 		}
 		i++;
 	}
@@ -100,7 +89,7 @@ int	exec_cmd(t_data *data, char **envp)
 			return (1);
 		if (data->process_ids[i] == 0)
 			child_handler(data, envp, i);
-		i++;	
+		i++;
 	}
 	if (close_pipe_fds(data))
 		return (1);

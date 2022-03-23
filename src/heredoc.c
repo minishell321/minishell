@@ -6,14 +6,21 @@
 /*   By: rburri <rburri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 10:40:55 by vbotev            #+#    #+#             */
-/*   Updated: 2022/03/22 09:29:45 by rburri           ###   ########.fr       */
+/*   Updated: 2022/03/22 12:30:34 by vbotev           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	malloc_heredoc_str(t_data *data)
+static int	malloc_heredoc_str(t_data *data, char *delim, int flag)
 {
+	if (data->heredoc_delim[0] == 0)
+	{
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		if (flag && delim)
+			free (delim);
+		return (1);
+	}
 	data->heredoc_str = malloc(sizeof(char));
 	if (data->heredoc_str == 0)
 		return (1);
@@ -63,20 +70,15 @@ int	heredoc_handler(t_data *data, char **envp)
 
 	str = NULL;
 	flag = 0;
-	if (data->heredoc_delim[0] == 0)
-	{
-		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
-		return (1);
-	}
 	delim = data->heredoc_delim;
 	if (ft_strchr(delim, '\'') || ft_strchr(delim, '\"'))
 	{
 		delim = ft_strtrim(data->heredoc_delim, "\'\"");
 		flag = 1;
 	}
-	str = readline("> ");
-	if (malloc_heredoc_str(data) || delim == 0)
+	if (malloc_heredoc_str(data, delim, flag) || delim == 0)
 		return (1);
+	str = readline("> ");
 	while (ft_strncmp(str, delim, ft_strlen(str)) || *str == '\0')
 	{
 		join_hd_str(data, str, flag);
